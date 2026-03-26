@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Mail, Phone, MapPin, CheckCircle, AlertCircle, Linkedin, Github, Twitter } from "lucide-react";
 import { useState, FormEvent, ChangeEvent } from "react";
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -33,11 +34,31 @@ export default function Contact() {
     if (!validate()) return;
 
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setFormData({ name: "", email: "", subject: "", message: "" });
+
+    try {
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_name: "Ernest Katumbu",
+      };
+
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_placeholder',
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_placeholder',
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'public_key_placeholder'
+      );
+
+      setIsSuccess(true);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("Erreur EmailJS:", error);
+      alert("Une erreur est survenue lors de l'envoi du message. Veuillez réessayer plus tard.");
+    } finally {
+      setIsSubmitting(false);
+    }
 
     // Reset success message after 5 seconds
     setTimeout(() => setIsSuccess(false), 5000);
