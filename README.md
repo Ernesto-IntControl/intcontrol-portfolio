@@ -1,20 +1,56 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Portfolio — Intcontrol
 
-# Run and deploy your AI Studio app
+Portfolio personnel de **Ernesto Lavigueur (Intcontrol)**, développeur fullstack orienté backend, spécialisé en **C# (.NET)**, **Next.js** et **JavaScript**.
 
-This contains everything you need to run your app locally.
+Ce projet a pour objectif de présenter mon profil, mes compétences, mes projets et mes expériences dans une interface moderne, sobre et professionnelle.
 
-View your app in AI Studio: https://ai.studio/apps/f0f0d96a-ae96-4e3f-8bb0-caefdc50b6ba
+## Aperçu
 
-## Run Locally
+Ce portfolio met en avant :
 
-**Prerequisites:**  Node.js
+- mon parcours et mon identité professionnelle
+- mes compétences techniques
+- mes projets réalisés et en cours
+- mes informations de contact
+- mes partenaires et collaborations
 
+## Fonctionnalités
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- Design moderne et responsive
+- Section d’accueil avec présentation claire
+- Section à propos
+- Section compétences
+- Section projets avec description technique
+- Section contact
+- Navigation simple et fluide
+- Interface optimisée pour la lecture sur mobile et desktop
+
+## Technologies utilisées
+
+- **Next.js**
+- **React**
+- **Tailwind CSS**
+- **shadcn/ui**
+- **JavaScript**
+- **HTML / CSS**
+
+## Projets présentés
+
+### 1. Site vitrine — Helzor Business
+Site web vitrine moderne développé avec Next.js, shadcn/ui et Tailwind CSS.
+
+### 2. Application de suivi des paiements académiques
+Application en cours de développement avec :
+
+- Backend : **.NET**
+- Frontend : **React**
+- Base de données : **MySQL**
+
+### 3. Site web — Intglobal Services
+Site officiel de l’entreprise **Intglobal Services**, développé avec Next.js, Tailwind CSS et Vite.
+
+## Installation
+
+### 1. Cloner le dépôt
+```bash
+git clone [URL_DU_DEPOT]
