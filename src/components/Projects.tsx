@@ -78,14 +78,14 @@ export default function Projects() {
               className="glass rounded-3xl overflow-hidden group transition-all duration-300 border-white/40"
             >
               <div className="grid md:grid-cols-2">
-                <div className="relative overflow-hidden h-64 md:h-auto">
+                <div className="relative overflow-hidden h-64 md:h-auto bg-slate-50/50">
                   <motion.img
                     src={project.image}
                     alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-contain p-6"
                     referrerPolicy="no-referrer"
                     variants={{
-                      hover: { scale: 1.1, rotate: 1 }
+                      hover: { scale: 1.05 }
                     }}
                     transition={{ duration: 0.8, ease: "circOut" }}
                   />

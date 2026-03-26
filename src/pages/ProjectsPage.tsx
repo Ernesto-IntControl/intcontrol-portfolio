@@ -195,11 +195,11 @@ export default function ProjectsPage() {
                 transition={{ duration: 0.3, delay: index * 0.05 }}
                 className="glass rounded-3xl overflow-hidden group flex flex-col h-full border-white/40 hover:shadow-2xl hover:shadow-brand-blue/20 transition-all"
               >
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-48 overflow-hidden bg-slate-50/50">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-110"
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute inset-0 bg-brand-teal/5 group-hover:bg-brand-teal/0 transition-colors" />
