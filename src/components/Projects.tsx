@@ -13,7 +13,7 @@ export default function Projects() {
         { name: "Tailwind", icon: <SiTailwindcss size={12} /> }
       ],
       description: "Interface ultra-rapide et optimisée pour la conversion client. Design minimaliste et performances SEO.",
-      image: "./src/assets/images/helzor.png",
+      image: "/images/helzor.png",
       github: "https://github.com/intglobal-services/helzor-business",
       demo: "https://www.helzorbusiness.com",
     },
@@ -27,7 +27,7 @@ export default function Projects() {
         { name: "MySQL", icon: <SiMysql size={12} /> }
       ],
       description: "Architecture robuste pour la gestion et suivi des paiements des frais academiques.",
-      image: "./src/assets/images/intflow.png",
+      image: "/images/intflow.png",
       github: "https://github.com/intglobal-services/intflow",
       demo: "https://www.intflow.com",
     },
@@ -41,7 +41,7 @@ export default function Projects() {
         { name: "Tailwind", icon: <SiTailwindcss size={12} /> }
       ],
       description: "Plateforme officielle de notre agence de services digitaux. Vitrine de nos réalisations et services.",
-      image: "./src/assets/images/intglobal.png",
+      image: "/images/intglobal.png",
       github: "https://github.com/intglobal-services/intglobal-services",
       demo: "https://www.intglobalservices.com",
     },

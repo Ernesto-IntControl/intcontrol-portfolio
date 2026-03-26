@@ -39,7 +39,7 @@ export default function AboutPage() {
           >
             <div className="relative z-10 rounded-[40px] overflow-hidden border-8 border-white/60 shadow-2xl shadow-brand-teal/10">
               <img
-                src="./src/assets/images/intcontrol.png"
+                src="/images/intcontrol.png"
                 alt="Ernest Katumbu"
                 className="w-full h-auto object-cover"
                 referrerPolicy="no-referrer"

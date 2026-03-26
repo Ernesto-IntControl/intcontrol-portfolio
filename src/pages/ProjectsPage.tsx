@@ -18,8 +18,7 @@ export default function ProjectsPage() {
         { name: "Next.js", icon: <SiNextdotjs size={12} /> },
         { name: "Tailwind", icon: <SiTailwindcss size={12} /> }
       ],
-      description: "Interface ultra-rapide et optimisée pour la conversion client. Design minimaliste et performances SEO.",
-      image: "./src/assets/images/helzor.png",
+      description: "Interface ultra-rapide et optimisée pour la conversion client. Design minimaliste et performances SEO.",      image: "/images/helzor.png",
       github: "https://github.com/intglobal-services/helzor-business",
       demo: "https://www.helzorbusiness.com",
     },
@@ -33,7 +32,7 @@ export default function ProjectsPage() {
         { name: "MySQL", icon: <SiMysql size={12} /> }
       ],
       description: "Architecture robuste pour la gestion et suivi des paiements des frais academiques.",
-      image: "./src/assets/images/intflow.png",
+      image: "/images/intflow.png",
       github: "https://github.com/intglobal-services/intflow",
       demo: "https://www.intflow.com",
     },
@@ -47,9 +46,9 @@ export default function ProjectsPage() {
         { name: "Tailwind", icon: <SiTailwindcss size={12} /> }
       ],
       description: "Plateforme officielle de notre agence de services digitaux. Vitrine de nos réalisations et services.",
-      image: "./src/assets/images/intglobal.png",
+      image: "/images/intglobal.png",
       github: "https://github.com/intglobal-services/intglobal-services",
-      demo: "https://www.intglobal-services.com",
+      demo: "https://www.intglobalservices.com",
     },
     {
       title: "Muna Learn",
@@ -61,7 +60,7 @@ export default function ProjectsPage() {
         { name: "PostgreSQL", icon: <SiPostgresql size={12} /> }
       ],
       description: "Plateforme d'apprentissage en ligne pour etudiant en informatique.",
-      image: "./src/assets/images/munalean.png",
+      image: "/images/munalean.png",
       github: "https://github.com/Ernesto-IntControl/muna-learn",
       demo: "#",
     },
@@ -75,7 +74,7 @@ export default function ProjectsPage() {
         { name: "Tailwind", icon: <SiTailwindcss size={12} /> }
       ],
       description: "Plateforme de gestion Administrative et financiere pour PME.",
-      image: "./src/assets/images/tracify.png",
+      image: "/images/tracify.png",
       github: "https://github.com/Ernesto-IntControl/tracify",
       demo: "#",
     }
