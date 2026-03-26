@@ -4,9 +4,9 @@ import { ArrowRight } from "lucide-react";
 
 export default function About() {
   const stats = [
-    { label: "Expérience", value: "+1 An" },
+    { label: "Expérience", value: "+2 Ans" },
     { label: "Clients Satisfaits", value: "+10" },
-    { label: "Cofondateur", value: "Intglobal", link: "https://intglobal.services" },
+    { label: "Co-fondateur & CEO", value: "Intglobal Services", link: "https://intglobalservice.com" },
   ];
 
   return (
@@ -24,10 +24,10 @@ export default function About() {
               Passionné par le développement logiciel, je me spécialise dans la création d'applications performantes et scalables. Mon expertise s'étend du backend robuste en C# .NET aux interfaces modernes et réactives avec Next.js.
             </p>
             <p className="text-slate-600 leading-relaxed mb-8">
-              En tant que cofondateur d'Intglobal Services, je m'efforce d'apporter des solutions technologiques de pointe aux entreprises locales et internationales, en mettant l'accent sur la qualité du code et l'expérience utilisateur.
+              En tant que co-fondateur et CEO d'Intglobal Services, je m'efforce d'apporter des solutions technologiques de pointe aux entreprises locales et internationales, en mettant l'accent sur la qualité du code et l'expérience utilisateur.
             </p>
-            <Link 
-              to="/a-propos" 
+            <Link
+              to="/a-propos"
               className="inline-flex items-center gap-2 text-brand-dark font-bold hover:text-brand-teal transition-colors group underline underline-offset-4 decoration-brand-teal/40"
             >
               En savoir plus sur mon parcours

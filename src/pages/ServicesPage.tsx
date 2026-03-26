@@ -129,7 +129,7 @@ export default function ServicesPage() {
                 <p className="text-slate-600 mb-10 max-w-xl mx-auto">
                     Chaque projet est unique. Contactez-moi pour discuter de vos besoins particuliers et obtenir un devis personnalisé.
                 </p>
-                <Link to="/#contact" className="px-8 py-4 bg-brand-dark text-white font-bold rounded-xl hover:bg-brand-teal transition-all inline-block shadow-lg shadow-brand-dark/20">
+                <Link to="/contact" className="px-8 py-4 bg-brand-dark text-white font-bold rounded-xl hover:bg-brand-teal transition-all inline-block shadow-lg shadow-brand-dark/20">
                     Discutons de votre projet
                 </Link>
             </div>

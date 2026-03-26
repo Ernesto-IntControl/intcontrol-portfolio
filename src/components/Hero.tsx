@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -65,30 +66,31 @@ export default function Hero() {
               Voir mes projets
             </motion.button>
             
-            <motion.button
-              initial={{ opacity: 0, scale: 0.8, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ 
-                delay: 1.4,
-                duration: 1,
-                type: "spring",
-                stiffness: 60,
-                damping: 15 
-              }}
-              whileHover={{ 
-                scale: 1.05,
-                borderColor: "rgba(32, 178, 170, 0.4)",
-                backgroundColor: "rgba(32, 178, 170, 0.1)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                const el = document.getElementById('contact');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="px-8 py-4 border border-brand-teal/20 rounded-xl font-bold text-slate-700 hover:bg-white/50 transition-all shadow-sm"
+            <Link
+              to="/contact"
+              className="no-underline"
             >
-              Me contacter
-            </motion.button>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ 
+                  delay: 1.4,
+                  duration: 1,
+                  type: "spring",
+                  stiffness: 60,
+                  damping: 15 
+                }}
+                whileHover={{ 
+                  scale: 1.05,
+                  borderColor: "rgba(32, 178, 170, 0.4)",
+                  backgroundColor: "rgba(32, 178, 170, 0.1)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 border border-brand-teal/20 rounded-xl font-bold text-slate-700 hover:bg-white/50 transition-all shadow-sm text-center"
+              >
+                Me contacter
+              </motion.div>
+            </Link>
           </div>
         </motion.div>
       </div>

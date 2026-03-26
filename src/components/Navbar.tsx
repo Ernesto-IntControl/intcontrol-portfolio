@@ -14,6 +14,8 @@ export default function Navbar() {
     { name: "À propos", href: "/a-propos" },
     { name: "Services", href: "/services" },
     { name: "Projets", href: "/projets" },
+
+
   ];
 
   // Close menu on route change
@@ -44,11 +46,11 @@ export default function Navbar() {
             </span>
             <div className="w-1.5 h-1.5 rounded-full bg-brand-teal" />
           </Link>
-          
+
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => {
               const isAnchor = link.href.includes("#");
-              
+
               if (isAnchor && isHome) {
                 return (
                   <a
@@ -77,18 +79,15 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:block">
-            <button
-              onClick={() => {
-                const el = document.getElementById('contact');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
+            <Link
+              to="/contact"
               className="px-5 py-2 bg-brand-dark text-white text-xs font-bold rounded-full hover:bg-brand-teal hover:text-brand-dark transition-all shadow-lg shadow-brand-dark/10"
             >
               Contact
-            </button>
+            </Link>
           </div>
-          
-          <button 
+
+          <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-brand-dark p-1 hover:text-brand-teal transition-colors"
             aria-label="Menu"
@@ -107,8 +106,8 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-40 md:hidden"
           >
-            <div 
-              className="absolute inset-0 bg-white/40 backdrop-blur-2xl" 
+            <div
+              className="absolute inset-0 bg-white/40 backdrop-blur-2xl"
               onClick={() => setIsOpen(false)}
             />
             <div className="relative h-full flex flex-col items-center justify-center gap-6 p-6">
@@ -125,7 +124,7 @@ export default function Navbar() {
 
               {navLinks.map((link, index) => {
                 const isAnchor = link.href.includes("#");
-                
+
                 return (
                   <motion.div
                     key={link.name}
@@ -163,18 +162,15 @@ export default function Navbar() {
                 transition={{ delay: 0.4 }}
                 className="mt-4"
               >
-                <button
-                  onClick={() => {
-                    setIsOpen(false);
-                    const el = document.getElementById('contact');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="px-8 py-4 bg-brand-dark text-white font-bold rounded-2xl hover:bg-brand-teal hover:text-brand-dark transition-all shadow-xl shadow-brand-dark/10"
-                >
-                  Démarrer un projet
-                </button>
+                <Link
+                to="/contact"
+                onClick={() => setIsOpen(false)}
+                className="px-8 py-4 bg-brand-dark text-white font-bold rounded-2xl hover:bg-brand-teal hover:text-brand-dark transition-all shadow-xl shadow-brand-dark/10 text-center"
+              >
+                Démarrer un projet
+              </Link>
               </motion.div>
-              
+
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -182,22 +178,22 @@ export default function Navbar() {
                 className="mt-8 flex gap-6"
               >
                 {/* Social links in mobile menu */}
-                <a 
-                  href="#" 
+                <a
+                  href="https://www.linkedin.com/in/ernest-katumbu-b87aa7265"
                   className="w-12 h-12 rounded-full bg-brand-teal/10 flex items-center justify-center text-slate-600 hover:text-brand-teal transition-colors"
                   aria-label="LinkedIn"
                 >
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a 
-                  href="#" 
+                <a
+                  href="https://github.com/Ernesto-IntControl"
                   className="w-12 h-12 rounded-full bg-brand-teal/10 flex items-center justify-center text-slate-600 hover:text-brand-teal transition-colors"
                   aria-label="GitHub"
                 >
                   <Github className="w-5 h-5" />
                 </a>
               </motion.div>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
                 className="absolute top-10 right-10 text-brand-dark p-2 hover:text-brand-teal transition-colors"
                 aria-label="Close Menu"

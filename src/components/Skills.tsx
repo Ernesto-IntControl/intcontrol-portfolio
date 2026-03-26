@@ -8,20 +8,20 @@ export default function Skills() {
       title: "Backend",
       icon: <Code2 className="w-6 h-6 text-brand-teal" />,
       skills: [
-        { name: "C#", icon: <SiSharp />, level: 95 },
-        { name: ".NET Core", icon: <SiDotnet />, level: 90 },
-        { name: "SQL Server", icon: <Database className="w-4 h-4" />, level: 85 },
-        { name: "Architecture REST", icon: <Code2 className="w-4 h-4" />, level: 90 },
+        { name: "C#", icon: <SiSharp />, level: 75 },
+        { name: ".NET Core", icon: <SiDotnet />, level: 70 },
+        { name: "SQL Server", icon: <Database className="w-4 h-4" />, level: 75 },
+        { name: "Architecture REST", icon: <Code2 className="w-4 h-4" />, level: 80 },
       ],
     },
     {
       title: "Frontend",
       icon: <Layout className="w-6 h-6 text-brand-dark" />,
       skills: [
-        { name: "Next.js", icon: <SiNextdotjs />, level: 95 },
-        { name: "React", icon: <SiReact />, level: 90 },
-        { name: "Tailwind CSS", icon: <SiTailwindcss />, level: 95 },
-        { name: "TypeScript", icon: <SiTypescript />, level: 85 },
+        { name: "Next.js", icon: <SiNextdotjs />, level: 75 },
+        { name: "React", icon: <SiReact />, level: 70 },
+        { name: "Tailwind CSS", icon: <SiTailwindcss />, level: 85 },
+        { name: "TypeScript", icon: <SiTypescript />, level: 65 },
       ],
     },
     {
@@ -29,9 +29,9 @@ export default function Skills() {
       icon: <Database className="w-6 h-6 text-brand-teal" />,
       skills: [
         { name: "MySQL", icon: <SiMysql />, level: 85 },
-        { name: "PostgreSQL", icon: <SiPostgresql />, level: 80 },
+        { name: "PostgreSQL", icon: <SiPostgresql />, level: 70 },
         { name: "Git", icon: <SiGit />, level: 90 },
-        { name: "Docker", icon: <SiDocker />, level: 75 },
+        { name: "Docker", icon: <SiDocker />, level: 65 },
       ],
     },
   ];
@@ -72,17 +72,17 @@ export default function Skills() {
                           <span className="text-[10px] font-bold text-slate-400">{skill.level}%</span>
                         </div>
                         <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden relative border border-slate-200 shadow-inner">
-                          <motion.div 
+                          <motion.div
                             initial={{ width: 0 }}
                             whileInView={{ width: `${skill.level}%` }}
                             viewport={{ once: true }}
                             transition={{ duration: 1.5, ease: "circOut", delay: index * 0.1 }}
                             className="h-full bg-brand-teal relative"
                           >
-                            <motion.div 
+                            <motion.div
                               animate={{ opacity: [0.1, 0.2, 0.1] }}
                               transition={{ repeat: Infinity, duration: 2 }}
-                              className="absolute inset-0 bg-white/20" 
+                              className="absolute inset-0 bg-white/20"
                             />
                           </motion.div>
                         </div>

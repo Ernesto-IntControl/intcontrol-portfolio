@@ -20,6 +20,8 @@ export default function ProjectsPage() {
       ],
       description: "Interface ultra-rapide et optimisée pour la conversion client. Design minimaliste et performances SEO.",
       image: "./src/assets/images/helzor.png",
+      github: "https://github.com/intglobal-services/helzor-business",
+      demo: "https://www.helzorbusiness.com",
     },
     {
       title: "IntFlow ",
@@ -32,6 +34,8 @@ export default function ProjectsPage() {
       ],
       description: "Architecture robuste pour la gestion et suivi des paiements des frais academiques.",
       image: "./src/assets/images/intflow.png",
+      github: "https://github.com/intglobal-services/intflow",
+      demo: "https://www.intflow.com",
     },
     {
       title: "Intglobal Services",
@@ -44,6 +48,8 @@ export default function ProjectsPage() {
       ],
       description: "Plateforme officielle de notre agence de services digitaux. Vitrine de nos réalisations et services.",
       image: "./src/assets/images/intglobal.png",
+      github: "https://github.com/intglobal-services/intglobal-services",
+      demo: "https://www.intglobal-services.com",
     },
     {
       title: "Muna Learn",
@@ -56,6 +62,8 @@ export default function ProjectsPage() {
       ],
       description: "Plateforme d'apprentissage en ligne pour etudiant en informatique.",
       image: "./src/assets/images/munalean.png",
+      github: "https://github.com/Ernesto-IntControl/muna-learn",
+      demo: "#",
     },
     {
       title: "Tracify",
@@ -68,6 +76,8 @@ export default function ProjectsPage() {
       ],
       description: "Plateforme de gestion Administrative et financiere pour PME.",
       image: "./src/assets/images/tracify.png",
+      github: "https://github.com/Ernesto-IntControl/tracify",
+      demo: "#",
     }
   ];
 
@@ -244,14 +254,18 @@ export default function ProjectsPage() {
 
                     <div className="flex items-center gap-3 mt-auto">
                       <a
-                        href="#"
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-brand-dark text-white text-xs font-bold rounded-xl hover:bg-brand-teal hover:text-brand-dark transition-all shadow-lg shadow-brand-dark/10 group"
                       >
-                        Demo Live
+                        {project.status === "Completed" ? "Voir le projet" : "Demo Live"}
                         <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                       </a>
                       <a
-                        href="#"
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex-1 flex items-center justify-center gap-2 py-3.5 border border-brand-dark/10 text-brand-dark text-xs font-bold rounded-xl hover:bg-brand-dark hover:text-white transition-all group"
                       >
                         Code Source

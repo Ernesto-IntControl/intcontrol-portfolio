@@ -43,7 +43,7 @@ export default function Projects() {
       description: "Plateforme officielle de notre agence de services digitaux. Vitrine de nos réalisations et services.",
       image: "./src/assets/images/intglobal.png",
       github: "https://github.com/intglobal-services/intglobal-services",
-      demo: "https://www.intglobal-services.com",
+      demo: "https://www.intglobalservices.com",
     },
   ];
 
@@ -135,14 +135,18 @@ export default function Projects() {
 
                   <div className="flex items-center gap-4 mt-auto">
                     <a
-                      href=""
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex-1 flex items-center justify-center gap-2 py-3 bg-brand-dark text-white text-xs font-bold rounded-xl hover:bg-brand-teal hover:text-brand-dark transition-all shadow-lg shadow-brand-dark/10 group"
                     >
-                      Demo Live
+                      {project.status === "Completed" ? "Voir le projet" : "Demo Live"}
                       <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </a>
                     <a
-                      href=""
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex-1 flex items-center justify-center gap-2 py-3 border border-brand-dark/10 text-brand-dark text-xs font-bold rounded-xl hover:bg-brand-dark hover:text-white transition-all group"
                     >
                       Code Source
