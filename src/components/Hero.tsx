@@ -1,0 +1,97 @@
+import { motion } from "motion/react";
+
+export default function Hero() {
+  return (
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden">
+      {/* Noise Texture */}
+      <div className="absolute inset-0 noise z-0" />
+      
+      {/* Background Halos */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-teal/5 rounded-full blur-[120px] z-0" />
+      <div className="absolute top-1/3 left-1/3 w-[300px] h-[300px] bg-slate-200/20 rounded-full blur-[100px] z-0" />
+
+      <div className="container mx-auto px-6 relative z-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 30 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ 
+            duration: 1.5, 
+            ease: [0.16, 1, 0.3, 1], // Custom ease-out expo for a smoother, slower feel
+            scale: {
+              type: "spring",
+              damping: 25,
+              stiffness: 40,
+              restDelta: 0.001
+            }
+          }}
+        >
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+            Développeur Fullstack <br />
+            <span className="text-gradient">C# (.NET) & Next.js</span>
+          </h1>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 1.2, ease: "easeOut" }}
+            className="max-w-xl mx-auto text-lg text-slate-600 mb-10"
+          >
+            Conception d'architectures robustes et d'interfaces ultra-fluides pour des solutions digitales innovantes.
+          </motion.p>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ 
+                delay: 1.2,
+                duration: 1,
+                type: "spring",
+                stiffness: 60,
+                damping: 15 
+              }}
+              whileHover={{ 
+                scale: 1.05,
+                backgroundColor: "rgba(32, 178, 170, 0.2)",
+                borderColor: "rgba(32, 178, 170, 0.4)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const el = document.getElementById('projects');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-8 py-4 glass rounded-xl font-bold text-brand-dark transition-all border-white/40 shadow-lg"
+            >
+              Voir mes projets
+            </motion.button>
+            
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ 
+                delay: 1.4,
+                duration: 1,
+                type: "spring",
+                stiffness: 60,
+                damping: 15 
+              }}
+              whileHover={{ 
+                scale: 1.05,
+                borderColor: "rgba(32, 178, 170, 0.4)",
+                backgroundColor: "rgba(32, 178, 170, 0.1)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const el = document.getElementById('contact');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-8 py-4 border border-brand-teal/20 rounded-xl font-bold text-slate-700 hover:bg-white/50 transition-all shadow-sm"
+            >
+              Me contacter
+            </motion.button>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
