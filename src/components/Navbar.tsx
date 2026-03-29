@@ -40,11 +40,8 @@ export default function Navbar() {
         className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-2xl"
       >
         <div className="glass rounded-full px-6 py-3 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-1">
-            <span className="font-titles font-bold text-lg tracking-widest text-brand-dark">
-              INTCONTROL
-            </span>
-            <div className="w-1.5 h-1.5 rounded-full bg-brand-teal" />
+          <Link to="/" className="flex items-center gap-2">
+            <img src="/logo.png" alt="IntGlobal Services Logo" className="h-8 md:h-10 w-auto object-contain" />
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
@@ -114,12 +111,9 @@ export default function Navbar() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="mb-8 flex items-center gap-1"
+                className="mb-8 flex justify-center w-full"
               >
-                <span className="font-titles font-bold text-2xl tracking-widest text-brand-dark">
-                  INTCONTROL
-                </span>
-                <div className="w-2 h-2 rounded-full bg-brand-teal" />
+                <img src="/logo.png" alt="IntGlobal Services Logo" className="h-12 md:h-14 w-auto object-contain" />
               </motion.div>
 
               {navLinks.map((link, index) => {

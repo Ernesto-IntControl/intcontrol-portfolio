@@ -77,48 +77,48 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-white/20">
-      <div className="container mx-auto px-6">
-        <div className="glass p-12 md:p-20 rounded-[40px] relative overflow-hidden border-white/40">
+    <section id="contact" className="py-16 md:py-24 bg-white/20">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="glass p-8 md:p-12 lg:p-20 rounded-[32px] md:rounded-[40px] relative overflow-hidden border-white/40">
           {/* Background Glows */}
           <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-brand-teal/20 rounded-full blur-[100px]" />
           <div className="absolute -top-20 -left-20 w-80 h-80 bg-slate-200/30 rounded-full blur-[100px]" />
 
-          <div className="grid lg:grid-cols-2 gap-20 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 relative z-10">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-brand-dark">Un projet en tête ?</h2>
-              <p className="text-slate-600 text-lg mb-12 max-w-md">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 tracking-tight text-brand-dark">Un projet en tête ?</h2>
+              <p className="text-slate-600 text-base md:text-lg mb-8 md:mb-12 max-w-md">
                 Je suis toujours ouvert à de nouvelles opportunités et collaborations. Discutons de la manière dont je peux vous aider.
               </p>
 
               <div className="space-y-8">
-                <div className="flex items-center gap-6 group">
-                  <div className="w-16 h-16 rounded-2xl bg-brand-teal/20 flex items-center justify-center group-hover:bg-brand-teal group-hover:text-white transition-all duration-500 group-hover:rotate-6 shadow-sm">
-                    <Phone className="w-7 h-7 text-brand-dark group-hover:text-white" />
+                <div className="flex items-center gap-4 md:gap-6 group">
+                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-brand-teal/20 flex items-center justify-center group-hover:bg-brand-teal group-hover:text-white transition-all duration-500 group-hover:rotate-6 shadow-sm">
+                    <Phone className="w-5 h-5 md:w-7 md:h-7 text-brand-dark group-hover:text-white" />
                   </div>
                   <div>
-                    <p className="text-[10px] text-slate-500 uppercase font-bold tracking-[0.2em] mb-1">Téléphone</p>
-                    <a href="tel:+243843351254" className="text-brand-dark font-bold text-xl hover:text-brand-teal transition-colors">+243 843351254</a>
+                    <p className="text-[10px] text-slate-500 uppercase font-bold tracking-[0.2em] mb-0.5 md:mb-1">Téléphone</p>
+                    <a href="tel:+243843351254" className="text-brand-dark font-bold text-lg md:text-xl hover:text-brand-teal transition-colors break-all">+243 843351254</a>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-6 group">
-                  <div className="w-16 h-16 rounded-2xl bg-brand-teal/20 flex items-center justify-center group-hover:bg-brand-teal group-hover:text-white transition-all duration-500 group-hover:-rotate-6 shadow-sm">
-                    <Mail className="w-7 h-7 text-brand-dark group-hover:text-white" />
+                <div className="flex items-center gap-4 md:gap-6 group">
+                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-brand-teal/20 flex items-center justify-center group-hover:bg-brand-teal group-hover:text-white transition-all duration-500 group-hover:-rotate-6 shadow-sm">
+                    <Mail className="w-5 h-5 md:w-7 md:h-7 text-brand-dark group-hover:text-white" />
                   </div>
                   <div>
-                    <p className="text-[10px] text-slate-500 uppercase font-bold tracking-[0.2em] mb-1">Email</p>
-                    <a href="mailto:katumbuernest@gmail.com" className="text-brand-dark font-bold text-xl hover:text-brand-teal transition-colors">katumbuernest@gmail.com</a>
+                    <p className="text-[10px] text-slate-500 uppercase font-bold tracking-[0.2em] mb-0.5 md:mb-1">Email</p>
+                    <a href="mailto:katumbuernest@gmail.com" className="text-brand-dark font-bold text-lg md:text-xl hover:text-brand-teal transition-colors break-all">katumbuernest@gmail.com</a>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-6 group">
-                  <div className="w-16 h-16 rounded-2xl bg-brand-teal/20 flex items-center justify-center group-hover:bg-brand-teal group-hover:text-white transition-all duration-500 group-hover:rotate-6 shadow-sm">
-                    <MapPin className="w-7 h-7 text-brand-dark group-hover:text-white" />
+                <div className="flex items-center gap-4 md:gap-6 group">
+                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-brand-teal/20 flex items-center justify-center group-hover:bg-brand-teal group-hover:text-white transition-all duration-500 group-hover:rotate-6 shadow-sm">
+                    <MapPin className="w-5 h-5 md:w-7 md:h-7 text-brand-dark group-hover:text-white" />
                   </div>
                   <div>
-                    <p className="text-[10px] text-slate-500 uppercase font-bold tracking-[0.2em] mb-1">Localisation</p>
-                    <p className="text-brand-dark font-bold text-xl">Kolwezi, Lualaba, RDC</p>
+                    <p className="text-[10px] text-slate-500 uppercase font-bold tracking-[0.2em] mb-0.5 md:mb-1">Localisation</p>
+                    <p className="text-brand-dark font-bold text-lg md:text-xl">Kolwezi, Lualaba, RDC</p>
                   </div>
                 </div>
 
@@ -133,7 +133,7 @@ export default function Contact() {
                       <a
                         key={i}
                         href={social.href}
-                        className={`w-14 h-14 rounded-2xl bg-white/40 flex items-center justify-center text-slate-600 transition-all duration-300 ${social.color} border border-white/60 hover:border-transparent shadow-sm`}
+                        className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/40 flex items-center justify-center text-slate-600 transition-all duration-300 ${social.color} border border-white/60 hover:border-transparent shadow-sm`}
                         aria-label={social.label}
                       >
                         {social.icon}
@@ -152,7 +152,7 @@ export default function Contact() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
-                    className="bg-green-50/50 backdrop-blur-sm border border-green-200 p-10 rounded-[32px] text-center shadow-xl"
+                    className="bg-green-50/50 backdrop-blur-sm border border-green-200 p-8 md:p-10 rounded-[24px] md:rounded-[32px] text-center shadow-xl"
                   >
                     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
                       <CheckCircle className="w-10 h-10 text-green-600" />
@@ -184,7 +184,7 @@ export default function Contact() {
                           value={formData.name}
                           onChange={handleChange}
                           placeholder="Ex: intcontrol"
-                          className={`w-full bg-white/60 backdrop-blur-sm border rounded-2xl px-5 py-4 text-brand-dark placeholder:text-slate-400 focus:outline-none transition-all ${errors.name ? "border-red-400 bg-red-50/50 focus:ring-2 ring-red-100" : "border-slate-200 focus:border-brand-teal focus:ring-4 ring-brand-teal/5 shadow-sm"
+                          className={`w-full bg-white/60 backdrop-blur-sm border rounded-xl md:rounded-2xl px-4 md:px-5 py-3 md:py-4 text-brand-dark placeholder:text-slate-400 focus:outline-none transition-all ${errors.name ? "border-red-400 bg-red-50/50 focus:ring-2 ring-red-100" : "border-slate-200 focus:border-brand-teal focus:ring-4 ring-brand-teal/5 shadow-sm"
                             }`}
                         />
                         {errors.name && (
@@ -201,7 +201,7 @@ export default function Contact() {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="Ex: int@exemple.com"
-                          className={`w-full bg-white/60 backdrop-blur-sm border rounded-2xl px-5 py-4 text-brand-dark placeholder:text-slate-400 focus:outline-none transition-all ${errors.email ? "border-red-400 bg-red-50/50 focus:ring-2 ring-red-100" : "border-slate-200 focus:border-brand-teal focus:ring-4 ring-brand-teal/5 shadow-sm"
+                          className={`w-full bg-white/60 backdrop-blur-sm border rounded-xl md:rounded-2xl px-4 md:px-5 py-3 md:py-4 text-brand-dark placeholder:text-slate-400 focus:outline-none transition-all ${errors.email ? "border-red-400 bg-red-50/50 focus:ring-2 ring-red-100" : "border-slate-200 focus:border-brand-teal focus:ring-4 ring-brand-teal/5 shadow-sm"
                             }`}
                         />
                         {errors.email && (
@@ -220,7 +220,7 @@ export default function Contact() {
                         value={formData.subject}
                         onChange={handleChange}
                         placeholder="Ex: Demande de devis / Collaboration"
-                        className={`w-full bg-white/60 backdrop-blur-sm border rounded-2xl px-5 py-4 text-brand-dark placeholder:text-slate-400 focus:outline-none transition-all ${errors.subject ? "border-red-400 bg-red-50/50 focus:ring-2 ring-red-100" : "border-slate-200 focus:border-brand-teal focus:ring-4 ring-brand-teal/5 shadow-sm"
+                        className={`w-full bg-white/60 backdrop-blur-sm border rounded-xl md:rounded-2xl px-4 md:px-5 py-3 md:py-4 text-brand-dark placeholder:text-slate-400 focus:outline-none transition-all ${errors.subject ? "border-red-400 bg-red-50/50 focus:ring-2 ring-red-100" : "border-slate-200 focus:border-brand-teal focus:ring-4 ring-brand-teal/5 shadow-sm"
                           }`}
                       />
                       {errors.subject && (
@@ -238,7 +238,7 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="Comment puis-je vous aider ?"
                         rows={5}
-                        className={`w-full bg-white/60 backdrop-blur-sm border rounded-2xl px-5 py-4 text-brand-dark placeholder:text-slate-400 focus:outline-none transition-all resize-none ${errors.message ? "border-red-400 bg-red-50/50 focus:ring-2 ring-red-100" : "border-slate-200 focus:border-brand-teal focus:ring-4 ring-brand-teal/5 shadow-sm"
+                        className={`w-full bg-white/60 backdrop-blur-sm border rounded-xl md:rounded-2xl px-4 md:px-5 py-3 md:py-4 text-brand-dark placeholder:text-slate-400 focus:outline-none transition-all resize-none ${errors.message ? "border-red-400 bg-red-50/50 focus:ring-2 ring-red-100" : "border-slate-200 focus:border-brand-teal focus:ring-4 ring-brand-teal/5 shadow-sm"
                           }`}
                       ></textarea>
                       {errors.message && (
@@ -250,7 +250,7 @@ export default function Contact() {
 
                     <button
                       disabled={isSubmitting}
-                      className="w-full py-5 bg-brand-dark text-white font-bold rounded-2xl hover:bg-brand-teal transition-all shadow-xl shadow-brand-dark/10 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-lg group"
+                      className="w-full py-4 md:py-5 bg-brand-dark text-white font-bold rounded-xl md:rounded-2xl hover:bg-brand-teal transition-all shadow-xl shadow-brand-dark/10 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-base md:text-lg group"
                     >
                       {isSubmitting ? (
                         <>
