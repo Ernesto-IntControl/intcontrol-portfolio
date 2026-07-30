@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Inter:wght@400;600;700;800&display=swap');
+@import "tailwindcss";
 
 @theme {
   --font-titles: "Inter", sans-serif;
@@ -16,8 +16,12 @@
 }
 
 @layer base {
+  html {
+    @apply overflow-x-hidden;
+  }
+
   body {
-    @apply bg-brand-night text-slate-700 font-body selection:bg-brand-teal/30;
+    @apply bg-brand-night text-slate-700 font-body selection:bg-brand-teal/30 overflow-x-hidden;
     background: radial-gradient(circle at top right, #E2E8F0 0%, #F8FAFC 100%);
     background-attachment: fixed;
     min-height: 100vh;
@@ -25,6 +29,15 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-titles text-brand-dark tracking-tighter;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 

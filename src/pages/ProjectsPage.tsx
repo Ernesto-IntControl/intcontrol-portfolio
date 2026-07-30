@@ -1,104 +1,36 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Helmet } from "react-helmet-async";
-import { ExternalLink, Github, ArrowLeft, Filter, X } from "lucide-react";
+import { ExternalLink, Github, ArrowLeft, Filter, X, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
-import { SiNextdotjs, SiTailwindcss, SiDotnet, SiReact, SiMysql, SiVite, SiStripe, SiPostgresql, SiFirebase } from "react-icons/si";
+import { projects as allProjects } from "@/src/data/projects";
+import { techIcons } from "@/src/lib/techIcons";
 
 export default function ProjectsPage() {
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
   const [selectedBadge, setSelectedBadge] = useState<string | null>(null);
-
-  const allProjects = [
-    {
-      title: "Helzor Business",
-      badge: "Site Vitrine",
-      status: "Completed",
-      stack: [
-        { name: "Next.js", icon: <SiNextdotjs size={12} /> },
-        { name: "Tailwind", icon: <SiTailwindcss size={12} /> }
-      ],
-      description: "Interface ultra-rapide et optimisée pour la conversion client. Design minimaliste et performances SEO.",      image: "/images/helzor.png",
-      github: "https://github.com/intglobal-services/helzor-business",
-      demo: "https://www.helzorbusiness.com",
-    },
-    {
-      title: "IntFlow ",
-      badge: "Fintech / Académique",
-      status: "In Progress",
-      stack: [
-        { name: ".NET Core", icon: <SiDotnet size={12} /> },
-        { name: "React", icon: <SiReact size={12} /> },
-        { name: "MySQL", icon: <SiMysql size={12} /> }
-      ],
-      description: "Architecture robuste pour la gestion et suivi des paiements des frais academiques.",
-      image: "/images/intflow.png",
-      github: "https://github.com/intglobal-services/intflow",
-      demo: "https://www.intflow.com",
-    },
-    {
-      title: "Intglobal Services",
-      badge: "Corporate",
-      status: "Completed",
-      stack: [
-        { name: "Next.js", icon: <SiNextdotjs size={12} /> },
-        { name: "Vite", icon: <SiVite size={12} /> },
-        { name: "Tailwind", icon: <SiTailwindcss size={12} /> }
-      ],
-      description: "Plateforme officielle de notre agence de services digitaux. Vitrine de nos réalisations et services.",
-      image: "/images/intglobal.png",
-      github: "https://github.com/intglobal-services/intglobal-services",
-      demo: "https://www.intglobalservices.com",
-    },
-    {
-      title: "Muna Learn",
-      badge: "Education",
-      status: "In Progress",
-      stack: [
-        { name: "Next.js", icon: <SiNextdotjs size={12} /> },
-        { name: "Stripe", icon: <SiStripe size={12} /> },
-        { name: "PostgreSQL", icon: <SiPostgresql size={12} /> }
-      ],
-      description: "Plateforme d'apprentissage en ligne pour etudiant en informatique.",
-      image: "/images/munalean.png",
-      github: "https://github.com/Ernesto-IntControl/muna-learn",
-      demo: "#",
-    },
-    {
-      title: "Tracify",
-      badge: "Productivity",
-      status: "In Progress",
-      stack: [
-        { name: "React", icon: <SiReact size={12} /> },
-        { name: "Firebase", icon: <SiFirebase size={12} /> },
-        { name: "Tailwind", icon: <SiTailwindcss size={12} /> }
-      ],
-      description: "Plateforme de gestion Administrative et financiere pour PME.",
-      image: "/images/tracify.png",
-      github: "https://github.com/Ernesto-IntControl/tracify",
-      demo: "#",
-    }
-  ];
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const activeFilterCount = [selectedTech, selectedBadge].filter(Boolean).length;
 
   const allTechs = useMemo(() => {
     const techs = new Set<string>();
-    allProjects.forEach(p => p.stack.forEach(s => techs.add(s.name)));
+    allProjects.forEach(p => p.stack.forEach(s => techs.add(s)));
     return Array.from(techs).sort();
-  }, [allProjects]);
+  }, []);
 
   const allBadges = useMemo(() => {
     const badges = new Set<string>();
     allProjects.forEach(p => badges.add(p.badge));
     return Array.from(badges).sort();
-  }, [allProjects]);
+  }, []);
 
   const filteredProjects = useMemo(() => {
     return allProjects.filter(p => {
-      const matchTech = !selectedTech || p.stack.some(s => s.name === selectedTech);
+      const matchTech = !selectedTech || p.stack.includes(selectedTech);
       const matchBadge = !selectedBadge || p.badge === selectedBadge;
       return matchTech && matchBadge;
     });
-  }, [allProjects, selectedTech, selectedBadge]);
+  }, [selectedTech, selectedBadge]);
 
   const resetFilters = () => {
     setSelectedTech(null);
@@ -106,80 +38,115 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div id="projects" className="pt-32 pb-24 min-h-screen">
+    <div id="projects" className="pt-24 md:pt-32 pb-24 min-h-screen">
       <Helmet>
         <title>Mes Projets | Intcontrol - Portfolio</title>
         <meta name="description" content="Découvrez mes réalisations en développement web et logiciel. Applications Next.js, .NET Core et plus." />
       </Helmet>
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <Link to="/" className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors mb-12 group">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Retour à l'accueil
         </Link>
 
         <div className="mb-12">
-          <h1 className="text-5xl font-bold mb-6 text-brand-dark">Tous mes <span className="text-gradient">Projets</span></h1>
-          <p className="text-slate-600 text-lg max-w-2xl">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-6 text-brand-dark">Tous mes <span className="text-gradient">Projets</span></h1>
+          <p className="text-slate-600 text-base sm:text-lg max-w-2xl">
             Découvrez l'ensemble de mes réalisations, des sites vitrines aux applications web complexes.
           </p>
         </div>
 
         {/* Filters Section */}
-        <div className="glass p-8 rounded-[32px] mb-12 border-white/40">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-brand-teal/10 flex items-center justify-center">
-              <Filter className="w-5 h-5 text-brand-teal" />
+        <div className="glass rounded-[20px] sm:rounded-[24px] mb-8 border-white/40 overflow-hidden">
+          <button
+            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            className="w-full flex items-center gap-3 p-4 sm:p-5"
+          >
+            <div className="w-8 h-8 rounded-lg bg-brand-teal/10 flex items-center justify-center shrink-0">
+              <Filter className="w-4 h-4 text-brand-teal" />
             </div>
-            <h2 className="text-xl font-bold text-brand-dark">Filtrer les projets</h2>
-            {(selectedTech || selectedBadge) && (
-              <button
-                onClick={resetFilters}
-                className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-brand-dark transition-colors uppercase tracking-widest"
-              >
-                Réinitialiser <X className="w-3 h-3" />
-              </button>
+            <span className="font-bold text-brand-dark text-sm">Filtrer les projets</span>
+            {activeFilterCount > 0 && (
+              <span className="w-5 h-5 flex items-center justify-center rounded-full bg-brand-teal text-white text-[10px] font-bold">
+                {activeFilterCount}
+              </span>
             )}
-          </div>
-
-          <div className="space-y-8">
-            {/* Badge Filter */}
-            <div>
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Par Type de Projet</p>
-              <div className="flex flex-wrap gap-2">
-                {allBadges.map(badge => (
-                  <button
-                    key={badge}
-                    onClick={() => setSelectedBadge(selectedBadge === badge ? null : badge)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${selectedBadge === badge
-                      ? "bg-brand-dark border-brand-dark text-white shadow-lg shadow-brand-dark/20"
-                      : "bg-white/40 border-white/60 text-slate-600 hover:border-brand-teal hover:text-brand-teal"
-                      }`}
-                  >
-                    {badge}
-                  </button>
-                ))}
-              </div>
+            <div className="ml-auto flex items-center gap-3">
+              {activeFilterCount > 0 && (
+                <span
+                  role="button"
+                  tabIndex={0}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    resetFilters();
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      resetFilters();
+                    }
+                  }}
+                  className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-brand-dark transition-colors uppercase tracking-widest"
+                >
+                  Réinitialiser <X className="w-3 h-3" />
+                </span>
+              )}
+              <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform ${isFilterOpen ? "rotate-180" : ""}`} />
             </div>
+          </button>
 
-            {/* Tech Filter */}
-            <div>
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Par Technologie</p>
-              <div className="flex flex-wrap gap-2">
-                {allTechs.map(tech => (
-                  <button
-                    key={tech}
-                    onClick={() => setSelectedTech(selectedTech === tech ? null : tech)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${selectedTech === tech
-                      ? "bg-brand-teal border-brand-teal text-white shadow-lg shadow-brand-teal/20"
-                      : "bg-white/40 border-white/60 text-slate-600 hover:border-brand-teal hover:text-brand-teal"
-                      }`}
-                  >
-                    {tech}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+          <AnimatePresence initial={false}>
+            {isFilterOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="px-4 sm:px-5 pb-5 space-y-5">
+                  {/* Badge Filter */}
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Par Type de Projet</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {allBadges.map(badge => (
+                        <button
+                          key={badge}
+                          onClick={() => setSelectedBadge(selectedBadge === badge ? null : badge)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${selectedBadge === badge
+                            ? "bg-brand-dark border-brand-dark text-white shadow-lg shadow-brand-dark/20"
+                            : "bg-white/40 border-white/60 text-slate-600 hover:border-brand-teal hover:text-brand-teal"
+                            }`}
+                        >
+                          {badge}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Tech Filter */}
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Par Technologie</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {allTechs.map(tech => (
+                        <button
+                          key={tech}
+                          onClick={() => setSelectedTech(selectedTech === tech ? null : tech)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${selectedTech === tech
+                            ? "bg-brand-teal border-brand-teal text-white shadow-lg shadow-brand-teal/20"
+                            : "bg-white/40 border-white/60 text-slate-600 hover:border-brand-teal hover:text-brand-teal"
+                            }`}
+                        >
+                          {tech}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Projects Grid */}
@@ -193,14 +160,23 @@ export default function ProjectsPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="glass rounded-3xl overflow-hidden group flex flex-col h-full border-white/40 hover:shadow-2xl hover:shadow-brand-blue/20 transition-all"
+                className="glass rounded-3xl overflow-hidden group flex flex-col h-full border-white/40 hover:shadow-2xl hover:shadow-brand-teal/20 transition-all"
               >
                 <div className="relative h-48 overflow-hidden bg-slate-50/50">
                   <img
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
+                    decoding="async"
+                    width={400}
+                    height={192}
                     className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-110"
                     referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "/images/logo.png";
+                      e.currentTarget.className = "w-full h-full object-contain p-10 opacity-30";
+                    }}
                   />
                   <div className="absolute inset-0 bg-brand-teal/5 group-hover:bg-brand-teal/0 transition-colors" />
                   {project.status === "In Progress" && (
@@ -243,12 +219,15 @@ export default function ProjectsPage() {
 
                   <div className="mt-auto">
                     <div className="flex flex-wrap gap-2 mb-6">
-                      {project.stack.map((tech) => (
-                        <span key={tech.name} className="flex items-center gap-1.5 text-[10px] font-bold text-brand-dark bg-white/40 px-2.5 py-1.5 rounded-lg border border-white/60">
-                          {tech.icon}
-                          {tech.name}
-                        </span>
-                      ))}
+                      {project.stack.map((tech) => {
+                        const Icon = techIcons[tech];
+                        return (
+                          <span key={tech} className="flex items-center gap-1.5 text-[10px] font-bold text-brand-dark bg-white/40 px-2.5 py-1.5 rounded-lg border border-white/60">
+                            {Icon && <Icon size={12} />}
+                            {tech}
+                          </span>
+                        );
+                      })}
                     </div>
 
                     <div className="flex items-center gap-3 mt-auto">

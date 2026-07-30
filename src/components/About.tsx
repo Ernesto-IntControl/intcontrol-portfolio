@@ -1,25 +1,26 @@
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { aboutStats } from "@/src/data/about";
 
 export default function About() {
   const stats = [
-    { label: "Expérience", value: "+2 Ans" },
-    { label: "Clients Satisfaits", value: "+10" },
+    { label: "Expérience", value: aboutStats.experience },
+    { label: "Clients Satisfaits", value: aboutStats.clients },
     { label: "Co-fondateur & CEO", value: "Intglobal Services", link: "https://intglobalservice.com" },
   ];
 
   return (
-    <section id="about" className="py-24 bg-white/60">
-      <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+    <section id="about" className="py-16 sm:py-24 bg-white/60">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="grid md:grid-cols-2 gap-10 sm:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl font-bold mb-8 text-brand-dark">À Propos</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-brand-dark">À Propos</h2>
             <p className="text-slate-600 leading-relaxed mb-6">
               Passionné par le développement logiciel, je me spécialise dans la création d'applications performantes et scalables. Mon expertise s'étend du backend robuste en C# .NET aux interfaces modernes et réactives avec Next.js.
             </p>
@@ -45,7 +46,7 @@ export default function About() {
                 transition={{ delay: index * 0.1 }}
                 className={index === 2 ? "sm:col-span-2" : ""}
               >
-                <div className="glass p-8 rounded-2xl group hover:border-brand-teal/50 transition-all border-white/40">
+                <div className="glass p-5 sm:p-8 rounded-2xl group hover:border-brand-teal/50 transition-all border-white/40">
                   <p className="text-slate-500 text-sm font-bold uppercase tracking-widest mb-2">
                     {stat.label}
                   </p>

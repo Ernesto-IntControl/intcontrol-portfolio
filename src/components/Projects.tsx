@@ -1,58 +1,17 @@
 import { motion } from "motion/react";
 import { ExternalLink, Github } from "lucide-react";
-import { SiNextdotjs, SiTailwindcss, SiDotnet, SiReact, SiMysql, SiVite } from "react-icons/si";
+import { projects } from "@/src/data/projects";
+import { techIcons } from "@/src/lib/techIcons";
 
 export default function Projects() {
-  const projects = [
-    {
-      title: "Helzor Business",
-      badge: "Site Vitrine",
-      status: "Completed",
-      stack: [
-        { name: "Next.js", icon: <SiNextdotjs size={12} /> },
-        { name: "Tailwind", icon: <SiTailwindcss size={12} /> }
-      ],
-      description: "Interface ultra-rapide et optimisée pour la conversion client. Design minimaliste et performances SEO.",
-      image: "/images/helzor.png",
-      github: "https://github.com/intglobal-services/helzor-business",
-      demo: "https://www.helzorbusiness.com",
-    },
-    {
-      title: "IntFlow",
-      badge: "Fintech / Académique",
-      status: "In Progress",
-      stack: [
-        { name: ".NET Core", icon: <SiDotnet size={12} /> },
-        { name: "React", icon: <SiReact size={12} /> },
-        { name: "MySQL", icon: <SiMysql size={12} /> }
-      ],
-      description: "Architecture robuste pour la gestion et suivi des paiements des frais academiques.",
-      image: "/images/intflow.png",
-      github: "https://github.com/intglobal-services/intflow",
-      demo: "https://www.intflow.com",
-    },
-    {
-      title: "Intglobal Services",
-      badge: "Corporate",
-      status: "Completed",
-      stack: [
-        { name: "Next.js", icon: <SiNextdotjs size={12} /> },
-        { name: "Vite", icon: <SiVite size={12} /> },
-        { name: "Tailwind", icon: <SiTailwindcss size={12} /> }
-      ],
-      description: "Plateforme officielle de notre agence de services digitaux. Vitrine de nos réalisations et services.",
-      image: "/images/intglobal.png",
-      github: "https://github.com/intglobal-services/intglobal-services",
-      demo: "https://www.intglobalservices.com",
-    },
-  ];
+  const featuredProjects = projects.filter((p) => p.featured);
 
   return (
-    <section id="projects" className="py-24 bg-white/40">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+    <section id="projects" className="py-16 sm:py-24 bg-white/40">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4">
           <div>
-            <h2 className="text-4xl font-bold mb-4 text-brand-dark">Projets Récents</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-brand-dark">Projets Récents</h2>
             <p className="text-slate-600">Une sélection de mes travaux les plus significatifs.</p>
           </div>
           <button className="text-brand-dark font-bold flex items-center gap-2 hover:text-brand-teal transition-colors">
@@ -61,7 +20,7 @@ export default function Projects() {
         </div>
 
         <div className="space-y-12">
-          {projects.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 50 }}
@@ -82,8 +41,17 @@ export default function Projects() {
                   <motion.img
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
+                    decoding="async"
+                    width={600}
+                    height={400}
                     className="absolute inset-0 w-full h-full object-contain p-6"
                     referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "/images/logo.png";
+                      e.currentTarget.className = "absolute inset-0 w-full h-full object-contain p-16 opacity-30";
+                    }}
                     variants={{
                       hover: { scale: 1.05 }
                     }}
@@ -125,12 +93,15 @@ export default function Projects() {
                   </p>
 
                   <div className="flex flex-wrap gap-2 mb-8">
-                    {project.stack.map((tech) => (
-                      <span key={tech.name} className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 bg-white/40 px-2.5 py-1.5 rounded-lg border border-white/60 shadow-sm">
-                        {tech.icon}
-                        {tech.name}
-                      </span>
-                    ))}
+                    {project.stack.map((tech) => {
+                      const Icon = techIcons[tech];
+                      return (
+                        <span key={tech} className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 bg-white/40 px-2.5 py-1.5 rounded-lg border border-white/60 shadow-sm">
+                          {Icon && <Icon size={12} />}
+                          {tech}
+                        </span>
+                      );
+                    })}
                   </div>
 
                   <div className="flex items-center gap-4 mt-auto">

@@ -37,14 +37,14 @@ export default function Skills() {
   ];
 
   return (
-    <section id="services" className="py-24 bg-white/40">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-brand-dark">Expertise Technique</h2>
+    <section id="services" className="py-16 sm:py-24 bg-white/40">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-brand-dark">Expertise Technique</h2>
           <p className="text-slate-600">Des technologies modernes pour des solutions performantes.</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
           {skillGroups.map((group, index) => (
             <motion.div
               key={group.title}
@@ -55,7 +55,7 @@ export default function Skills() {
               transition={{ delay: index * 0.1 }}
               className="relative group"
             >
-              <div className="relative glass p-8 rounded-2xl h-full overflow-hidden transition-all duration-300 border-white/40">
+              <div className="relative glass p-6 sm:p-8 rounded-2xl h-full overflow-hidden transition-all duration-300 border-white/40">
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-xl bg-brand-teal/20 flex items-center justify-center mb-6 shadow-sm">
                     {group.icon}

@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Helmet } from "react-helmet-async";
-import { Code2, Layout, Database, Cloud, Smartphone, Search, ArrowLeft } from "lucide-react";
+import { Code2, Layout, Database, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function ServicesPage() {
@@ -25,45 +25,24 @@ export default function ServicesPage() {
       description: "Modélisation et optimisation de bases de données relationnelles et non-relationnelles.",
       features: ["SQL Server", "PostgreSQL", "MySQL", "Optimisation de Requêtes"],
       mastery: 85
-    },
-    {
-      title: "Architecture Cloud & DevOps",
-      icon: <Cloud className="w-8 h-8 text-brand-dark" />,
-      description: "Déploiement et gestion d'infrastructures cloud pour garantir la scalabilité de vos projets.",
-      features: ["Azure / AWS", "Docker & CI/CD", "Monitoring", "Sécurité Cloud"],
-      mastery: 80
-    },
-    {
-      title: "Développement Mobile",
-      icon: <Smartphone className="w-8 h-8 text-brand-teal" />,
-      description: "Création d'expériences mobiles fluides pour iOS et Android.",
-      features: ["React Native", "PWA", "UI Native", "Performance Mobile"],
-      mastery: 75
-    },
-    {
-      title: "Consulting & Audit Tech",
-      icon: <Search className="w-8 h-8 text-brand-dark" />,
-      description: "Accompagnement stratégique et audit de vos systèmes existants pour une meilleure efficacité.",
-      features: ["Audit de Code", "Conseil Architecture", "Formation Tech", "Planification Digitale"],
-      mastery: 90
     }
   ];
 
   return (
-    <div id="services" className="pt-32 pb-24">
+    <div id="services" className="pt-24 md:pt-32 pb-24">
       <Helmet>
         <title>Mes Services | Intcontrol - Expertise Fullstack</title>
         <meta name="description" content="Développement Web Fullstack, Backend .NET, Cloud et Consulting. Des solutions sur mesure pour vos projets digitaux." />
       </Helmet>
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <Link to="/" className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors mb-12 group">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Retour à l'accueil
         </Link>
-        
+
         <div className="mb-16 text-center">
-          <h1 className="text-5xl font-bold mb-6 text-brand-dark">Mes <span className="text-gradient">Services</span></h1>
-          <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-6 text-brand-dark">Mes <span className="text-gradient">Services</span></h1>
+          <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto">
             Des solutions technologiques sur mesure pour propulser votre entreprise dans l'ère digitale.
           </p>
         </div>
@@ -76,7 +55,7 @@ export default function ServicesPage() {
               animate={{ opacity: 1, y: 0 }}
               whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(32, 178, 170, 0.1)" }}
               transition={{ delay: index * 0.1 }}
-              className="glass p-8 rounded-3xl transition-all duration-300 group border-white/40"
+              className="glass p-6 sm:p-8 rounded-3xl transition-all duration-300 group border-white/40"
             >
               <div className="w-16 h-16 rounded-2xl bg-brand-teal/10 flex items-center justify-center mb-8 transition-colors">
                 {service.icon}
@@ -122,11 +101,11 @@ export default function ServicesPage() {
           ))}
         </div>
 
-        <div className="mt-24 glass p-12 rounded-[40px] text-center relative overflow-hidden border-white/40">
+        <div className="mt-16 sm:mt-24 glass p-6 sm:p-10 md:p-12 rounded-[32px] md:rounded-[40px] text-center relative overflow-hidden border-white/40">
             <div className="absolute -top-20 -left-20 w-64 h-64 bg-brand-teal/10 rounded-full blur-[80px]" />
             <div className="relative z-10">
-                <h2 className="text-3xl font-bold mb-6 text-brand-dark">Besoin d'un service spécifique ?</h2>
-                <p className="text-slate-600 mb-10 max-w-xl mx-auto">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-brand-dark">Besoin d'un service spécifique ?</h2>
+                <p className="text-slate-600 mb-8 sm:mb-10 max-w-xl mx-auto">
                     Chaque projet est unique. Contactez-moi pour discuter de vos besoins particuliers et obtenir un devis personnalisé.
                 </p>
                 <Link to="/contact" className="px-8 py-4 bg-brand-dark text-white font-bold rounded-xl hover:bg-brand-teal transition-all inline-block shadow-lg shadow-brand-dark/20">

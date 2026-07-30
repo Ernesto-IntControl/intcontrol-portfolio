@@ -41,7 +41,7 @@ export default function Contact() {
         from_email: formData.email,
         subject: formData.subject,
         message: formData.message,
-        to_name: "Ernest Katumbu",
+        to_name: "Katumbi Ernest",
       };
 
       await emailjs.send(

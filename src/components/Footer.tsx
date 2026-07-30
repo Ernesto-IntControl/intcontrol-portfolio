@@ -64,7 +64,7 @@ export default function Footer() {
                 { name: "À propos", href: isHome ? "#about" : "/a-propos#about" },
                 { name: "Services", href: isHome ? "#services" : "/services#services" },
                 { name: "Projets", href: isHome ? "#projects" : "/projets#projects" },
-                { name: "Contact", href: isHome ? "#contact" : "/#contact" }
+                { name: "Contact", href: isHome ? "#contact" : "/contact" }
               ].map((item) => (
                 <li key={item.name}>
                   {item.href.startsWith("#") ? (
@@ -94,9 +94,7 @@ export default function Footer() {
               {[
                 "Développement Web",
                 "Applications .NET",
-                "Architecture Cloud",
-                "Consulting Tech",
-                "UI/UX Design"
+                "Bases de Données"
               ].map((item) => (
                 <li key={item} className="text-slate-600 text-sm">
                   {item}
