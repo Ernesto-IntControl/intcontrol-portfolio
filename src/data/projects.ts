@@ -36,7 +36,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    title: "Intglobal Services",
+    title: "INT GLOBAL SERVICES",
     badge: "Corporate",
     status: "Completed",
     stack: ["Next.js", "Vite", "Tailwind"],

@@ -7,7 +7,7 @@ export default function About() {
   const stats = [
     { label: "Expérience", value: aboutStats.experience },
     { label: "Clients Satisfaits", value: aboutStats.clients },
-    { label: "Co-fondateur & CEO", value: "Intglobal Services", link: "https://intglobalservice.com" },
+    { label: "Fondateur & CEO", value: "INT GLOBAL SERVICES", link: "https://intglobalservice.com" },
   ];
 
   return (
@@ -25,7 +25,7 @@ export default function About() {
               Passionné par le développement logiciel, je me spécialise dans la création d'applications performantes et scalables. Mon expertise s'étend du backend robuste en C# .NET aux interfaces modernes et réactives avec Next.js.
             </p>
             <p className="text-slate-600 leading-relaxed mb-8">
-              En tant que co-fondateur et CEO d'Intglobal Services, je m'efforce d'apporter des solutions technologiques de pointe aux entreprises locales et internationales, en mettant l'accent sur la qualité du code et l'expérience utilisateur.
+              En tant que fondateur et CEO d'INT GLOBAL SERVICES, je m'efforce d'apporter des solutions technologiques de pointe aux entreprises locales et internationales, en mettant l'accent sur la qualité du code et l'expérience utilisateur.
             </p>
             <Link
               to="/a-propos"

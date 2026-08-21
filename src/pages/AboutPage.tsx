@@ -81,7 +81,7 @@ export default function AboutPage() {
                 Spécialisé dans l'écosystème <span className="font-bold text-brand-teal">.NET</span> et les technologies web modernes comme <span className="font-bold text-brand-teal">React</span> et <span className="font-bold text-brand-teal">Next.js</span>, je conçois des applications qui allient performance backend et élégance frontend.
               </p>
               <p>
-                En tant que co-fondateur et CEO d'Intglobal Services, je travaille sur des projets innovants qui transforment les idées en réalités numériques tangibles, tout en maintenant les plus hauts standards de qualité et de sécurité.
+                En tant que fondateur et CEO d'INT GLOBAL SERVICES, je travaille sur des projets innovants qui transforment les idées en réalités numériques tangibles, tout en maintenant les plus hauts standards de qualité et de sécurité.
               </p>
             </div>
 
@@ -135,7 +135,7 @@ export default function AboutPage() {
                 Me contacter
               </Link>
               <a href="https://intglobalservice.com" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-white/60 border border-white/60 text-brand-dark font-bold rounded-xl hover:bg-white/80 transition-all">
-                Voir Intglobal Services
+                Voir INT GLOBAL SERVICES
               </a>
             </div>
           </div>
