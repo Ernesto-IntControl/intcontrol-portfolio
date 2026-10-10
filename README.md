@@ -1,56 +1,50 @@
-# Portfolio — Intcontrol
+# Portfolio — INTCONTROL
 
-Portfolio personnel de **Ernesto Lavigueur (Intcontrol)**, développeur fullstack orienté backend, spécialisé en **C# (.NET)**, **Next.js** et **JavaScript**.
-
-Ce projet a pour objectif de présenter mon profil, mes compétences, mes projets et mes expériences dans une interface moderne, sobre et professionnelle.
+Portfolio d'**Ernest Katumbi**, alias **INTCONTROL** : Lead Software Engineer chez Josar Technologie, fondateur d'INT GLOBAL SERVICES, développeur fullstack **C# (.NET)** et **Next.js**.
 
 ## Aperçu
 
-Ce portfolio met en avant :
-
-- mon parcours et mon identité professionnelle
-- mes compétences techniques
-- mes projets réalisés et en cours
-- mes informations de contact
-- mes partenaires et collaborations
-
-## Fonctionnalités
-
-- Design moderne et responsive
-- Section d’accueil avec présentation claire
-- Section à propos
-- Section compétences
-- Section projets avec description technique
-- Section contact
-- Navigation simple et fluide
-- Interface optimisée pour la lecture sur mobile et desktop
-
-## Technologies utilisées
-
-- **Next.js**
-- **React**
-- **Tailwind CSS**
-- **shadcn/ui**
-- **JavaScript**
-- **HTML / CSS**
+- Hero en **WebGL** (Three.js / React Three Fiber) : l'emblème hexagonal du logo entouré d'un globe de tuiles, qui réagit à la souris et au scroll
+- Thème **sombre / clair** avec transition circulaire (View Transitions API), choix mémorisé
+- **Scroll inertiel** (Lenis), animations liées au scroll, cartes projets empilées
+- Composants **3D** : cartes inclinables avec profondeur, boutons magnétiques, maquettes de produits codées en CSS
+- Pages : accueil, projets, services, à propos, contact (EmailJS), 404
 
 ## Projets présentés
 
-### 1. Site vitrine — Helzor Business
-Site web vitrine moderne développé avec Next.js, shadcn/ui et Tailwind CSS.
+- **Madebocar** — application VTC (Product Owner & développeur front-end)
+- **BisoMarket** — registre numérique pour commerçants, cabinets et entreprises
+- **BisoChat** — réseau social
 
-### 2. Application de suivi des paiements académiques
-Application en cours de développement avec :
+Le contenu (profil, projets, compétences, services) est centralisé dans `src/data/`.
 
-- Backend : **.NET**
-- Frontend : **React**
-- Base de données : **MySQL**
+## Stack
 
-### 3. Site web — Intglobal Services
-Site officiel de l’entreprise **Intglobal Services**, développé avec Next.js, Tailwind CSS et Vite.
+- React 19, TypeScript, Vite
+- Tailwind CSS 4
+- Motion (animations), Lenis (scroll)
+- Three.js, React Three Fiber
+- EmailJS, Vercel Analytics
 
-## Installation
+## Démarrage
 
-### 1. Cloner le dépôt
 ```bash
-git clone [URL_DU_DEPOT]
+npm install
+npm run dev      # http://localhost:3000
+npm run lint     # vérification TypeScript
+npm run build    # build de production dans dist/
+```
+
+### Variables d'environnement (formulaire de contact)
+
+```bash
+VITE_EMAILJS_SERVICE_ID=...
+VITE_EMAILJS_TEMPLATE_ID=...
+VITE_EMAILJS_PUBLIC_KEY=...
+```
+
+## Accessibilité et performances
+
+- Animations désactivées ou simplifiées avec `prefers-reduced-motion`
+- La scène 3D est chargée à part, mise en pause hors écran, et remplacée par un visuel statique sans WebGL
+- Animations limitées aux propriétés composées par le GPU (transform, opacity)
