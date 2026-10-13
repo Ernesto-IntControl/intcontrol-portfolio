@@ -18,9 +18,11 @@ export function waitForBoot(maxWait = 1800): Promise<void> {
   return Promise.race([fonts, timeout]);
 }
 
-export function hideSplash() {
-  document.documentElement.classList.add("booted");
+/** `quick` : sortie écourtée quand l'intro prend le relais (elle redessine l'emblème). */
+export function hideSplash(quick = false) {
   const splash = document.getElementById("boot");
+  if (splash && quick) splash.style.transitionDuration = "0.2s";
+  document.documentElement.classList.add("booted");
   if (splash) window.setTimeout(() => splash.remove(), 700);
 }
 

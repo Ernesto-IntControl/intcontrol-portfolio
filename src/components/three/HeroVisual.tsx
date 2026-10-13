@@ -2,6 +2,7 @@ import { motion, useInView, useReducedMotion, useTransform, type MotionValue } f
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import HeroEmblemStatic from "./HeroEmblemStatic";
 import { getDeviceProfile, whenIdle } from "@/src/lib/boot";
+import { useIntro } from "@/src/providers/IntroProvider";
 import { useTheme } from "@/src/providers/ThemeProvider";
 import { cn } from "@/src/lib/utils";
 
@@ -27,6 +28,7 @@ export default function HeroVisual({ progress }: { progress: MotionValue<number>
   const inView = useInView(ref);
   const reduced = useReducedMotion() ?? false;
   const { theme } = useTheme();
+  const { done: introDone } = useIntro();
   const [device] = useState(() => ({ ...getDeviceProfile(), webgl: hasWebGL() }));
   const use3D = device.webgl && !device.slowNetwork && !device.lowMemory;
   const [load3D, setLoad3D] = useState(false);
@@ -38,9 +40,9 @@ export default function HeroVisual({ progress }: { progress: MotionValue<number>
   const staticY = useTransform(progress, [0, 1], ["0%", "-20%"]);
   const staticOpacity = useTransform(progress, [0, 0.8], [1, 0]);
 
-  // On laisse l'intro du hero se jouer (~2 s) avant de télécharger et d'initialiser la 3D
+  // On laisse l'intro puis l'entrée du hero se jouer (~2 s) avant de télécharger et d'initialiser la 3D
   useEffect(() => {
-    if (!use3D) return;
+    if (!use3D || !introDone) return;
     let cancelIdle = () => {};
     const timer = window.setTimeout(() => {
       cancelIdle = whenIdle(() => setLoad3D(true), 1500);
@@ -49,7 +51,7 @@ export default function HeroVisual({ progress }: { progress: MotionValue<number>
       window.clearTimeout(timer);
       cancelIdle();
     };
-  }, [use3D]);
+  }, [use3D, introDone]);
 
   // Une fois le fondu terminé, l'emblème statique est retiré du DOM
   useEffect(() => {

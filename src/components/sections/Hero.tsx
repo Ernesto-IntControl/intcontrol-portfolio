@@ -8,11 +8,15 @@ import RevealText from "@/src/components/ui/RevealText";
 import { profile } from "@/src/data/profile";
 import { useLocalTime } from "@/src/hooks/useLocalTime";
 import { EASE_OUT_EXPO } from "@/src/lib/motion";
+import { useIntro } from "@/src/providers/IntroProvider";
 import { useScrollTo } from "@/src/providers/SmoothScroll";
 
-const fadeUp = (delay: number) => ({
-  initial: { opacity: 0, y: 18, filter: "blur(6px)" },
-  animate: { opacity: 1, y: 0, filter: "blur(0px)", transitionEnd: { filter: "none" } },
+const hiddenUp = { opacity: 0, y: 18, filter: "blur(6px)" };
+
+/** Entrée en fondu ; retenue tant que l'intro couvre la page. */
+const fadeUp = (delay: number, play: boolean) => ({
+  initial: hiddenUp,
+  animate: play ? { opacity: 1, y: 0, filter: "blur(0px)", transitionEnd: { filter: "none" } } : hiddenUp,
   transition: { duration: 1.1, delay, ease: EASE_OUT_EXPO },
 });
 
@@ -20,6 +24,7 @@ export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const scrollTo = useScrollTo();
   const time = useLocalTime(profile.timeZone);
+  const { revealed } = useIntro();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
 
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
@@ -36,7 +41,7 @@ export default function Hero() {
         className="container-x relative z-10 flex flex-1 flex-col pt-[max(44svh,calc(26.5svh+min(31.85svh,34.8vw)+28px))] short-land:pt-24 lg:pt-36"
       >
         <div className="order-2 max-w-xl short-land:order-1 short-land:max-w-[54%] lg:order-1">
-          <motion.div {...fadeUp(0.2)}>
+          <motion.div {...fadeUp(0.2, revealed)}>
             <span className="chip !bg-bg/60 backdrop-blur">
               <span className="h-1.5 w-1.5 pulse-dot rounded-full bg-accent" />
               {profile.role} · {profile.company}
@@ -56,7 +61,7 @@ export default function Hero() {
             ]}
           />
 
-          <motion.div {...fadeUp(0.9)} className="mt-8 flex flex-wrap items-center gap-3">
+          <motion.div {...fadeUp(0.9, revealed)} className="mt-8 flex flex-wrap items-center gap-3">
             <Magnetic>
               <button type="button" onClick={() => scrollTo("#projets", { offset: -40 })} className="btn-primary group">
                 Voir mes projets
@@ -76,7 +81,7 @@ export default function Hero() {
           style={{ y: wordmarkY }}
           className="@container order-1 mb-6 select-none short-land:order-2 short-land:mb-0 short-land:mt-auto short-land:pt-6 lg:order-2 lg:mb-0 lg:mt-auto lg:pt-10"
         >
-          <motion.span {...fadeUp(0.35)} className="eyebrow mb-3 block lg:mb-1">
+          <motion.span {...fadeUp(0.35, revealed)} className="eyebrow mb-3 block lg:mb-1">
             {profile.name} — {profile.headline}
           </motion.span>
           <span className="sr-only">{profile.alias}</span>
@@ -86,7 +91,7 @@ export default function Hero() {
                 key={i}
                 className="inline-block origin-bottom bg-linear-to-b from-fg from-30% to-fg/30 bg-clip-text pb-[0.06em] text-transparent"
                 initial={{ y: "70%", rotateX: -90, opacity: 0 }}
-                animate={{ y: "0%", rotateX: 0, opacity: 1 }}
+                animate={revealed ? { y: "0%", rotateX: 0, opacity: 1 } : undefined}
                 transition={{ duration: 1.4, delay: 0.25 + i * 0.055, ease: EASE_OUT_EXPO }}
               >
                 {char}
@@ -98,7 +103,7 @@ export default function Hero() {
 
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: revealed ? 1 : 0 }}
         transition={{ duration: 1.2, delay: 1.2 }}
         className="container-x relative z-10 pb-5"
       >

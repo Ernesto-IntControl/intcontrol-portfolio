@@ -7,6 +7,7 @@ import Magnetic from "@/src/components/ui/Magnetic";
 import SocialLink from "@/src/components/ui/SocialLink";
 import ThemeToggle from "./ThemeToggle";
 import { profile, socials } from "@/src/data/profile";
+import { useIntro } from "@/src/providers/IntroProvider";
 import { useLenis } from "@/src/providers/SmoothScroll";
 import { EASE_IN_OUT_QUART, EASE_OUT_EXPO } from "@/src/lib/motion";
 import { cn } from "@/src/lib/utils";
@@ -26,6 +27,9 @@ export default function Navbar() {
   const location = useLocation();
   const lenis = useLenis();
   const { scrollY } = useScroll();
+  const intro = useIntro();
+  // Pendant l'intro, la barre reste à sa place (le logo sert de cible à l'emblème) mais invisible
+  const waiting = intro.played ? { y: 0, opacity: 0 } : { y: -90, opacity: 0 };
 
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;
@@ -56,8 +60,8 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -90, opacity: 0 }}
-        animate={{ y: hidden ? -110 : 0, opacity: 1 }}
+        initial={waiting}
+        animate={intro.revealed ? { y: hidden ? -110 : 0, opacity: 1 } : waiting}
         transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: hidden ? 0 : 0.1 }}
         className="fixed inset-x-0 top-0 z-50 pt-3 sm:pt-5"
       >
@@ -72,7 +76,9 @@ export default function Navbar() {
             )}
           >
             <Link to="/" className="group -my-2 flex items-center gap-2.5 py-2" aria-label={`${profile.alias} — accueil`}>
-              <LogoMark className="h-7 w-7 text-fg transition-transform duration-700 ease-out-expo group-hover:rotate-[60deg]" />
+              <span data-intro-logo className="inline-flex" style={intro.done ? undefined : { opacity: 0 }}>
+                <LogoMark className="h-7 w-7 text-fg transition-transform duration-700 ease-out-expo group-hover:rotate-[60deg]" />
+              </span>
               <span className="font-mono text-[13px] font-semibold tracking-[0.2em] text-fg">{profile.alias}</span>
             </Link>
 

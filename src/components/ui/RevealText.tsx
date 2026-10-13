@@ -1,6 +1,7 @@
 import { motion, type Variants } from "motion/react";
 import { createElement, type ElementType } from "react";
 import { EASE_OUT_EXPO } from "@/src/lib/motion";
+import { useIntro } from "@/src/providers/IntroProvider";
 import { cn } from "@/src/lib/utils";
 
 export interface Segment {
@@ -39,6 +40,7 @@ export default function RevealText({
   duration = 1.05,
   trigger = "view",
 }: RevealTextProps) {
+  const { revealed } = useIntro();
   const segments: Segment[] = typeof text === "string" ? [{ text }] : text;
   const label = segments.map((s) => s.text.replace(/\s*\n\s*/g, " ")).join("");
 
@@ -65,8 +67,10 @@ export default function RevealText({
       }),
   );
 
-  const animateProps =
-    trigger === "mount"
+  // Rien ne se joue sous le rideau de l'intro : la révélation attend qu'il se lève
+  const animateProps = !revealed
+    ? { initial: "hidden", animate: "hidden" }
+    : trigger === "mount"
       ? { initial: "hidden", animate: "visible" }
       : { initial: "hidden", whileInView: "visible", viewport: { once: true, margin: "0px 0px -10% 0px" } };
 

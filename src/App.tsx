@@ -10,6 +10,7 @@ import ScrollProgress from "./components/layout/ScrollProgress";
 import { hideSplash, waitForBoot } from "./lib/boot";
 import Home from "./pages/Home";
 import NotFoundPage from "./pages/NotFoundPage";
+import { IntroProvider, shouldPlayIntro } from "./providers/IntroProvider";
 import { SmoothScroll, useLenis } from "./providers/SmoothScroll";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import { pageLoaders, setupRoutePrefetch } from "./routes";
@@ -57,7 +58,7 @@ export default function App() {
     waitForBoot().then(() => {
       if (!alive) return;
       setReady(true);
-      hideSplash();
+      hideSplash(shouldPlayIntro());
     });
     const stopPrefetch = setupRoutePrefetch();
     return () => {
@@ -73,16 +74,18 @@ export default function App() {
           {/* Rien n'est monté avant les polices : les animations d'entrée partent proprement */}
           {ready && (
             <BrowserRouter>
-              <ScrollProgress />
-              <Cursor />
-              <Navbar />
-              <main className="relative">
-                <ErrorBoundary>
-                  <AnimatedRoutes />
-                </ErrorBoundary>
-              </main>
-              <Footer />
-              <div className="grain" aria-hidden />
+              <IntroProvider>
+                <ScrollProgress />
+                <Cursor />
+                <Navbar />
+                <main className="relative">
+                  <ErrorBoundary>
+                    <AnimatedRoutes />
+                  </ErrorBoundary>
+                </main>
+                <Footer />
+                <div className="grain" aria-hidden />
+              </IntroProvider>
             </BrowserRouter>
           )}
           <Analytics />
