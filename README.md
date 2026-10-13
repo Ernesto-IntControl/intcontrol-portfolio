@@ -13,9 +13,10 @@ Portfolio d'**Ernest Katumbi**, alias **INTCONTROL** : Lead Software Engineer ch
 
 ## Projets présentés
 
-- **Madebocar** — application VTC (Product Owner & développeur front-end)
-- **BisoMarket** — registre numérique pour commerçants, cabinets et entreprises
-- **BisoChat** — réseau social
+- **[Madebocar](https://www.madebocar.com)** — application VTC (Product Owner & développeur front-end)
+- **[BisoMarket](https://www.bisomarket.com)** — registre numérique pour commerçants, cabinets et entreprises
+- **[BisoChat](https://www.bisochat.com)** — réseau social
+- **[Cap Lualaba](https://cap-lualaba.onrender.com)** — découverte touristique du Lualaba : sites, lieux à proximité et itinéraires
 
 Le contenu (profil, projets, compétences, services) est centralisé dans `src/data/`.
 

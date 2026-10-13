@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform, type MotionValue } from "motion/react"
 import { ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { projects, type Project } from "@/src/data/projects";
+import { displayUrl, projects, type Project } from "@/src/data/projects";
 import { useMediaQuery } from "@/src/hooks/useMediaQuery";
 import { techIcons } from "@/src/lib/techIcons";
 import { cn } from "@/src/lib/utils";
@@ -116,16 +116,30 @@ function StackCard({
             })}
           </div>
 
-          <Link
-            to={`/projets#${project.slug}`}
-            data-cursor="Voir"
-            className="group mt-6 inline-flex min-h-11 w-fit items-center gap-2 text-sm font-medium text-fg short-land:mt-3 lg:mt-10"
-          >
-            Découvrir le projet
-            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-line-strong transition-all duration-500 ease-out-expo group-hover:rotate-45 group-hover:border-transparent group-hover:bg-fg group-hover:text-bg">
-              <ArrowUpRight className="h-4 w-4" />
-            </span>
-          </Link>
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-1 short-land:mt-3 lg:mt-10">
+            <Link
+              to={`/projets#${project.slug}`}
+              data-cursor="Voir"
+              className="group inline-flex min-h-11 w-fit items-center gap-2 text-sm font-medium text-fg"
+            >
+              Découvrir le projet
+              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-line-strong transition-all duration-500 ease-out-expo group-hover:rotate-45 group-hover:border-transparent group-hover:bg-fg group-hover:text-bg">
+                <ArrowUpRight className="h-4 w-4" />
+              </span>
+            </Link>
+            {project.links.demo && (
+              <a
+                href={project.links.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor="Ouvrir"
+                className="group/site inline-flex min-h-11 items-center gap-1.5 font-mono text-xs text-muted transition-colors hover:text-fg"
+              >
+                {displayUrl(project.links.demo)}
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-500 ease-out-expo group-hover/site:-translate-y-0.5 group-hover/site:translate-x-0.5" />
+              </a>
+            )}
+          </div>
         </motion.div>
 
         <MockupStage

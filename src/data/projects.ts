@@ -1,4 +1,4 @@
-export type MockupKind = "madebocar" | "bisomarket" | "bisochat";
+export type MockupKind = "madebocar" | "bisomarket" | "bisochat" | "caplualaba";
 
 export interface Project {
   slug: string;
@@ -16,6 +16,9 @@ export interface Project {
   mockup: MockupKind;
 }
 
+/** Adresse lisible d'un lien (sans protocole ni « www. »). */
+export const displayUrl = (url: string) => new URL(url).hostname.replace(/^www\./, "");
+
 export const projects: Project[] = [
   {
     slug: "madebocar",
@@ -26,7 +29,7 @@ export const projects: Project[] = [
       "Application de VTC qui met en relation passagers et chauffeurs. J'y porte la vision produit en tant que Product Owner (priorisation, parcours utilisateurs, arbitrages) et je développe le front-end.",
     role: "Product Owner · Développeur front-end",
     stack: [],
-    links: {},
+    links: { demo: "https://www.madebocar.com" },
     accent: "#f5a524",
     mockup: "madebocar",
   },
@@ -38,7 +41,7 @@ export const projects: Project[] = [
     description:
       "Registre numérique destiné aux commerçants, cabinets et autres structures : un espace unique pour les enregistrer, les retrouver et tenir leurs informations à jour.",
     stack: [],
-    links: {},
+    links: { demo: "https://www.bisomarket.com" },
     accent: "#10b981",
     mockup: "bisomarket",
   },
@@ -50,8 +53,20 @@ export const projects: Project[] = [
     description:
       "Réseau social pour discuter, partager du contenu et garder le lien avec sa communauté.",
     stack: [],
-    links: {},
+    links: { demo: "https://www.bisochat.com" },
     accent: "#8b5cf6",
     mockup: "bisochat",
+  },
+  {
+    slug: "cap-lualaba",
+    title: "Cap Lualaba",
+    category: "Tourisme · Géolocalisation",
+    tagline: "Le Lualaba à portée de main\u00a0: visiter la province depuis son téléphone.",
+    description:
+      "Application de découverte touristique du Lualaba\u00a0: on y explore les sites à visiter, on repère les lieux à proximité et on trace l'itinéraire pour s'y rendre, directement depuis son téléphone.",
+    stack: [],
+    links: { demo: "https://cap-lualaba.onrender.com" },
+    accent: "#f43f5e",
+    mockup: "caplualaba",
   },
 ];
