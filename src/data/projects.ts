@@ -1,71 +1,57 @@
-export type ProjectStatus = "Completed" | "In Progress";
+export type MockupKind = "madebocar" | "bisomarket" | "bisochat";
 
 export interface Project {
+  slug: string;
   title: string;
-  badge: string;
-  status: ProjectStatus;
-  stack: string[];
+  category: string;
+  tagline: string;
   description: string;
-  image: string;
-  github: string;
-  demo: string;
-  featured: boolean;
+  /** Rôle personnel sur le projet, quand il est connu. */
+  role?: string;
+  /** Technologies : laissé vide tant qu'elles ne sont pas confirmées. */
+  stack: string[];
+  links: { demo?: string; github?: string };
+  /** Couleur d'accent propre au produit (maquette + détails). */
+  accent: string;
+  mockup: MockupKind;
 }
 
 export const projects: Project[] = [
   {
-    title: "Helzor Business",
-    badge: "Site Vitrine",
-    status: "Completed",
-    stack: ["Next.js", "Tailwind"],
-    description: "Interface ultra-rapide et optimisée pour la conversion client. Design minimaliste et performances SEO.",
-    image: "/images/helzor.png",
-    github: "https://github.com/intglobal-services/helzor-business",
-    demo: "https://www.helzorbusiness.com",
-    featured: true,
+    slug: "madebocar",
+    title: "Madebocar",
+    category: "Mobilité · VTC",
+    tagline: "L'application VTC pour commander une course en quelques secondes.",
+    description:
+      "Application de VTC qui met en relation passagers et chauffeurs. J'y porte la vision produit en tant que Product Owner (priorisation, parcours utilisateurs, arbitrages) et je développe le front-end.",
+    role: "Product Owner · Développeur front-end",
+    stack: [],
+    links: {},
+    accent: "#f5a524",
+    mockup: "madebocar",
   },
   {
-    title: "IntFlow",
-    badge: "Fintech / Académique",
-    status: "In Progress",
-    stack: [".NET Core", "React", "MySQL"],
-    description: "Architecture robuste pour la gestion et suivi des paiements des frais academiques.",
-    image: "/images/intflow.png",
-    github: "https://github.com/intglobal-services/intflow",
-    demo: "https://www.intflow.com",
-    featured: true,
+    slug: "bisomarket",
+    title: "BisoMarket",
+    category: "Registre numérique",
+    tagline: "Le registre numérique des commerçants, cabinets et entreprises.",
+    description:
+      "Registre numérique destiné aux commerçants, cabinets et autres structures : un espace unique pour les enregistrer, les retrouver et tenir leurs informations à jour.",
+    stack: [],
+    links: {},
+    accent: "#10b981",
+    mockup: "bisomarket",
   },
   {
-    title: "INT GLOBAL SERVICES",
-    badge: "Corporate",
-    status: "Completed",
-    stack: ["Next.js", "Vite", "Tailwind"],
-    description: "Plateforme officielle de notre agence de services digitaux. Vitrine de nos réalisations et services.",
-    image: "/images/intglobal.png",
-    github: "https://github.com/intglobal-services/intglobal-services",
-    demo: "https://www.intglobalservices.com",
-    featured: true,
-  },
-  {
-    title: "Muna Learn",
-    badge: "Education",
-    status: "In Progress",
-    stack: ["Next.js", "Stripe", "PostgreSQL"],
-    description: "Plateforme d'apprentissage en ligne pour etudiant en informatique.",
-    image: "/images/munalean.png",
-    github: "https://github.com/Ernesto-IntControl/muna-learn",
-    demo: "#",
-    featured: false,
-  },
-  {
-    title: "Tracify",
-    badge: "Productivity",
-    status: "In Progress",
-    stack: ["React", "Firebase", "Tailwind"],
-    description: "Plateforme de gestion Administrative et financiere pour PME.",
-    image: "/images/tracify.png",
-    github: "https://github.com/Ernesto-IntControl/tracify",
-    demo: "#",
-    featured: false,
+    slug: "bisochat",
+    title: "BisoChat",
+    category: "Réseau social",
+    tagline: "Un réseau social pour échanger, partager et rester connecté.",
+    description:
+      "Réseau social pour discuter, partager du contenu et garder le lien avec sa communauté.",
+    stack: [],
+    links: {},
+    accent: "#8b5cf6",
+    mockup: "bisochat",
   },
 ];

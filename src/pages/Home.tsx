@@ -1,66 +1,27 @@
-import { motion } from "motion/react";
-import { Helmet } from "react-helmet-async";
-import Hero from "../components/Hero";
-import About from "../components/About";
-import Skills from "../components/Skills";
-import Projects from "../components/Projects";
-import Contact from "../components/Contact";
-
-const revealVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.21, 0.47, 0.32, 0.98]
-    }
-  }
-};
+import PageTransition from "@/src/components/layout/PageTransition";
+import AboutSection from "@/src/components/sections/AboutSection";
+import ContactCTA from "@/src/components/sections/ContactCTA";
+import Hero from "@/src/components/sections/Hero";
+import ProjectsSection from "@/src/components/sections/ProjectsSection";
+import ServicesSection from "@/src/components/sections/ServicesSection";
+import StackMarquee from "@/src/components/sections/StackMarquee";
+import { profile } from "@/src/data/profile";
 
 export default function Home() {
   return (
-    <>
-      <Helmet>
-        <title>Intcontrol | Accueil - Développeur Fullstack</title>
-        <meta name="description" content="Bienvenue sur le portfolio de Intcontrol. Découvrez mes compétences en C# .NET et Next.js." />
-      </Helmet>
+    <PageTransition>
+      {/* React 19 place <title> et <meta> dans le <head> */}
+      <title>{`${profile.name} — ${profile.alias} | ${profile.role}`}</title>
+      <meta
+        name="description"
+        content={`${profile.name} (${profile.alias}), ${profile.role} chez ${profile.company}. Développement web et mobile : Next.js, NestJS, Node.js, Expo et .NET.`}
+      />
       <Hero />
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={revealVariants}
-      >
-        <About />
-      </motion.div>
-      
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={revealVariants}
-      >
-        <Skills />
-      </motion.div>
-      
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={revealVariants}
-      >
-        <Projects />
-      </motion.div>
-      
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={revealVariants}
-      >
-        <Contact />
-      </motion.div>
-    </>
+      <StackMarquee />
+      <AboutSection />
+      <ProjectsSection />
+      <ServicesSection />
+      <ContactCTA />
+    </PageTransition>
   );
 }
