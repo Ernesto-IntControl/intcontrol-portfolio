@@ -53,15 +53,16 @@ export const socials: Social[] = [
     href: "https://twitter.com/Intcontrol1",
     icon: FaXTwitter,
   },
-  // Liens à renseigner : les icônes restent visibles mais inactives en attendant
   {
     label: "Facebook",
     handle: "",
+    href: "https://www.facebook.com/profile.php?id=61586551582374",
     icon: FaFacebookF,
   },
   {
     label: "Instagram",
-    handle: "",
+    handle: "@int_control",
+    href: "https://www.instagram.com/int_control/",
     icon: FaInstagram,
   },
 ];
