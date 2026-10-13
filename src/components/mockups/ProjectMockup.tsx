@@ -1,6 +1,7 @@
 import type { Project } from "@/src/data/projects";
 import BisoChatMockup from "./BisoChatMockup";
 import BisoMarketMockup from "./BisoMarketMockup";
+import CapLualabaMockup from "./CapLualabaMockup";
 import MadebocarMockup from "./MadebocarMockup";
 
 export default function ProjectMockup({ project }: { project: Project }) {
@@ -11,5 +12,7 @@ export default function ProjectMockup({ project }: { project: Project }) {
       return <BisoMarketMockup accent={project.accent} />;
     case "bisochat":
       return <BisoChatMockup accent={project.accent} />;
+    case "caplualaba":
+      return <CapLualabaMockup accent={project.accent} />;
   }
 }

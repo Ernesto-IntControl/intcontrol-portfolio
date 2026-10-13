@@ -27,7 +27,7 @@ export default function ProjectsPage() {
     <PageTransition>
       {/* React 19 place <title> et <meta> dans le <head> */}
       <title>Projets | Ernest Katumbi — INTCONTROL</title>
-      <meta name="description" content="Madebocar, BisoMarket, BisoChat : les produits sur lesquels travaille Ernest Katumbi (INTCONTROL)." />
+      <meta name="description" content="Madebocar, BisoMarket, BisoChat, Cap Lualaba : les produits sur lesquels travaille Ernest Katumbi (INTCONTROL)." />
 
       <section className="container-x pb-10 pt-36 sm:pt-44">
         <SectionHeading
@@ -35,7 +35,7 @@ export default function ProjectsPage() {
           index="02"
           label="Projets"
           title={[{ text: "Des produits " }, { text: "en mouvement.", className: "serif-accent text-accent" }]}
-          intro="Mobilité, registre numérique, réseau social : trois produits, une même exigence de qualité, de la vision produit jusqu'au code."
+          intro="Mobilité, registre numérique, réseau social, tourisme : quatre produits, une même exigence de qualité, de la vision produit jusqu'au code."
         />
       </section>
 
