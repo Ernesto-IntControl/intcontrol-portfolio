@@ -101,12 +101,14 @@ export default function Navbar() {
 
             <div className="flex items-center gap-2">
               <ThemeToggle />
-              <Magnetic strength={0.25} className="hidden md:inline-flex">
-                <Link to="/contact" className="btn-primary !px-5 !py-2.5">
-                  Contact
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
-              </Magnetic>
+              <div className="hidden md:block">
+                <Magnetic strength={0.25}>
+                  <Link to="/contact" className="btn-primary !px-5 !py-2.5">
+                    Contact
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Link>
+                </Magnetic>
+              </div>
               <button
                 type="button"
                 onClick={() => setOpen((o) => !o)}
@@ -133,12 +135,24 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
+            key="menu-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            onClick={() => setOpen(false)}
+            className="fixed inset-0 z-40 bg-bg/70 md:hidden"
+            aria-hidden
+          />
+        )}
+        {open && (
+          <motion.div
             key="menu"
-            initial={{ clipPath: "inset(0 0 100% 0)" }}
-            animate={{ clipPath: "inset(0 0 0% 0)" }}
-            exit={{ clipPath: "inset(0 0 100% 0)" }}
+            initial={{ clipPath: "inset(0 0 100% 0 round 28px)" }}
+            animate={{ clipPath: "inset(0 0 0% 0 round 28px)" }}
+            exit={{ clipPath: "inset(0 0 100% 0 round 28px)" }}
             transition={{ duration: 0.8, ease: EASE_IN_OUT_QUART }}
-            className="fixed inset-0 z-40 flex flex-col bg-bg md:hidden"
+            className="fixed inset-2 z-40 flex flex-col overflow-hidden rounded-[28px] border border-line bg-bg shadow-[var(--shadow-float)] md:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Menu"

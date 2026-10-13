@@ -50,9 +50,9 @@ export default function Hero() {
             stagger={0.03}
             className="mt-6 text-[clamp(1.35rem,2.6vw,2.1rem)] font-medium leading-[1.15] tracking-[-0.03em] text-fg"
             text={[
-              { text: "Je conçois des architectures robustes et des interfaces " },
+              { text: "Je conçois des produits web et mobiles " },
               { text: "ultra-fluides,", className: "serif-accent text-accent" },
-              { text: " du backend C# .NET au front Next.js." },
+              { text: " de l'API NestJS au front Next.js et aux apps Expo." },
             ]}
           />
 
@@ -74,13 +74,13 @@ export default function Hero() {
 
         <motion.h1
           style={{ y: wordmarkY }}
-          className="order-1 mb-6 select-none lg:order-2 lg:mb-0 lg:mt-auto lg:pt-10"
+          className="@container order-1 mb-6 select-none lg:order-2 lg:mb-0 lg:mt-auto lg:pt-10"
         >
           <motion.span {...fadeUp(0.35)} className="eyebrow mb-3 block lg:mb-1">
             {profile.name} — {profile.headline}
           </motion.span>
           <span className="sr-only">{profile.alias}</span>
-          <span aria-hidden className="block text-[14.6vw] font-semibold leading-[0.8] tracking-[-0.065em] [perspective:800px] 2xl:text-[13rem]">
+          <span aria-hidden className="wordmark-fit block font-semibold leading-[0.8] tracking-[-0.065em] [perspective:800px]">
             {profile.alias.split("").map((char, i) => (
               <motion.span
                 key={i}

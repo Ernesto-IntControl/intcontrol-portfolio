@@ -1,6 +1,5 @@
 import { ArrowUpRight, Github } from "lucide-react";
 import { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import PageTransition from "@/src/components/layout/PageTransition";
 import ContactCTA from "@/src/components/sections/ContactCTA";
@@ -26,10 +25,9 @@ export default function ProjectsPage() {
 
   return (
     <PageTransition>
-      <Helmet>
-        <title>Projets | Ernest Katumbi — INTCONTROL</title>
-        <meta name="description" content="Madebocar, BisoMarket, BisoChat : les produits sur lesquels travaille Ernest Katumbi (INTCONTROL)." />
-      </Helmet>
+      {/* React 19 place <title> et <meta> dans le <head> */}
+      <title>Projets | Ernest Katumbi — INTCONTROL</title>
+      <meta name="description" content="Madebocar, BisoMarket, BisoChat : les produits sur lesquels travaille Ernest Katumbi (INTCONTROL)." />
 
       <section className="container-x pb-10 pt-36 sm:pt-44">
         <SectionHeading

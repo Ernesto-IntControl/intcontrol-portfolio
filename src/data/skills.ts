@@ -4,21 +4,22 @@ export interface SkillGroup {
   items: string[];
 }
 
+/** Ordre volontaire : le web moderne en premier, .NET en second. */
 export const skillGroups: SkillGroup[] = [
   {
-    title: "Backend",
-    description: "APIs robustes, logique métier et sécurité.",
-    items: ["C#", ".NET", "Entity Framework", "Node.js", "Express", "API REST"],
+    title: "Web moderne",
+    description: "JavaScript de bout en bout, de l'interface à l'API.",
+    items: ["JavaScript", "TypeScript", "Next.js", "React", "Node.js", "NestJS", "Tailwind CSS"],
   },
   {
-    title: "Frontend",
-    description: "Interfaces rapides, accessibles et fluides.",
-    items: ["Next.js", "React", "TypeScript", "JavaScript", "Tailwind CSS"],
+    title: ".NET",
+    description: "Des backends C# robustes quand le projet l'exige.",
+    items: ["C#", ".NET", "API REST"],
   },
   {
-    title: "Données",
-    description: "Modélisation et performance des requêtes.",
-    items: ["SQL Server", "PostgreSQL", "MySQL", "MongoDB"],
+    title: "Mobile",
+    description: "Apps iOS et Android avec le même savoir-faire JavaScript.",
+    items: ["Expo", "React Native"],
   },
   {
     title: "Outils & cloud",
@@ -29,16 +30,16 @@ export const skillGroups: SkillGroup[] = [
 
 /** Bandeau défilant : sous-ensemble représentatif de la stack. */
 export const marqueeStack = [
+  "JavaScript",
+  "TypeScript",
+  "Next.js",
+  "NestJS",
+  "Node.js",
+  "React",
+  "Expo",
+  "Tailwind CSS",
   "C#",
   ".NET",
-  "Next.js",
-  "React",
-  "TypeScript",
-  "Tailwind CSS",
-  "SQL Server",
-  "PostgreSQL",
-  "MySQL",
   "Docker",
-  "Azure",
   "Git",
 ];

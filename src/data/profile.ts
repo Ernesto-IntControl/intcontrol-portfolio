@@ -13,7 +13,7 @@ export const profile = {
   alias: "INTCONTROL",
   role: "Lead Software Engineer",
   company: "Josar Technologie",
-  headline: "Développeur fullstack C# .NET & Next.js",
+  headline: "Développeur fullstack JavaScript & .NET",
   location: "Kolwezi, Lualaba, RDC",
   timeZone: "Africa/Lubumbashi",
   availability: "Disponibilité limitée",
@@ -21,7 +21,16 @@ export const profile = {
   email: "katumbuernest@gmail.com",
   phone: "+243 843 351 254",
   phoneHref: "tel:+243843351254",
-  portrait: "/images/intcontrol.png",
+  portrait: {
+    /** Fallback et image de partage (og:image). */
+    src: "/images/portrait-720.webp",
+    width: 896,
+    height: 1195,
+    avif: "/images/portrait-480.avif 480w, /images/portrait-720.avif 720w, /images/portrait-960.avif 960w",
+    webp: "/images/portrait-480.webp 480w, /images/portrait-720.webp 720w, /images/portrait-960.webp 960w",
+    /** Aperçu flou de 24×32 px affiché pendant le chargement (connexion lente). */
+    placeholder: "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAABwBQCdASoYACAAPslUnkunpSKhsAwA8BkJZwC/83qYtALWNmPdhgM9rjxypAenC6QYolEAAPyZ/KDT0g9MqhbVLD1R/+RUuY+R6zFM3lIqOm9WNgxWKSUsQQJ7qs1z6PDlWMi36vj4R5AIlR/T5WROr2tvhq+tEhycfY04iJPkClmZMWDnGCorVKcv2cLl6IAAAA==",
+  },
   venture: {
     name: "INT GLOBAL SERVICES",
     role: "Fondateur & CEO",

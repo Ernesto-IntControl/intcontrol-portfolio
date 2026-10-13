@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Ernest Katumbi — INTCONTROL | Lead Software Engineer · C# .NET & Next.js</title>
+  <title>Ernest Katumbi — INTCONTROL | Lead Software Engineer · Next.js, NestJS & Expo</title>
   <meta name="description"
-    content="Portfolio d'Ernest Katumbi (INTCONTROL), Lead Software Engineer chez Josar Technologie et fondateur d'INT GLOBAL SERVICES. Développement fullstack C# .NET & Next.js." />
+    content="Portfolio d'Ernest Katumbi (INTCONTROL), Lead Software Engineer chez Josar Technologie. Développement web et mobile en JavaScript (Next.js, NestJS, Node.js, Expo) et .NET." />
   <meta name="keywords"
-    content="Ernest Katumbi, Intcontrol, Lead Software Engineer, développeur fullstack, C#, .NET, Next.js, React, Kolwezi, RDC" />
+    content="Ernest Katumbi, Intcontrol, Lead Software Engineer, Product Owner, développeur fullstack, JavaScript, TypeScript, Next.js, NestJS, Node.js, Expo, React Native, .NET, Kolwezi, RDC" />
   <meta name="author" content="Ernest Katumbi" />
 
   <meta name="theme-color" content="#07090c" media="(prefers-color-scheme: dark)" />
@@ -19,12 +19,12 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Ernest Katumbi — INTCONTROL" />
-  <meta property="og:description" content="Lead Software Engineer · Développeur fullstack C# .NET & Next.js." />
+  <meta property="og:description" content="Lead Software Engineer · Web et mobile en JavaScript (Next.js, NestJS, Expo) et .NET." />
   <meta property="og:image" content="/images/intcontrol.png" />
 
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:title" content="Ernest Katumbi — INTCONTROL" />
-  <meta property="twitter:description" content="Lead Software Engineer · Développeur fullstack C# .NET & Next.js." />
+  <meta property="twitter:description" content="Lead Software Engineer · Web et mobile en JavaScript (Next.js, NestJS, Expo) et .NET." />
 
   <!-- Applique le thème avant le premier rendu pour éviter le flash -->
   <script>
@@ -36,6 +36,8 @@
         }
         document.documentElement.dataset.theme = t;
         document.documentElement.style.colorScheme = t;
+        // L'écran d'attente n'apparaît que si le site met plus de 350 ms à démarrer
+        setTimeout(function () { document.documentElement.classList.add("boot-show"); }, 350);
         document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
           m.setAttribute("content", t === "dark" ? "#07090c" : "#f4f5f7");
         });
@@ -62,6 +64,30 @@
 </head>
 
 <body>
+  <style>
+    html { background: #07090c; }
+    html[data-theme="light"] { background: #f4f5f7; }
+    #boot {
+      position: fixed; inset: 0; z-index: 200; display: grid; place-items: center;
+      background: #07090c; color: #eef1f4; opacity: 0; transition: opacity .5s ease, visibility .5s;
+    }
+    html[data-theme="light"] #boot { background: #f4f5f7; color: #0a0d12; }
+    html.boot-show #boot { opacity: 1; }
+    html.booted #boot { opacity: 0; visibility: hidden; }
+    #boot svg { width: 52px; height: 52px; overflow: visible; }
+    #boot path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: boot-draw 1.5s cubic-bezier(.65, 0, .35, 1) infinite alternate; }
+    #boot .c { stroke: #34d6c8; animation-delay: .2s; }
+    html[data-theme="light"] #boot .c { stroke: #0b8a80; }
+    @keyframes boot-draw { to { stroke-dashoffset: 0; } }
+    @media (prefers-reduced-motion: reduce) { #boot path { animation: none; stroke-dashoffset: 0; } }
+  </style>
+  <noscript><style>#boot { display: none; }</style></noscript>
+  <div id="boot" aria-hidden="true">
+    <svg viewBox="0 0 32 32" fill="none">
+      <path d="M16 2.5 27.7 9.25v13.5L16 29.5 4.3 22.75V9.25L16 2.5Z" pathLength="1" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+      <path class="c" d="M21.2 11.4 16 8.4l-5.2 3v9.2l5.2 3 5.2-3" pathLength="1" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="round" />
+    </svg>
+  </div>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>

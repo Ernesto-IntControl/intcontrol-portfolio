@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import PageTransition from "@/src/components/layout/PageTransition";
 import ContactCTA from "@/src/components/sections/ContactCTA";
 import ServicesGrid from "@/src/components/sections/ServicesGrid";
@@ -9,13 +8,12 @@ import SectionHeading from "@/src/components/ui/SectionHeading";
 export default function ServicesPage() {
   return (
     <PageTransition>
-      <Helmet>
-        <title>Services | Ernest Katumbi — INTCONTROL</title>
-        <meta
-          name="description"
-          content="Développement web fullstack, backend .NET, bases de données, produit et lead technique : des solutions sur mesure pour vos projets."
-        />
-      </Helmet>
+      {/* React 19 place <title> et <meta> dans le <head> */}
+      <title>Services | Ernest Katumbi — INTCONTROL</title>
+      <meta
+        name="description"
+        content="Web fullstack JavaScript (Next.js, NestJS, Node.js), applications mobiles Expo, backends .NET et Product Owner : des solutions sur mesure pour vos projets."
+      />
 
       <section className="container-x pb-16 pt-36 sm:pt-44">
         <SectionHeading
@@ -23,7 +21,7 @@ export default function ServicesPage() {
           index="03"
           label="Services"
           title={[{ text: "Des solutions " }, { text: "sur mesure.", className: "serif-accent text-accent" }]}
-          intro="Chaque projet est unique. J'interviens là où vous en avez besoin : architecture, développement, données ou pilotage produit."
+          intro="Chaque projet est unique. J'interviens là où vous en avez besoin : web, mobile, backend ou pilotage produit."
         />
         <ServicesGrid detailed className="mt-16" />
       </section>

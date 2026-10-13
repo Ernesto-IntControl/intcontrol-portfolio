@@ -1,5 +1,4 @@
 import { ArrowUpRight, Clock3, Mail, MapPin, Phone } from "lucide-react";
-import { Helmet } from "react-helmet-async";
 import PageTransition from "@/src/components/layout/PageTransition";
 import ContactForm from "@/src/components/sections/ContactForm";
 import Reveal from "@/src/components/ui/Reveal";
@@ -20,10 +19,9 @@ export default function ContactPage() {
 
   return (
     <PageTransition>
-      <Helmet>
-        <title>Contact | Ernest Katumbi — INTCONTROL</title>
-        <meta name="description" content={`Contactez ${profile.name} (${profile.alias}) pour vos projets de développement web et logiciel.`} />
-      </Helmet>
+      {/* React 19 place <title> et <meta> dans le <head> */}
+      <title>Contact | Ernest Katumbi — INTCONTROL</title>
+      <meta name="description" content={`Contactez ${profile.name} (${profile.alias}) pour vos projets de développement web et logiciel.`} />
 
       <section className="container-x pb-24 pt-36 sm:pt-44">
         <SectionHeading

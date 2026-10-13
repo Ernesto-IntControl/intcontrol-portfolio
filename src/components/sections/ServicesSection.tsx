@@ -13,7 +13,7 @@ export default function ServicesSection() {
             index="03"
             label="Expertise"
             title={[{ text: "Ce que je " }, { text: "construis.", className: "serif-accent text-accent" }]}
-            intro="Du backend au produit : je couvre toute la chaîne pour livrer des applications fiables et agréables à utiliser."
+            intro="Du web au mobile, jusqu'à la vision produit : je couvre toute la chaîne pour livrer des applications fiables et agréables à utiliser."
           />
           <Reveal>
             <Link to="/services" className="btn-ghost group">

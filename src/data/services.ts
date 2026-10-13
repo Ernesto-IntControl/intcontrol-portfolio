@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Compass, Database, Layers, ServerCog } from "lucide-react";
+import { Compass, Layers, ServerCog, Smartphone } from "lucide-react";
 
 export interface Service {
   title: string;
@@ -8,29 +8,30 @@ export interface Service {
   icon: LucideIcon;
 }
 
+/** Le web moderne en tête, .NET en second, puis le mobile et le rôle de Product Owner. */
 export const services: Service[] = [
   {
-    title: "Développement web fullstack",
-    description: "Applications web modernes, réactives et performantes avec Next.js, React et Tailwind CSS.",
-    features: ["Interfaces SPA / SSR", "Optimisation SEO", "Design responsive", "Intégration d'API"],
+    title: "Web fullstack JavaScript",
+    description: "Applications web modernes de bout en bout : interfaces Next.js et React, APIs Node.js et NestJS.",
+    features: ["Next.js · React", "NestJS · Node.js", "SSR & SEO", "Design responsive"],
     icon: Layers,
   },
   {
-    title: "Solutions backend .NET",
-    description: "Architectures backend robustes et sécurisées en C# et .NET pour vos besoins métiers.",
+    title: "Backends .NET",
+    description: "Architectures C# et .NET robustes et sécurisées, quand le projet l'exige.",
     features: ["API RESTful", "Microservices", "Authentification JWT", "Logique métier complexe"],
     icon: ServerCog,
   },
   {
-    title: "Bases de données",
-    description: "Modélisation et optimisation de bases relationnelles et non relationnelles.",
-    features: ["SQL Server", "PostgreSQL", "MySQL", "Optimisation de requêtes"],
-    icon: Database,
+    title: "Applications mobiles",
+    description: "Apps iOS et Android avec Expo et React Native, dans la continuité du web.",
+    features: ["Expo", "React Native", "iOS & Android", "Expérience native fluide"],
+    icon: Smartphone,
   },
   {
-    title: "Produit & lead technique",
-    description: "Du cadrage à la mise en production : vision produit, priorisation et pilotage d'équipe.",
-    features: ["Product ownership", "Architecture & revues de code", "Priorisation du backlog", "Accompagnement d'équipe"],
+    title: "Product Owner",
+    description: "Je porte la vision produit, du cadrage au lancement, en faisant le lien entre le métier, le design et l'équipe technique.",
+    features: ["Vision & roadmap produit", "User stories & backlog", "Priorisation", "Coordination métier / tech"],
     icon: Compass,
   },
 ];

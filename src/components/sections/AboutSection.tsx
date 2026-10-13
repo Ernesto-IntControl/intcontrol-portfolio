@@ -19,8 +19,8 @@ export default function AboutSection() {
 
         <ScrollWords
           className="mt-14 max-w-5xl text-[clamp(1.5rem,3.2vw,2.75rem)] font-medium leading-[1.18] tracking-[-0.03em] text-fg"
-          highlight={["INTCONTROL", "Josar", "Technologie", "INT", "GLOBAL", "SERVICES"]}
-          text="Je suis Ernest Katumbi, alias INTCONTROL. Lead Software Engineer chez Josar Technologie et fondateur d'INT GLOBAL SERVICES, je transforme des idées en produits numériques fiables : des backends C# .NET robustes aux interfaces Next.js fluides et précises."
+          highlight={["INTCONTROL", "Josar", "Technologie"]}
+          text="Je suis Ernest Katumbi, alias INTCONTROL. Lead Software Engineer chez Josar Technologie et Product Owner, je transforme des idées en produits web et mobiles fiables : APIs Node.js et NestJS, interfaces Next.js, apps Expo, et .NET quand le projet l'exige."
         />
 
         <div className="mt-20 grid gap-6 lg:grid-cols-12 lg:gap-8">

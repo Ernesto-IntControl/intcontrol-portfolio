@@ -155,8 +155,9 @@
 }
 
 @layer components {
+  /* Marge latérale généreuse sur toutes les pages, y compris en mobile */
   .container-x {
-    @apply mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-10;
+    @apply mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-12 xl:px-16;
   }
 
   .glass {
@@ -261,6 +262,20 @@
     -webkit-text-stroke: 1px var(--line-strong);
   }
 
+  .text-outline-strong {
+    color: transparent;
+    -webkit-text-stroke: 1.5px color-mix(in oklab, var(--fg) 24%, transparent);
+  }
+
+  /*
+   * Logotype à la largeur exacte de son conteneur (unités de conteneur),
+   * avec un repli en vw pour les navigateurs plus anciens.
+   */
+  .wordmark-fit {
+    font-size: 13vw;
+    font-size: 16.4cqi;
+  }
+
   .bg-grid {
     background-image:
       linear-gradient(to right, var(--line) 1px, transparent 1px),
@@ -279,6 +294,7 @@
   }
 
   .grain {
+    display: none;
     position: fixed;
     inset: 0;
     transform: translateZ(0);
@@ -286,6 +302,13 @@
     z-index: 60;
     opacity: var(--grain-opacity);
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Le grain n'est affiché que sur grand écran : une couche plein écran de moins sur mobile */
+  @media (min-width: 768px) {
+    .grain {
+      display: block;
+    }
   }
 }
 

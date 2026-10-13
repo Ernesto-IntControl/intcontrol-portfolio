@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import PageTransition from "@/src/components/layout/PageTransition";
 import ContactCTA from "@/src/components/sections/ContactCTA";
 import ExperienceList from "@/src/components/sections/ExperienceList";
@@ -12,13 +11,12 @@ import { profile } from "@/src/data/profile";
 export default function AboutPage() {
   return (
     <PageTransition>
-      <Helmet>
-        <title>À propos | Ernest Katumbi — INTCONTROL</title>
-        <meta
-          name="description"
-          content={`Le parcours d'${profile.name} (${profile.alias}), ${profile.role} chez ${profile.company} et fondateur d'${profile.venture.name}.`}
-        />
-      </Helmet>
+      {/* React 19 place <title> et <meta> dans le <head> */}
+      <title>À propos | Ernest Katumbi — INTCONTROL</title>
+      <meta
+        name="description"
+        content={`Le parcours d'${profile.name} (${profile.alias}), ${profile.role} chez ${profile.company} et fondateur d'${profile.venture.name}.`}
+      />
 
       <section className="container-x pb-20 pt-36 sm:pt-44">
         <SectionHeading
@@ -47,10 +45,16 @@ export default function AboutPage() {
                   de l'architecture jusqu'à la qualité du code livré.
                 </p>
                 <p>
-                  Spécialisé dans l'écosystème <span className="font-medium text-fg">.NET</span> et les technologies web
-                  modernes comme <span className="font-medium text-fg">React</span> et{" "}
-                  <span className="font-medium text-fg">Next.js</span>, je conçois des applications qui allient performance
-                  backend et élégance frontend. Sur Madebocar, je porte aussi la casquette de Product Owner.
+                  Je travaille avant tout avec le web moderne en JavaScript :{" "}
+                  <span className="font-medium text-fg">Next.js</span> et <span className="font-medium text-fg">React</span>{" "}
+                  côté interface, <span className="font-medium text-fg">Node.js</span> et{" "}
+                  <span className="font-medium text-fg">NestJS</span> côté API, et{" "}
+                  <span className="font-medium text-fg">Expo</span> pour le mobile. Je m'appuie aussi sur{" "}
+                  <span className="font-medium text-fg">.NET</span> pour les backends qui l'exigent.
+                </p>
+                <p>
+                  Côté produit, je porte la casquette de <span className="font-medium text-fg">Product Owner</span>,
+                  notamment sur Madebocar : vision, priorisation et lien entre le métier et l'équipe technique.
                 </p>
                 <p>
                   En parallèle, j'ai fondé <span className="font-medium text-fg">{profile.venture.name}</span>, une agence de

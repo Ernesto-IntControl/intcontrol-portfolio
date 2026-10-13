@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import PageTransition from "@/src/components/layout/PageTransition";
 import AboutSection from "@/src/components/sections/AboutSection";
 import ContactCTA from "@/src/components/sections/ContactCTA";
@@ -11,13 +10,12 @@ import { profile } from "@/src/data/profile";
 export default function Home() {
   return (
     <PageTransition>
-      <Helmet>
-        <title>{`${profile.name} — ${profile.alias} | ${profile.role}`}</title>
-        <meta
-          name="description"
-          content={`${profile.name} (${profile.alias}), ${profile.role} chez ${profile.company}. Développement fullstack C# .NET & Next.js.`}
-        />
-      </Helmet>
+      {/* React 19 place <title> et <meta> dans le <head> */}
+      <title>{`${profile.name} — ${profile.alias} | ${profile.role}`}</title>
+      <meta
+        name="description"
+        content={`${profile.name} (${profile.alias}), ${profile.role} chez ${profile.company}. Développement web et mobile : Next.js, NestJS, Node.js, Expo et .NET.`}
+      />
       <Hero />
       <StackMarquee />
       <AboutSection />

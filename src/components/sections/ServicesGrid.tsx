@@ -25,7 +25,7 @@ export default function ServicesGrid({ detailed = false, className }: { detailed
                   <h3 className="text-2xl font-semibold tracking-tight sm:text-[1.75rem]">{service.title}</h3>
                   <p className="mt-3 max-w-md leading-relaxed text-muted">{service.description}</p>
                 </Depth>
-                <ul className={cn("mt-6 flex flex-wrap gap-2", !detailed && "mt-auto pt-6")}>
+                <ul className={cn("flex flex-wrap gap-2", detailed ? "mt-6" : "mt-auto pt-6")}>
                   {service.features.map((feature) => (
                     <li key={feature} className="chip">
                       {feature}
