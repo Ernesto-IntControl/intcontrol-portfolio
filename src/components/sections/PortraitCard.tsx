@@ -27,7 +27,7 @@ export default function PortraitCard({ className }: { className?: string }) {
         </div>
       </div>
 
-      <Depth z={70} className="absolute right-3 top-8 sm:-right-6">
+      <Depth z={70} className="absolute right-3 top-8 lg:-right-3 xl:-right-6">
         <div className="glass flex items-center gap-2 rounded-2xl px-3.5 py-2.5 text-xs">
           <MapPin className="h-3.5 w-3.5 text-accent" />
           <span className="text-fg">Kolwezi, RDC</span>
@@ -35,7 +35,7 @@ export default function PortraitCard({ className }: { className?: string }) {
         </div>
       </Depth>
 
-      <Depth z={110} className="absolute left-3 top-[42%] sm:-left-8">
+      <Depth z={110} className="absolute left-3 top-[42%] lg:-left-3 xl:-left-8">
         <div className="glass rounded-2xl px-4 py-3">
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">Poste actuel</p>
           <p className="mt-0.5 text-sm font-semibold text-fg">{profile.role}</p>

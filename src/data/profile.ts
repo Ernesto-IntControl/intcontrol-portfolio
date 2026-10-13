@@ -1,10 +1,11 @@
 import type { IconType } from "react-icons";
-import { FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
+import { FaFacebookF, FaGithub, FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 
 export interface Social {
   label: string;
   handle: string;
-  href: string;
+  /** Sans lien, l'icône s'affiche atténuée et non cliquable. */
+  href?: string;
   icon: IconType;
 }
 
@@ -31,11 +32,6 @@ export const profile = {
     /** Aperçu flou de 24×32 px affiché pendant le chargement (connexion lente). */
     placeholder: "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAABwBQCdASoYACAAPslUnkunpSKhsAwA8BkJZwC/83qYtALWNmPdhgM9rjxypAenC6QYolEAAPyZ/KDT0g9MqhbVLD1R/+RUuY+R6zFM3lIqOm9WNgxWKSUsQQJ7qs1z6PDlWMi36vj4R5AIlR/T5WROr2tvhq+tEhycfY04iJPkClmZMWDnGCorVKcv2cLl6IAAAA==",
   },
-  venture: {
-    name: "INT GLOBAL SERVICES",
-    role: "Fondateur & CEO",
-    url: "https://intglobalservice.com",
-  },
 };
 
 export const socials: Social[] = [
@@ -56,6 +52,17 @@ export const socials: Social[] = [
     handle: "@Intcontrol1",
     href: "https://twitter.com/Intcontrol1",
     icon: FaXTwitter,
+  },
+  // Liens à renseigner : les icônes restent visibles mais inactives en attendant
+  {
+    label: "Facebook",
+    handle: "",
+    icon: FaFacebookF,
+  },
+  {
+    label: "Instagram",
+    handle: "",
+    icon: FaInstagram,
   },
 ];
 
@@ -89,13 +96,5 @@ export const experience: Experience[] = [
     current: true,
     description:
       "Responsable de l'ingénierie logicielle : architecture, qualité du code et accompagnement de l'équipe sur les produits de l'entreprise.",
-  },
-  {
-    company: "INT GLOBAL SERVICES",
-    role: "Fondateur & CEO",
-    period: "Fondateur",
-    description:
-      "Agence de services digitaux : sites, applications et solutions sur mesure pour des entreprises locales et internationales.",
-    url: "https://intglobalservice.com",
   },
 ];

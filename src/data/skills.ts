@@ -9,7 +9,7 @@ export const skillGroups: SkillGroup[] = [
   {
     title: "Web moderne",
     description: "JavaScript de bout en bout, de l'interface à l'API.",
-    items: ["JavaScript", "TypeScript", "Next.js", "React", "Node.js", "NestJS", "Tailwind CSS"],
+    items: ["JavaScript", "TypeScript", "Next.js", "React", "Node.js", "NestJS", "GraphQL", "Prisma", "Drizzle", "Tailwind CSS"],
   },
   {
     title: ".NET",
@@ -18,13 +18,13 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "Mobile",
-    description: "Apps iOS et Android avec le même savoir-faire JavaScript.",
-    items: ["Expo", "React Native"],
+    description: "Apps iOS et Android, en JavaScript ou en Dart.",
+    items: ["Expo", "React Native", "Capacitor", "Ionic", "Flutter", "Dart"],
   },
   {
-    title: "Outils & cloud",
-    description: "Livraison continue et environnements fiables.",
-    items: ["Git", "Docker", "Azure", "CI/CD"],
+    title: "Qualité & outils",
+    description: "Tests, design et livraison continue.",
+    items: ["Vitest", "Postman", "Figma", "Git", "Docker", "Azure", "CI/CD"],
   },
 ];
 
@@ -36,10 +36,12 @@ export const marqueeStack = [
   "NestJS",
   "Node.js",
   "React",
+  "GraphQL",
+  "Prisma",
   "Expo",
-  "Tailwind CSS",
+  "Flutter",
+  "Ionic",
+  "Figma",
   "C#",
   ".NET",
-  "Docker",
-  "Git",
 ];

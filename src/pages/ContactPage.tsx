@@ -3,6 +3,7 @@ import PageTransition from "@/src/components/layout/PageTransition";
 import ContactForm from "@/src/components/sections/ContactForm";
 import Reveal from "@/src/components/ui/Reveal";
 import SectionHeading from "@/src/components/ui/SectionHeading";
+import SocialLink from "@/src/components/ui/SocialLink";
 import TiltCard, { Depth } from "@/src/components/ui/TiltCard";
 import { profile, socials } from "@/src/data/profile";
 import { useLocalTime } from "@/src/hooks/useLocalTime";
@@ -83,20 +84,19 @@ export default function ContactPage() {
             </Reveal>
 
             <Reveal delay={0.16}>
-              <div className="flex gap-3">
-                {socials.map(({ label, href, icon: Icon, handle }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${label} (${handle})`}
-                    className="panel flex flex-1 items-center justify-center gap-2 rounded-2xl py-4 text-sm text-muted transition-colors hover:text-fg"
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span className="hidden sm:inline">{label}</span>
-                  </a>
-                ))}
+              <div className="grid grid-cols-5 gap-2 sm:gap-3">
+                {socials.map((social) => {
+                  const Icon = social.icon;
+                  return (
+                    <SocialLink
+                      key={social.label}
+                      social={social}
+                      className="panel flex min-h-12 items-center justify-center gap-2 rounded-2xl py-4 text-sm text-muted transition-colors hover:text-fg"
+                    >
+                      <Icon className="h-4 w-4 shrink-0" />
+                    </SocialLink>
+                  );
+                })}
               </div>
             </Reveal>
           </div>

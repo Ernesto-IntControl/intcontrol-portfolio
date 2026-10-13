@@ -123,7 +123,7 @@ export default function ContactForm() {
               const error = errors[field.name];
               const id = `contact-${field.name}`;
               const inputClass = cn(
-                "w-full rounded-2xl border bg-bg/60 px-4 py-3.5 text-[15px] text-fg placeholder:text-subtle transition-[border-color,box-shadow] duration-300 focus:outline-none",
+                "w-full rounded-2xl border bg-bg/60 px-4 py-3.5 text-base text-fg placeholder:text-subtle transition-[border-color,box-shadow] duration-300 focus:outline-none",
                 error
                   ? "border-red-400/70 focus:shadow-[0_0_0_4px_rgb(248_113_113/0.15)]"
                   : "border-line focus:border-accent focus:shadow-[0_0_0_4px_color-mix(in_oklab,var(--accent)_18%,transparent)]",

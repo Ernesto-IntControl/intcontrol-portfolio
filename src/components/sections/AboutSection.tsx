@@ -33,7 +33,7 @@ export default function AboutSection() {
             <Reveal>
               <Link
                 to="/a-propos"
-                className="group inline-flex items-center gap-2 text-sm font-medium text-fg"
+                className="group inline-flex min-h-11 items-center gap-2 text-sm font-medium text-fg"
                 data-cursor="Lire"
               >
                 <span className="relative">

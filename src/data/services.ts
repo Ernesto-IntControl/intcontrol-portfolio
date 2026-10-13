@@ -13,7 +13,7 @@ export const services: Service[] = [
   {
     title: "Web fullstack JavaScript",
     description: "Applications web modernes de bout en bout : interfaces Next.js et React, APIs Node.js et NestJS.",
-    features: ["Next.js · React", "NestJS · Node.js", "SSR & SEO", "Design responsive"],
+    features: ["Next.js · React", "NestJS · Node.js", "GraphQL & API REST", "Prisma · Drizzle", "Tests Vitest"],
     icon: Layers,
   },
   {
@@ -24,14 +24,14 @@ export const services: Service[] = [
   },
   {
     title: "Applications mobiles",
-    description: "Apps iOS et Android avec Expo et React Native, dans la continuité du web.",
-    features: ["Expo", "React Native", "iOS & Android", "Expérience native fluide"],
+    description: "Apps iOS et Android avec Expo, React Native, Capacitor / Ionic ou Flutter, selon le projet.",
+    features: ["Expo · React Native", "Capacitor · Ionic", "Flutter · Dart", "iOS & Android"],
     icon: Smartphone,
   },
   {
     title: "Product Owner",
     description: "Je porte la vision produit, du cadrage au lancement, en faisant le lien entre le métier, le design et l'équipe technique.",
-    features: ["Vision & roadmap produit", "User stories & backlog", "Priorisation", "Coordination métier / tech"],
+    features: ["Vision & roadmap produit", "User stories & backlog", "Prototypes Figma", "Priorisation", "Coordination métier / tech"],
     icon: Compass,
   },
 ];

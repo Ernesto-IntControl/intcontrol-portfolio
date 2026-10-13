@@ -33,9 +33,9 @@ export default function Hero() {
 
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="container-x relative z-10 flex flex-1 flex-col pt-[44svh] lg:pt-36"
+        className="container-x relative z-10 flex flex-1 flex-col pt-[max(44svh,calc(26.5svh+min(31.85svh,34.8vw)+28px))] short-land:pt-24 lg:pt-36"
       >
-        <div className="order-2 max-w-xl lg:order-1">
+        <div className="order-2 max-w-xl short-land:order-1 short-land:max-w-[54%] lg:order-1">
           <motion.div {...fadeUp(0.2)}>
             <span className="chip !bg-bg/60 backdrop-blur">
               <span className="h-1.5 w-1.5 pulse-dot rounded-full bg-accent" />
@@ -74,7 +74,7 @@ export default function Hero() {
 
         <motion.h1
           style={{ y: wordmarkY }}
-          className="@container order-1 mb-6 select-none lg:order-2 lg:mb-0 lg:mt-auto lg:pt-10"
+          className="@container order-1 mb-6 select-none short-land:order-2 short-land:mb-0 short-land:mt-auto short-land:pt-6 lg:order-2 lg:mb-0 lg:mt-auto lg:pt-10"
         >
           <motion.span {...fadeUp(0.35)} className="eyebrow mb-3 block lg:mb-1">
             {profile.name} — {profile.headline}
@@ -104,12 +104,12 @@ export default function Hero() {
       >
         <div className="flex items-center justify-between gap-4 whitespace-nowrap border-t border-line pt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-muted sm:text-[11px] sm:tracking-[0.16em]">
           <span>
-            Kolwezi, RDC <span className="text-subtle">·</span> {time}
+            Kolwezi<span className="hidden sm:inline">, RDC</span> <span className="text-subtle">·</span> {time}
           </span>
           <button
             type="button"
             onClick={() => scrollTo(window.innerHeight)}
-            className="hidden items-center gap-3 transition-colors hover:text-fg sm:flex"
+            className="hidden min-h-10 items-center gap-3 transition-colors hover:text-fg sm:flex"
           >
             Défiler
             <span className="relative block h-6 w-px overflow-hidden bg-line-strong">

@@ -8,7 +8,6 @@ export default function ExperienceList({ className }: { className?: string }) {
     <div className={cn("panel overflow-hidden rounded-3xl", className)}>
       <div className="flex items-center justify-between border-b border-line px-6 py-4">
         <p className="eyebrow">Parcours</p>
-        <p className="font-mono text-[11px] text-subtle">{experience.length} postes</p>
       </div>
       <ol>
         {experience.map((item, i) => (

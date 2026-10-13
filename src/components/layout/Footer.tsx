@@ -2,6 +2,7 @@ import { ArrowUp, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import FooterWordmark from "./FooterWordmark";
 import Magnetic from "@/src/components/ui/Magnetic";
+import SocialLink from "@/src/components/ui/SocialLink";
 import { profile, socials } from "@/src/data/profile";
 import { useLocalTime } from "@/src/hooks/useLocalTime";
 import { useScrollTo } from "@/src/providers/SmoothScroll";
@@ -43,10 +44,10 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-7 md:pl-10">
               <div>
                 <p className="eyebrow mb-5">Navigation</p>
-                <ul className="space-y-3">
+                <ul className="space-y-0.5">
                   {nav.map((item) => (
                     <li key={item.to}>
-                      <Link to={item.to} className="text-sm text-muted transition-colors hover:text-fg">
+                      <Link to={item.to} className="inline-flex min-h-10 items-center text-sm text-muted transition-colors hover:text-fg">
                         {item.name}
                       </Link>
                     </li>
@@ -55,38 +56,39 @@ export default function Footer() {
               </div>
               <div>
                 <p className="eyebrow mb-5">Réseaux</p>
-                <ul className="space-y-3">
-                  {socials.map(({ label, href, icon: Icon }) => (
-                    <li key={label}>
-                      <a
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-fg"
-                      >
-                        <Icon className="h-3.5 w-3.5" />
-                        {label}
-                        <ArrowUpRight className="h-3 w-3 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
-                      </a>
-                    </li>
-                  ))}
+                <ul className="space-y-0.5">
+                  {socials.map((social) => {
+                    const Icon = social.icon;
+                    return (
+                      <li key={social.label}>
+                        <SocialLink
+                          social={social}
+                          className="group inline-flex min-h-10 items-center gap-2 text-sm text-muted transition-colors hover:text-fg"
+                        >
+                          <Icon className="h-3.5 w-3.5" />
+                          {social.label}
+                          <ArrowUpRight className="h-3 w-3 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                        </SocialLink>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <div className="col-span-2 sm:col-span-1">
                 <p className="eyebrow mb-5">Contact</p>
-                <ul className="space-y-3 text-sm text-muted">
+                <ul className="space-y-0.5 text-sm text-muted">
                   <li>
-                    <a href={`mailto:${profile.email}`} className="break-all transition-colors hover:text-fg">
+                    <a href={`mailto:${profile.email}`} className="inline-flex min-h-10 items-center break-all transition-colors hover:text-fg">
                       {profile.email}
                     </a>
                   </li>
                   <li>
-                    <a href={profile.phoneHref} className="transition-colors hover:text-fg">
+                    <a href={profile.phoneHref} className="inline-flex min-h-10 items-center transition-colors hover:text-fg">
                       {profile.phone}
                     </a>
                   </li>
-                  <li>{profile.location}</li>
-                  <li className="font-mono text-xs">{time} · heure locale</li>
+                  <li className="flex min-h-10 items-center">{profile.location}</li>
+                  <li className="flex min-h-10 items-center font-mono text-xs">{time} · heure locale</li>
                 </ul>
               </div>
             </div>

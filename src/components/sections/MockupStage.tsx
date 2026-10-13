@@ -62,8 +62,8 @@ export default function MockupStage({
             "preserve-3d origin-center",
             scaleClassName ??
               (project.mockup === "bisomarket"
-                ? "scale-[0.5] sm:scale-[0.68] lg:scale-[0.74] xl:scale-[0.86]"
-                : "scale-[0.56] sm:scale-[0.72] lg:scale-[0.8] xl:scale-[0.92]"),
+                ? "scale-[0.5] sm:scale-[0.68] lg:scale-[0.74] xl:scale-[0.86] md:max-lg:[@media(max-height:700px)]:scale-[0.42] short-land:scale-[0.46]"
+                : "scale-[0.56] sm:scale-[0.72] lg:scale-[0.8] xl:scale-[0.92] md:max-lg:[@media(max-height:700px)]:scale-[0.46] short-land:scale-[0.5]"),
           )}
         >
           <ProjectMockup project={project} />

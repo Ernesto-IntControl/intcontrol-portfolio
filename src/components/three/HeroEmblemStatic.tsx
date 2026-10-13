@@ -52,7 +52,7 @@ const palettes = {
 export default function HeroEmblemStatic({ theme }: { theme: Theme }) {
   const p = palettes[theme];
   return (
-    <div className="absolute left-1/2 top-[26.5%] aspect-square w-[min(63.7svh,69.6vw)] -translate-x-1/2 -translate-y-1/2 lg:left-[71%] lg:top-[47.7%] lg:w-[88svh]">
+    <div className="absolute left-1/2 top-[26.5%] aspect-square w-[min(63.7svh,69.6vw)] -translate-x-1/2 -translate-y-1/2 short-land:left-[74%] short-land:top-1/2 short-land:w-[80svh] lg:left-[71%] lg:top-[47.7%] lg:w-[88svh]">
       <svg viewBox="-110 -110 220 220" className="h-full w-full overflow-visible">
         <defs>
           <radialGradient id="hero-glow">

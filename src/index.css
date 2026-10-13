@@ -2,6 +2,8 @@
 @import "lenis/dist/lenis.css";
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+/* Téléphone en paysage : peu de hauteur, on passe à une mise en page côte à côte */
+@custom-variant short-land (@media (orientation: landscape) and (max-height: 500px) and (max-width: 1023px));
 
 @theme {
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;

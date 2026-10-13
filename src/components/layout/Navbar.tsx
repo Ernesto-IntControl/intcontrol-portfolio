@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import LogoMark from "@/src/components/ui/LogoMark";
 import Magnetic from "@/src/components/ui/Magnetic";
+import SocialLink from "@/src/components/ui/SocialLink";
 import ThemeToggle from "./ThemeToggle";
 import { profile, socials } from "@/src/data/profile";
 import { useLenis } from "@/src/providers/SmoothScroll";
@@ -70,7 +71,7 @@ export default function Navbar() {
                 : "border-transparent bg-transparent",
             )}
           >
-            <Link to="/" className="group flex items-center gap-2.5" aria-label={`${profile.alias} — accueil`}>
+            <Link to="/" className="group -my-2 flex items-center gap-2.5 py-2" aria-label={`${profile.alias} — accueil`}>
               <LogoMark className="h-7 w-7 text-fg transition-transform duration-700 ease-out-expo group-hover:rotate-[60deg]" />
               <span className="font-mono text-[13px] font-semibold tracking-[0.2em] text-fg">{profile.alias}</span>
             </Link>
@@ -191,24 +192,24 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.45, ease: EASE_OUT_EXPO }}
-              className="container-x relative flex items-end justify-between gap-4 pb-10"
+              className="container-x relative flex flex-col gap-4 pb-8"
             >
-              <a href={`mailto:${profile.email}`} className="text-sm text-muted underline-offset-4 hover:underline">
+              <a href={`mailto:${profile.email}`} className="inline-flex min-h-11 items-center text-sm text-muted underline-offset-4 hover:underline">
                 {profile.email}
               </a>
               <div className="flex gap-2">
-                {socials.map(({ label, href, icon: Icon }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-fg"
-                  >
-                    <Icon className="h-4 w-4" />
-                  </a>
-                ))}
+                {socials.map((social) => {
+                  const Icon = social.icon;
+                  return (
+                    <SocialLink
+                      key={social.label}
+                      social={social}
+                      className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-fg"
+                    >
+                      <Icon className="h-4 w-4" />
+                    </SocialLink>
+                  );
+                })}
               </div>
             </motion.div>
           </motion.div>

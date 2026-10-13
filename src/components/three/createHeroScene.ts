@@ -287,6 +287,7 @@ export function createHeroScene(
   const pointer = { x: 0, y: 0 };
   let viewport = { width: 1, height: 1 };
   let wide = false;
+  let landscape = false;
 
   const dummy = new Object3D();
   const v = new Vector3();
@@ -302,9 +303,10 @@ export function createHeroScene(
     const py = reduced ? 0 : pointer.y;
 
     // Position responsive, réaction souris et scroll amortie
-    const tx = wide ? viewport.width * 0.21 : 0;
-    const ty = (wide ? 0.1 : viewport.height * 0.235) + p * 1.6;
-    const ts = (wide ? 1 : Math.min(0.72, viewport.width / 5.6)) * (1 - p * 0.18);
+    // Trois mises en page : bureau (à droite), téléphone en paysage (à droite, plus petit), portrait (en haut)
+    const tx = wide ? viewport.width * 0.21 : landscape ? viewport.width * 0.24 : 0;
+    const ty = (wide ? 0.1 : landscape ? 0 : viewport.height * 0.235) + p * 1.6;
+    const ts = (wide ? 1 : landscape ? 0.9 : Math.min(0.72, viewport.width / 5.6)) * (1 - p * 0.18);
     const rx = -py * 0.2 + p * 0.45;
     const ry = px * 0.38 + p * 1.2;
 
@@ -401,6 +403,7 @@ export function createHeroScene(
     const visibleHeight = 2 * Math.tan(MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
     viewport = { width: visibleHeight * camera.aspect, height: visibleHeight };
     wide = width >= 1024;
+    landscape = !wide && width > height && height <= 500;
     requestRender();
   }
 

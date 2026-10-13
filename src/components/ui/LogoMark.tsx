@@ -1,4 +1,4 @@
-/** Emblème hexagonal inspiré du logo INT GLOBAL SERVICES. */
+/** Emblème hexagonal INTCONTROL. */
 export default function LogoMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 32 32" fill="none" className={className} aria-hidden>
