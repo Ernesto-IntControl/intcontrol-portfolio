@@ -1,15 +1,14 @@
 import { ArrowLeft, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 import PageTransition from "@/src/components/layout/PageTransition";
+import Seo from "@/src/components/Seo";
 import Magnetic from "@/src/components/ui/Magnetic";
 import TiltCard, { Depth } from "@/src/components/ui/TiltCard";
 
 export default function NotFoundPage() {
   return (
     <PageTransition>
-      {/* React 19 place <title> et <meta> dans le <head> */}
-      <title>404 — Page introuvable | INTCONTROL</title>
-      <meta name="robots" content="noindex" />
+      <Seo title="404 — Page introuvable | INTCONTROL" description="Cette page n'existe pas ou plus." noindex />
       <section className="container-x flex min-h-[100svh] flex-col items-center justify-center pb-16 pt-32 text-center">
         <TiltCard className="w-full max-w-xl rounded-[40px]" max={14}>
           <div className="relative px-6 py-14 sm:py-20">

@@ -1,6 +1,7 @@
 import { ArrowUpRight, Clock3, Mail, MapPin, Phone } from "lucide-react";
 import PageTransition from "@/src/components/layout/PageTransition";
 import ContactForm from "@/src/components/sections/ContactForm";
+import Seo from "@/src/components/Seo";
 import Reveal from "@/src/components/ui/Reveal";
 import SectionHeading from "@/src/components/ui/SectionHeading";
 import SocialLink from "@/src/components/ui/SocialLink";
@@ -20,9 +21,11 @@ export default function ContactPage() {
 
   return (
     <PageTransition>
-      {/* React 19 place <title> et <meta> dans le <head> */}
-      <title>Contact | Ernest Katumbi — INTCONTROL</title>
-      <meta name="description" content={`Contactez ${profile.name} (${profile.alias}) pour vos projets de développement web et logiciel.`} />
+      <Seo
+        title="Contact | Ernest Katumbi — INTCONTROL"
+        description={`Contactez ${profile.name} (${profile.alias}) pour vos projets de développement web et logiciel.`}
+        path="/contact"
+      />
 
       <section className="container-x pb-24 pt-36 sm:pt-44">
         <SectionHeading

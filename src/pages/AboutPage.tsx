@@ -4,6 +4,7 @@ import ExperienceList from "@/src/components/sections/ExperienceList";
 import PortraitCard from "@/src/components/sections/PortraitCard";
 import SkillsGrid from "@/src/components/sections/SkillsGrid";
 import StatsGrid from "@/src/components/sections/StatsGrid";
+import Seo from "@/src/components/Seo";
 import Reveal from "@/src/components/ui/Reveal";
 import SectionHeading from "@/src/components/ui/SectionHeading";
 import { profile } from "@/src/data/profile";
@@ -11,11 +12,10 @@ import { profile } from "@/src/data/profile";
 export default function AboutPage() {
   return (
     <PageTransition>
-      {/* React 19 place <title> et <meta> dans le <head> */}
-      <title>À propos | Ernest Katumbi — INTCONTROL</title>
-      <meta
-        name="description"
-        content={`Le parcours d'${profile.name} (${profile.alias}), ${profile.role} chez ${profile.company} et Product Owner, développeur web et mobile à Kolwezi.`}
+      <Seo
+        title="À propos | Ernest Katumbi — INTCONTROL"
+        description={`Le parcours d'${profile.name} (${profile.alias}), ${profile.role} chez ${profile.company} et Product Owner, développeur web et mobile à Kolwezi.`}
+        path="/a-propos"
       />
 
       <section className="container-x pb-20 pt-36 sm:pt-44">

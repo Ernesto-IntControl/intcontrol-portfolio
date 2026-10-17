@@ -3,16 +3,16 @@ import ContactCTA from "@/src/components/sections/ContactCTA";
 import ServicesGrid from "@/src/components/sections/ServicesGrid";
 import SkillsGrid from "@/src/components/sections/SkillsGrid";
 import StackMarquee from "@/src/components/sections/StackMarquee";
+import Seo from "@/src/components/Seo";
 import SectionHeading from "@/src/components/ui/SectionHeading";
 
 export default function ServicesPage() {
   return (
     <PageTransition>
-      {/* React 19 place <title> et <meta> dans le <head> */}
-      <title>Services | Ernest Katumbi — INTCONTROL</title>
-      <meta
-        name="description"
-        content="Web fullstack JavaScript (Next.js, NestJS, Node.js), applications mobiles Expo, backends .NET et Product Owner : des solutions sur mesure pour vos projets."
+      <Seo
+        title="Services | Ernest Katumbi — INTCONTROL"
+        description="Web fullstack JavaScript (Next.js, NestJS, Node.js), applications mobiles Expo, backends .NET et Product Owner : des solutions sur mesure pour vos projets."
+        path="/services"
       />
 
       <section className="container-x pb-16 pt-36 sm:pt-44">

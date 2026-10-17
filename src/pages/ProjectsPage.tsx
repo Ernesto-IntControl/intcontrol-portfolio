@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import PageTransition from "@/src/components/layout/PageTransition";
 import ContactCTA from "@/src/components/sections/ContactCTA";
 import MockupStage from "@/src/components/sections/MockupStage";
+import Seo from "@/src/components/Seo";
 import Reveal from "@/src/components/ui/Reveal";
 import RevealText from "@/src/components/ui/RevealText";
 import SectionHeading from "@/src/components/ui/SectionHeading";
@@ -25,9 +26,11 @@ export default function ProjectsPage() {
 
   return (
     <PageTransition>
-      {/* React 19 place <title> et <meta> dans le <head> */}
-      <title>Projets | Ernest Katumbi — INTCONTROL</title>
-      <meta name="description" content="Madebocar, BisoMarket, BisoChat : les produits sur lesquels travaille Ernest Katumbi (INTCONTROL)." />
+      <Seo
+        title="Projets | Ernest Katumbi — INTCONTROL"
+        description="Madebocar, BisoMarket, BisoChat : les produits sur lesquels travaille Ernest Katumbi (INTCONTROL)."
+        path="/projets"
+      />
 
       <section className="container-x pb-10 pt-36 sm:pt-44">
         <SectionHeading

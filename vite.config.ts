@@ -44,6 +44,20 @@ export default defineConfig(() => {
     build: {
       // Le chunk Three.js (~145 Ko gzip) est chargé à part, quand le navigateur est libre
       chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          // Isole les dépendances stables (React, routing, animation) dans leurs
+          // propres chunks : elles changent rarement, donc restent en cache
+          // navigateur d'un déploiement à l'autre au lieu d'être réinvalidées
+          // à chaque modification du code applicatif.
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return;
+            if (id.includes('react-dom') || id.includes('/react/') || id.includes('react-router')) return 'vendor-react';
+            if (id.includes('motion')) return 'vendor-motion';
+            if (id.includes('lenis')) return 'vendor-lenis';
+          },
+        },
+      },
     },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.

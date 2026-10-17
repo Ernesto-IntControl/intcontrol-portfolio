@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://intcontrol.run.app/sitemap.xml
+Sitemap: https://intcontrol-portfolio.vercel.app/sitemap.xml
