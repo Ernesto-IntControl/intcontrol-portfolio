@@ -1,17 +1,13 @@
-import { ArrowUpRight, Clock3, Mail, MapPin, Phone } from "lucide-react";
-import PageTransition from "@/src/components/layout/PageTransition";
+import { Clock3, Mail, MapPin, Phone } from "lucide-react";
 import ContactForm from "@/src/components/sections/ContactForm";
 import Seo from "@/src/components/Seo";
-import Reveal from "@/src/components/ui/Reveal";
-import SectionHeading from "@/src/components/ui/SectionHeading";
+import PageHeader from "@/src/components/ui/PageHeader";
 import SocialLink from "@/src/components/ui/SocialLink";
-import TiltCard, { Depth } from "@/src/components/ui/TiltCard";
 import { profile, socials } from "@/src/data/profile";
 import { useLocalTime } from "@/src/hooks/useLocalTime";
 
 export default function ContactPage() {
   const time = useLocalTime(profile.timeZone);
-
   const channels = [
     { label: "Email", value: profile.email, href: `mailto:${profile.email}`, icon: Mail },
     { label: "Téléphone", value: profile.phone, href: profile.phoneHref, icon: Phone },
@@ -20,91 +16,54 @@ export default function ContactPage() {
   ];
 
   return (
-    <PageTransition>
+    <>
       <Seo path="/contact" />
+      <PageHeader label="contact" title="Parlons de votre projet." intro="Décrivez votre besoin en quelques lignes, je vous réponds rapidement." />
 
-      <section className="container-x pb-24 pt-36 sm:pt-44">
-        <SectionHeading
-          as="h1"
-          index="04"
-          label="Contact"
-          title={[{ text: "Parlons de " }, { text: "votre projet.", className: "serif-accent text-accent" }]}
-          intro="Décrivez-moi votre besoin en quelques lignes, je vous réponds rapidement."
-        />
-
-        <div className="mt-16 grid gap-6 lg:grid-cols-12 lg:gap-8">
-          <div className="flex min-w-0 flex-col gap-4 lg:col-span-5">
-            <Reveal>
-              <TiltCard className="rounded-[28px]" max={6}>
-                <div className="p-7">
-                  <Depth z={30}>
-                    <span className="chip">
-                      <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-                      {profile.availability}
-                    </span>
-                    <p className="mt-4 text-lg font-medium leading-snug text-fg">
-                      {profile.role} chez {profile.company}, je garde du temps pour quelques collaborations ciblées.
-                    </p>
-                  </Depth>
-                </div>
-              </TiltCard>
-            </Reveal>
-
-            <Reveal delay={0.08}>
-              <ul className="panel divide-y divide-line overflow-hidden rounded-[28px]">
-                {channels.map(({ label, value, href, icon: Icon }) => {
-                  const content = (
-                    <>
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-bg/50 text-accent">
-                        <Icon className="h-4 w-4" />
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="eyebrow block">{label}</span>
-                        <span className="block truncate text-[15px] text-fg">{value}</span>
-                      </span>
-                      {href && (
-                        <ArrowUpRight className="h-4 w-4 text-subtle transition-transform duration-500 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-fg" />
-                      )}
-                    </>
-                  );
-                  return (
-                    <li key={label}>
-                      {href ? (
-                        <a href={href} className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-fg/[0.03]">
-                          {content}
-                        </a>
-                      ) : (
-                        <div className="flex items-center gap-4 px-5 py-4">{content}</div>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </Reveal>
-
-            <Reveal delay={0.16}>
-              <div className="grid grid-cols-5 gap-2 sm:gap-3">
-                {socials.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <SocialLink
-                      key={social.label}
-                      social={social}
-                      className="panel flex min-h-12 items-center justify-center gap-2 rounded-2xl py-4 text-sm text-muted transition-colors hover:text-fg"
-                    >
-                      <Icon className="h-4 w-4 shrink-0" />
-                    </SocialLink>
-                  );
-                })}
-              </div>
-            </Reveal>
-          </div>
-
-          <Reveal delay={0.1} className="min-w-0 lg:col-span-7">
-            <ContactForm />
-          </Reveal>
+      <div className="wrap grid items-start gap-4 md:grid-cols-[1fr_1.4fr]">
+        <div className="min-w-0 space-y-3">
+          <ul className="card divide-y divide-line">
+            {channels.map(({ label, value, href, icon: Icon }) => {
+              const body = (
+                <>
+                  <Icon className="h-4 w-4 shrink-0 text-accent" />
+                  <span className="min-w-0">
+                    <span className="label block">{label}</span>
+                    <span className="block truncate text-[14px]">{value}</span>
+                  </span>
+                </>
+              );
+              return (
+                <li key={label}>
+                  {href ? (
+                    <a href={href} className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-surface-2">
+                      {body}
+                    </a>
+                  ) : (
+                    <div className="flex items-center gap-3 px-4 py-3">{body}</div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+          <ul className="flex flex-wrap gap-1.5">
+            {socials.map((s) => {
+              const Icon = s.icon;
+              return (
+                <li key={s.label}>
+                  <SocialLink social={s} className="btn !h-8 !px-2.5">
+                    <Icon className="h-3.5 w-3.5" />
+                    {s.label}
+                  </SocialLink>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-      </section>
-    </PageTransition>
+        <div className="min-w-0">
+          <ContactForm />
+        </div>
+      </div>
+    </>
   );
 }

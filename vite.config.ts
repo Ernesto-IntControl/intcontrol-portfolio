@@ -4,14 +4,13 @@ import path from 'path';
 import {defineConfig, type Plugin} from 'vite';
 
 /**
- * Précharge les polices critiques du hero (texte, mono, accent serif) :
+ * Précharge les polices critiques du hero (texte, mono) :
  * elles partent en parallèle du JavaScript au lieu d'attendre le CSS.
  */
 function preloadCriticalFonts(): Plugin {
   const critical = [
     /assets\/geist-latin-wght-normal-[\w-]+\.woff2$/,
     /assets\/geist-mono-latin-wght-normal-[\w-]+\.woff2$/,
-    /assets\/instrument-serif-latin-400-italic-[\w-]+\.woff2$/,
   ];
   return {
     name: 'preload-critical-fonts',
@@ -57,7 +56,6 @@ export default defineConfig(({isSsrBuild}) => {
       },
     },
     build: {
-      // Le chunk Three.js (~145 Ko gzip) est chargé à part, quand le navigateur est libre
       chunkSizeWarningLimit: 1000,
       rollupOptions: isSsrBuild ? undefined : {
         output: {
@@ -68,8 +66,6 @@ export default defineConfig(({isSsrBuild}) => {
           manualChunks(id) {
             if (!id.includes('node_modules')) return;
             if (id.includes('react-dom') || id.includes('/react/') || id.includes('react-router')) return 'vendor-react';
-            if (id.includes('motion')) return 'vendor-motion';
-            if (id.includes('lenis')) return 'vendor-lenis';
           },
         },
       },

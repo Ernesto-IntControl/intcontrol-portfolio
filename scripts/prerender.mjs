@@ -39,7 +39,7 @@ function renderPage(template, { title, description, url, body }) {
   html = setMeta(html, "property", "twitter:title", title);
   html = setMeta(html, "property", "twitter:description", description);
   if (!html.includes('<div id="root"></div>')) throw new Error("Conteneur #root introuvable dans index.html");
-  return html.replace('<div id="root"></div>', () => `<div id="root"><div data-prerendered>${body}</div></div>`);
+  return html.replace('<div id="root"></div>', () => `<div id="root">${body}</div>`);
 }
 
 export async function prerender() {
@@ -64,7 +64,7 @@ export async function prerender() {
       const body = render(route)
         // React place les balises <title>/<meta>/<link> de <Seo> en tête du rendu : le <head> est géré ici
         .replace(/^(?:<title>[^<]*<\/title>|<meta [^>]*>|<link [^>]*>)+/, "")
-        // Les icônes en ligne pèsent plus de la moitié du HTML et n'apportent rien aux robots
+        // Les icônes en ligne n'apportent rien aux robots
         .replace(/<svg[\s\S]*?<\/svg>/g, "");
       const html = renderPage(template, { ...meta, url: `${SITE_URL}${route}`, body });
       const file = route === "/" ? path.join(dist, "index.html") : path.join(dist, route, "index.html");

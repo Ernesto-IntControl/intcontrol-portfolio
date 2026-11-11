@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import Dock from "./Dock";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import OfflineNotice from "./OfflineNotice";
@@ -9,11 +8,9 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <Navbar />
-      <main className="relative">{children}</main>
+      <main>{children}</main>
       <Footer />
-      <Dock />
       <OfflineNotice />
-      <div className="grain" aria-hidden />
     </>
   );
 }

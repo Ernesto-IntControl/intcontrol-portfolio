@@ -1,59 +1,86 @@
-import { motion, useMotionValueEvent, useScroll } from "motion/react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import LogoMark from "@/src/components/ui/LogoMark";
-import ThemeToggle from "./ThemeToggle";
 import { profile } from "@/src/data/profile";
-import { useIntro } from "@/src/providers/IntroProvider";
-import { EASE_OUT_EXPO } from "@/src/lib/motion";
 import { cn } from "@/src/lib/utils";
+import ThemeToggle from "./ThemeToggle";
 
-/**
- * Barre du haut, volontairement minimale : la marque et le thème.
- * La navigation entre les pages vit dans le dock (Dock.tsx), en bas d'écran.
- */
+export const navLinks = [
+  { name: "Accueil", to: "/" },
+  { name: "Projets", to: "/projets" },
+  { name: "Services", to: "/services" },
+  { name: "À propos", to: "/a-propos" },
+];
+
+/** Barre fixe et fine : logo, liens, thème, contact. Sur téléphone, un menu déroulant simple. */
 export default function Navbar() {
-  const [hidden, setHidden] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const { scrollY } = useScroll();
-  const intro = useIntro();
-  // Pendant l'intro, la barre reste à sa place (le logo sert de cible à l'emblème) mais invisible
-  const waiting = intro.played ? { y: 0, opacity: 0 } : { y: -90, opacity: 0 };
+  const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
 
-  useMotionValueEvent(scrollY, "change", (y) => {
-    const prev = scrollY.getPrevious() ?? 0;
-    setScrolled(y > 24);
-    setHidden(y > 160 && y > prev);
-  });
+  useEffect(() => setOpen(false), [pathname]);
 
-  const pill = cn(
-    "rounded-full border transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500",
-    scrolled ? "border-line bg-bg/70 shadow-[var(--shadow-float)] backdrop-blur-xl" : "border-transparent bg-transparent",
-  );
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    cn(
+      "rounded-md px-2.5 py-1.5 text-[13px] transition-colors",
+      isActive ? "bg-surface-2 font-medium text-fg" : "text-muted hover:text-fg",
+    );
 
   return (
-    <motion.header
-      initial={waiting}
-      animate={intro.revealed ? { y: hidden ? -110 : 0, opacity: 1 } : waiting}
-      transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: hidden ? 0 : 0.1 }}
-      className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 sm:pt-5"
-    >
-      <div className="container-x flex items-center justify-between">
-        <Link
-          to="/"
-          className={cn("group pointer-events-auto flex items-center gap-2.5 py-2 pl-3 pr-4", pill)}
-          aria-label={`${profile.alias} — accueil`}
-        >
-          <span data-intro-logo className="inline-flex" style={intro.done ? undefined : { opacity: 0 }}>
-            <LogoMark className="h-7 w-7 text-fg transition-transform duration-700 ease-out-expo group-hover:rotate-[60deg]" />
-          </span>
-          <span className="font-mono text-[13px] font-semibold tracking-[0.2em] text-fg">{profile.alias}</span>
+    <header className="sticky top-0 z-40 border-b border-line bg-bg/85 backdrop-blur-md">
+      <div className="wrap flex h-14 items-center justify-between gap-4">
+        <Link to="/" className="flex items-center gap-2" aria-label={`${profile.alias} — accueil`}>
+          <LogoMark className="h-6 w-6 text-fg" />
+          <span className="font-mono text-[13px] font-semibold tracking-[0.14em]">{profile.alias}</span>
         </Link>
 
-        <div className={cn("pointer-events-auto p-1", pill)}>
-          <ThemeToggle className="border-transparent" />
+        <nav aria-label="Navigation principale" className="hidden items-center gap-0.5 md:flex">
+          {navLinks.map((l) => (
+            <NavLink key={l.to} to={l.to} end={l.to === "/"} className={linkClass}>
+              {l.name}
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-1.5">
+          <ThemeToggle />
+          <Link to="/contact" className="btn-solid hidden md:inline-flex">
+            Me contacter
+          </Link>
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-fg hover:bg-surface-2 md:hidden"
+            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={open}
+            aria-controls="menu-mobile"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </div>
-    </motion.header>
+
+      {open && (
+        <nav id="menu-mobile" aria-label="Menu" className="border-t border-line bg-bg md:hidden">
+          <div className="wrap flex flex-col gap-1 py-3">
+            {[...navLinks, { name: "Contact", to: "/contact" }].map((l) => (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                end={l.to === "/"}
+                className={({ isActive }) =>
+                  cn(
+                    "flex h-11 items-center rounded-lg px-3 text-[15px]",
+                    isActive ? "bg-surface-2 font-medium" : "text-muted active:bg-surface-2",
+                  )
+                }
+              >
+                {l.name}
+              </NavLink>
+            ))}
+          </div>
+        </nav>
+      )}
+    </header>
   );
 }

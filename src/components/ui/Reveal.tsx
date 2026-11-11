@@ -1,28 +1,36 @@
-import { motion, type HTMLMotionProps } from "motion/react";
-import { EASE_OUT_EXPO } from "@/src/lib/motion";
-import { useIntro } from "@/src/providers/IntroProvider";
+import { useEffect, useRef, type ReactNode } from "react";
+import { cn } from "@/src/lib/utils";
 
-interface RevealProps extends HTMLMotionProps<"div"> {
-  delay?: number;
-  y?: number;
-  blur?: boolean;
-}
+/**
+ * Apparition douce au scroll, sans bibliothèque : un IntersectionObserver bascule
+ * un attribut, le reste est du CSS. Le contenu n'est jamais caché avant que le JS
+ * ait démarré (prérendu, sans JS), et l'est seulement s'il est hors de l'écran.
+ */
+export default function Reveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
 
-/** Apparition douce à l'entrée dans le viewport (transform + opacité, composées par le GPU). */
-export default function Reveal({ delay = 0, y = 28, blur = false, children, ...rest }: RevealProps) {
-  const { revealed } = useIntro();
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
+
+    el.dataset.reveal = "hidden";
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        el.style.transitionDelay = `${delay}s`;
+        el.dataset.reveal = "shown";
+        io.disconnect();
+      },
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [delay]);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y, ...(blur && { filter: "blur(8px)" }) }}
-      // Le flou est réservé aux petits éléments et retiré à la fin : un filtre résiduel
-      // coûte cher au rendu et casse le backdrop-filter des enfants
-      // (rien ne se déclenche sous le rideau de l'intro)
-      whileInView={revealed ? { opacity: 1, y: 0, ...(blur && { filter: "blur(0px)", transitionEnd: { filter: "none" } }) } : undefined}
-      viewport={{ once: true, margin: "0px 0px -12% 0px" }}
-      transition={{ duration: 1.1, delay, ease: EASE_OUT_EXPO }}
-      {...rest}
-    >
+    <div ref={ref} className={cn(className)}>
       {children}
-    </motion.div>
+    </div>
   );
 }
