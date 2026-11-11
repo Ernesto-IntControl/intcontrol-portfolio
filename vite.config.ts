@@ -33,9 +33,24 @@ function preloadCriticalFonts(): Plugin {
   };
 }
 
+/**
+ * Prérend chaque page en HTML à la fin du build client (voir scripts/prerender.mjs).
+ * En plugin plutôt qu'en script npm : Vercel lance `vite build` directement.
+ */
+function prerenderPages(): Plugin {
+  return {
+    name: 'prerender-pages',
+    apply: (_config, env) => env.command === 'build' && !env.isSsrBuild && !process.env.PRERENDERING,
+    async closeBundle() {
+      const {prerender} = await import('./scripts/prerender.mjs');
+      await prerender();
+    },
+  };
+}
+
 export default defineConfig(({isSsrBuild}) => {
   return {
-    plugins: [react(), tailwindcss(), preloadCriticalFonts()],
+    plugins: [react(), tailwindcss(), preloadCriticalFonts(), prerenderPages()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
