@@ -6,7 +6,7 @@ import { projects, type Project } from "@/src/data/projects";
 import { useMediaQuery } from "@/src/hooks/useMediaQuery";
 import { techIcons } from "@/src/lib/techIcons";
 import { cn } from "@/src/lib/utils";
-import MockupStage from "./MockupStage";
+import ProjectVisual from "./ProjectVisual";
 
 /**
  * À partir de la tablette : cartes empilées, chaque projet se pose sur le précédent qui recule.
@@ -80,13 +80,18 @@ function StackCard({
         id={`projet-${project.slug}`}
         style={stacked ? { scale, top: `calc(${index * 22}px - 2vh)` } : undefined}
         className={cn(
-          "panel relative grid w-full origin-top overflow-hidden rounded-[28px] short-land:grid-cols-2 short-land:grid-rows-1 sm:rounded-[36px] lg:grid-cols-2 lg:grid-rows-1",
+          "panel relative grid w-full origin-top overflow-hidden rounded-[28px] short-land:grid-cols-2 short-land:grid-rows-1 sm:rounded-[36px] lg:grid-rows-1",
+          // Une planche réelle mérite plus de place que le texte
+          project.visual.kind === "board" ? "lg:grid-cols-[0.82fr_1.18fr]" : "lg:grid-cols-2",
           stacked ? "h-[min(84svh,760px)] grid-rows-[auto_1fr]" : "grid-rows-[auto_auto]",
         )}
       >
         <div className="absolute inset-0 bg-grid opacity-40 [mask-image:linear-gradient(to_left,black,transparent_70%)]" aria-hidden />
 
-        <motion.div style={stacked ? { y: contentY } : undefined} className="relative z-10 flex flex-col p-6 short-land:p-6 sm:p-10 lg:p-14">
+        <motion.div
+          style={stacked ? { y: contentY } : undefined}
+          className="relative z-10 order-2 flex flex-col p-6 short-land:order-1 short-land:p-6 sm:p-10 md:order-1 lg:p-14"
+        >
           <div className="flex items-center gap-3">
             <span className="font-mono text-xs text-subtle">
               {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
@@ -105,6 +110,11 @@ function StackCard({
 
           <div className="mt-6 flex flex-wrap items-center gap-2">
             {project.role && <span className="chip">{project.role}</span>}
+            {project.highlights.slice(0, 3).map((item) => (
+              <span key={item} className="chip hidden lg:inline-flex">
+                {item}
+              </span>
+            ))}
             {project.stack.map((tech) => {
               const Icon = techIcons[tech];
               return (
@@ -128,10 +138,15 @@ function StackCard({
           </Link>
         </motion.div>
 
-        <MockupStage
+        <ProjectVisual
           project={project}
+          progress={stacked ? enter : undefined}
           scrollRotate={mockRotate}
-          className={stacked ? "relative min-h-[300px]" : "relative h-[380px] sm:h-[460px]"}
+          natural={!stacked}
+          className={cn(
+            "relative order-1 short-land:order-2 md:order-2",
+            stacked ? "min-h-[300px]" : project.visual.kind !== "board" && "h-[380px] sm:h-[460px]",
+          )}
         />
 
         {stacked && (

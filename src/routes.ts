@@ -5,11 +5,23 @@ import { getDeviceProfile, whenIdle } from "./lib/boot";
  * (page d'arrivée la plus fréquente, sans aller-retour réseau supplémentaire).
  */
 export const pageLoaders = {
-  "/projets": () => import("./pages/ProjectsPage"),
-  "/services": () => import("./pages/ServicesPage"),
-  "/a-propos": () => import("./pages/AboutPage"),
-  "/contact": () => import("./pages/ContactPage"),
+  "/projets": withRetry(() => import("./pages/ProjectsPage")),
+  "/services": withRetry(() => import("./pages/ServicesPage")),
+  "/a-propos": withRetry(() => import("./pages/AboutPage")),
+  "/contact": withRetry(() => import("./pages/ContactPage")),
 } as const;
+
+/**
+ * Connexion instable : un téléchargement de page qui échoue est retenté
+ * (après 0,8 s puis 2 s) avant d'afficher une erreur.
+ */
+function withRetry<T>(load: () => Promise<T>, delays = [800, 2000]): () => Promise<T> {
+  return () =>
+    delays.reduce(
+      (attempt, delay) => attempt.catch(() => new Promise<void>((resolve) => setTimeout(resolve, delay)).then(load)),
+      load(),
+    );
+}
 
 type RoutePath = keyof typeof pageLoaders;
 

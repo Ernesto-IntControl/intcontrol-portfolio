@@ -12,6 +12,10 @@ interface ProgressiveImageProps {
   /** Petite image (data URI) affichée floue tant que la vraie n'est pas chargée. */
   placeholder?: string;
   className?: string;
+  /** Classes de l'image elle-même (cadrage : object-position, object-contain…). */
+  imgClassName?: string;
+  /** Image visible dès l'arrivée : chargée tout de suite, sans attendre le scroll. */
+  eager?: boolean;
 }
 
 /**
@@ -28,6 +32,8 @@ export default function ProgressiveImage({
   sizes,
   placeholder,
   className,
+  imgClassName,
+  eager = false,
 }: ProgressiveImageProps) {
   const [loaded, setLoaded] = useState(false);
 
@@ -44,7 +50,7 @@ export default function ProgressiveImage({
           alt={alt}
           width={width}
           height={height}
-          loading="lazy"
+          loading={eager ? "eager" : "lazy"}
           decoding="async"
           // Si l'image est déjà en cache, onLoad peut partir avant l'hydratation : on vérifie aussi `complete`
           ref={(img) => {
@@ -54,6 +60,7 @@ export default function ProgressiveImage({
           className={cn(
             "h-full w-full object-cover transition-opacity duration-700 ease-out",
             loaded ? "opacity-100" : "opacity-0",
+            imgClassName,
           )}
         />
       </picture>

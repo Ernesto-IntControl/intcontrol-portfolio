@@ -20,7 +20,7 @@ export default function Footer() {
   const scrollTo = useScrollTo();
 
   return (
-    <footer className="relative pb-4 pt-8 sm:pb-6">
+    <footer className="relative pb-24 pt-8">
       <div className="container-x">
         <div className="panel relative overflow-hidden rounded-[28px] px-6 pt-14 sm:rounded-[40px] sm:px-10 sm:pt-20 lg:px-14">
           <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-accent/60 to-transparent" />
@@ -47,7 +47,7 @@ export default function Footer() {
                 <ul className="space-y-0.5">
                   {nav.map((item) => (
                     <li key={item.to}>
-                      <Link to={item.to} className="inline-flex min-h-10 items-center text-sm text-muted transition-colors hover:text-fg">
+                      <Link to={item.to} className="link-sweep inline-flex min-h-10 items-center text-sm text-muted hover:text-fg">
                         {item.name}
                       </Link>
                     </li>
@@ -78,12 +78,12 @@ export default function Footer() {
                 <p className="eyebrow mb-5">Contact</p>
                 <ul className="space-y-0.5 text-sm text-muted">
                   <li>
-                    <a href={`mailto:${profile.email}`} className="inline-flex min-h-10 items-center break-all transition-colors hover:text-fg">
+                    <a href={`mailto:${profile.email}`} className="link-sweep inline-flex min-h-10 items-center break-all hover:text-fg">
                       {profile.email}
                     </a>
                   </li>
                   <li>
-                    <a href={profile.phoneHref} className="inline-flex min-h-10 items-center transition-colors hover:text-fg">
+                    <a href={profile.phoneHref} className="link-sweep inline-flex min-h-10 items-center hover:text-fg">
                       {profile.phone}
                     </a>
                   </li>

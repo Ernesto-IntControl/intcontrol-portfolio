@@ -105,9 +105,10 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: revealed ? 1 : 0 }}
         transition={{ duration: 1.2, delay: 1.2 }}
-        className="container-x relative z-10 pb-5"
+        // Sur téléphone, cette ligne tomberait sous le dock : elle laisse sa place à la navigation
+        className="container-x relative z-10 pb-24 sm:pb-[5.25rem]"
       >
-        <div className="flex items-center justify-between gap-4 whitespace-nowrap border-t border-line pt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-muted sm:text-[11px] sm:tracking-[0.16em]">
+        <div className="hidden items-center justify-between gap-4 whitespace-nowrap border-t border-line pt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-muted sm:flex sm:text-[11px] sm:tracking-[0.16em]">
           <span>
             Kolwezi<span className="hidden sm:inline">, RDC</span> <span className="text-subtle">·</span> {time}
           </span>

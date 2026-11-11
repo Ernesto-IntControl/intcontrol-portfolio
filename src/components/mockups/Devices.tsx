@@ -3,7 +3,16 @@ import type { ReactNode } from "react";
 import { cn } from "@/src/lib/utils";
 
 /** Téléphone en CSS pur : châssis, boutons latéraux, Dynamic Island, barre d'état. */
-export function Phone({ children, className }: { children: ReactNode; className?: string }) {
+export function Phone({
+  children,
+  className,
+  light = false,
+}: {
+  children: ReactNode;
+  className?: string;
+  /** Écran toujours clair (capture d'une app claire), quel que soit le thème du site. */
+  light?: boolean;
+}) {
   return (
     <div
       className={cn("relative h-[540px] w-[264px] rounded-[48px] bg-[#0a0c10] p-[10px]", className)}
@@ -15,7 +24,7 @@ export function Phone({ children, className }: { children: ReactNode; className?
       <span className="absolute -left-[3px] top-[96px] h-7 w-[3px] rounded-l-sm bg-[#1c2026]" />
       <span className="absolute -left-[3px] top-[140px] h-12 w-[3px] rounded-l-sm bg-[#1c2026]" />
       <span className="absolute -right-[3px] top-[150px] h-16 w-[3px] rounded-r-sm bg-[#1c2026]" />
-      <div className="relative h-full w-full overflow-hidden rounded-[38px] bg-bg-elevated">
+      <div data-theme={light ? "light" : undefined} className="relative h-full w-full overflow-hidden rounded-[38px] bg-bg-elevated">
         <div className="absolute left-1/2 top-[9px] z-30 h-[24px] w-[86px] -translate-x-1/2 rounded-full bg-black" />
         <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-7 pt-[13px] text-[11px] font-semibold text-fg">
           <span>9:41</span>

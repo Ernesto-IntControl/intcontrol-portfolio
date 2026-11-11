@@ -33,7 +33,7 @@ export default function ContactPage() {
         />
 
         <div className="mt-16 grid gap-6 lg:grid-cols-12 lg:gap-8">
-          <div className="flex flex-col gap-4 lg:col-span-5">
+          <div className="flex min-w-0 flex-col gap-4 lg:col-span-5">
             <Reveal>
               <TiltCard className="rounded-[28px]" max={6}>
                 <div className="p-7">
@@ -100,7 +100,7 @@ export default function ContactPage() {
             </Reveal>
           </div>
 
-          <Reveal delay={0.1} className="lg:col-span-7">
+          <Reveal delay={0.1} className="min-w-0 lg:col-span-7">
             <ContactForm />
           </Reveal>
         </div>
