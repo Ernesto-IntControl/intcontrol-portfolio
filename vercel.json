@@ -1,5 +1,5 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+  "rewrites": [{ "source": "/(.*)", "destination": "/200.html" }],
   "headers": [
     {
       "source": "/assets/(.*)",

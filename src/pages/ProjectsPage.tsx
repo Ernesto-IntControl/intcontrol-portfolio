@@ -26,11 +26,7 @@ export default function ProjectsPage() {
 
   return (
     <PageTransition>
-      <Seo
-        title="Projets | Ernest Katumbi — INTCONTROL"
-        description="Madebocar, BisoMarket, BisoChat : les produits sur lesquels travaille Ernest Katumbi (INTCONTROL)."
-        path="/projets"
-      />
+      <Seo path="/projets" />
 
       <section className="container-x pb-10 pt-36 sm:pt-44">
         <SectionHeading

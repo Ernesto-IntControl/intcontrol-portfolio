@@ -9,11 +9,7 @@ import SectionHeading from "@/src/components/ui/SectionHeading";
 export default function ServicesPage() {
   return (
     <PageTransition>
-      <Seo
-        title="Services | Ernest Katumbi — INTCONTROL"
-        description="Web fullstack JavaScript (Next.js, NestJS, Node.js), applications mobiles Expo, backends .NET et Product Owner : des solutions sur mesure pour vos projets."
-        path="/services"
-      />
+      <Seo path="/services" />
 
       <section className="container-x pb-16 pt-36 sm:pt-44">
         <SectionHeading

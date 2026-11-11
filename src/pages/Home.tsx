@@ -11,10 +11,7 @@ import { profile } from "@/src/data/profile";
 export default function Home() {
   return (
     <PageTransition>
-      <Seo
-        title={`${profile.name} — ${profile.alias} | ${profile.role}`}
-        description={`${profile.name} (${profile.alias}), ${profile.role} chez ${profile.company}. Développement web et mobile : Next.js, NestJS, Node.js, Expo et .NET.`}
-      />
+      <Seo path="/" />
       <Hero />
       <StackMarquee />
       <AboutSection />

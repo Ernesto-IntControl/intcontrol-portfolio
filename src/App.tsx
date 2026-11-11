@@ -4,8 +4,7 @@ import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Cursor from "./components/layout/Cursor";
 import ErrorBoundary from "./components/layout/ErrorBoundary";
-import Footer from "./components/layout/Footer";
-import Navbar from "./components/layout/Navbar";
+import Layout from "./components/layout/Layout";
 import ScrollProgress from "./components/layout/ScrollProgress";
 import { hideSplash, waitForBoot } from "./lib/boot";
 import Home from "./pages/Home";
@@ -77,14 +76,11 @@ export default function App() {
               <IntroProvider>
                 <ScrollProgress />
                 <Cursor />
-                <Navbar />
-                <main className="relative">
+                <Layout>
                   <ErrorBoundary>
                     <AnimatedRoutes />
                   </ErrorBoundary>
-                </main>
-                <Footer />
-                <div className="grain" aria-hidden />
+                </Layout>
               </IntroProvider>
             </BrowserRouter>
           )}

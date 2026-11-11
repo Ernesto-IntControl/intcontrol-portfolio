@@ -35,6 +35,7 @@
         if (t !== "light" && t !== "dark") {
           t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
         }
+        document.documentElement.classList.add("js");
         document.documentElement.dataset.theme = t;
         document.documentElement.style.colorScheme = t;
         // L'écran d'attente n'apparaît que si le site met plus de 350 ms à démarrer
@@ -70,6 +71,8 @@
 <body>
   <style>
     html { background: #07090c; }
+    /* Le contenu prérendu est destiné aux robots et au mode sans JS : l'app le remplace au démarrage */
+    html.js [data-prerendered] { display: none; }
     html[data-theme="light"] { background: #f4f5f7; }
     #boot {
       position: fixed; inset: 0; z-index: 200; display: grid; place-items: center;
@@ -85,7 +88,13 @@
     @keyframes boot-draw { to { stroke-dashoffset: 0; } }
     @media (prefers-reduced-motion: reduce) { #boot path { animation: none; stroke-dashoffset: 0; } }
   </style>
-  <noscript><style>#boot { display: none; }</style></noscript>
+  <noscript>
+    <style>
+      #boot { display: none; }
+      /* Sans JavaScript : le contenu prérendu s'affiche, sans ses états d'animation de départ */
+      [data-prerendered] * { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; }
+    </style>
+  </noscript>
   <div id="boot" aria-hidden="true">
     <svg viewBox="0 0 32 32" fill="none">
       <path d="M16 2.5 27.7 9.25v13.5L16 29.5 4.3 22.75V9.25L16 2.5Z" pathLength="1" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />

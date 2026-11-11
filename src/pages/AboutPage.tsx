@@ -12,11 +12,7 @@ import { profile } from "@/src/data/profile";
 export default function AboutPage() {
   return (
     <PageTransition>
-      <Seo
-        title="À propos | Ernest Katumbi — INTCONTROL"
-        description={`Le parcours d'${profile.name} (${profile.alias}), ${profile.role} chez ${profile.company} et Product Owner, développeur web et mobile à Kolwezi.`}
-        path="/a-propos"
-      />
+      <Seo path="/a-propos" />
 
       <section className="container-x pb-20 pt-36 sm:pt-44">
         <SectionHeading

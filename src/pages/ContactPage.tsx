@@ -21,11 +21,7 @@ export default function ContactPage() {
 
   return (
     <PageTransition>
-      <Seo
-        title="Contact | Ernest Katumbi — INTCONTROL"
-        description={`Contactez ${profile.name} (${profile.alias}) pour vos projets de développement web et logiciel.`}
-        path="/contact"
-      />
+      <Seo path="/contact" />
 
       <section className="container-x pb-24 pt-36 sm:pt-44">
         <SectionHeading

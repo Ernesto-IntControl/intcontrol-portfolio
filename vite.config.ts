@@ -33,7 +33,7 @@ function preloadCriticalFonts(): Plugin {
   };
 }
 
-export default defineConfig(() => {
+export default defineConfig(({isSsrBuild}) => {
   return {
     plugins: [react(), tailwindcss(), preloadCriticalFonts()],
     resolve: {
@@ -44,7 +44,7 @@ export default defineConfig(() => {
     build: {
       // Le chunk Three.js (~145 Ko gzip) est chargé à part, quand le navigateur est libre
       chunkSizeWarningLimit: 1000,
-      rollupOptions: {
+      rollupOptions: isSsrBuild ? undefined : {
         output: {
           // Isole les dépendances stables (React, routing, animation) dans leurs
           // propres chunks : elles changent rarement, donc restent en cache
