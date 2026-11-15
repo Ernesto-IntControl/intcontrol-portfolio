@@ -24,6 +24,7 @@ export default function ProjectCard({
   index,
   total,
   variant = "card",
+  headingAs: Heading = "h3",
   to,
   onOpen,
   onClose,
@@ -32,6 +33,8 @@ export default function ProjectCard({
   index: number;
   total: number;
   variant?: "card" | "header";
+  /** Niveau du titre : h3 sous une section (accueil), h2 directement sous le titre de page. */
+  headingAs?: "h2" | "h3";
   to?: string;
   onOpen?: () => void;
   onClose?: () => void;
@@ -83,14 +86,14 @@ export default function ProjectCard({
           <span className="font-mono text-xs text-subtle">
             {pad(index + 1)} / {pad(total)}
           </span>
-          <span className="chip" style={{ color: project.accent }}>
+          <span className="chip" style={{ color: `color-mix(in oklab, ${project.accent} 50%, var(--fg))` }}>
             <span className="h-1.5 w-1.5 rounded-full" style={{ background: project.accent }} />
             {project.category}
           </span>
           {header && project.role && <span className="chip">{project.role}</span>}
         </div>
 
-        <h3
+        <Heading
           className={cn(
             "mt-4 font-semibold tracking-[-0.04em] transition-colors duration-500",
             header
@@ -104,7 +107,7 @@ export default function ProjectCard({
               {project.fullName}
             </span>
           )}
-        </h3>
+        </Heading>
         <p className={cn("mt-2.5 leading-relaxed text-muted", header ? "max-w-2xl text-lg text-fg/85" : "text-[15px]")}>
           {project.tagline}
         </p>

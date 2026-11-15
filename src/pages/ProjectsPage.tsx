@@ -115,6 +115,7 @@ export default function ProjectsPage() {
                     index={projects.indexOf(project)}
                     total={projects.length}
                     variant={selected ? "header" : "card"}
+                    headingAs="h2"
                     onOpen={() => open(project.slug)}
                     onClose={close}
                   />

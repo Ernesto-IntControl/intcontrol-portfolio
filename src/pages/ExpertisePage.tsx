@@ -30,7 +30,7 @@ export default function ExpertisePage() {
           title={[{ text: "Du besoin au code, " }, { text: "jusqu'en production.", className: "serif-accent text-accent" }]}
           intro="Web, mobile et .NET, cadrage et direction technique : j'interviens sur tout le cycle d'un produit."
         />
-        <CapabilitiesGrid className="mt-14 sm:mt-20" />
+        <CapabilitiesGrid headingAs="h2" className="mt-14 sm:mt-20" />
       </section>
 
       <section id="methode" className="container-x pt-24 sm:pt-32">

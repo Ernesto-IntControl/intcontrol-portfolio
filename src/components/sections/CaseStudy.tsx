@@ -18,7 +18,7 @@ function Block({ label, children, delay = 0 }: { label: string; children: ReactN
       transition={{ duration: 0.9, delay, ease: EASE_OUT_EXPO }}
       className="grid gap-6 border-t border-line pt-8 lg:grid-cols-12 lg:gap-10"
     >
-      <p className="eyebrow lg:col-span-3">{label}</p>
+      <h3 className="eyebrow lg:col-span-3">{label}</h3>
       <div className="lg:col-span-9">{children}</div>
     </motion.div>
   );
@@ -118,8 +118,11 @@ export default function CaseStudy({ project, onOpen }: { project: Project; onOpe
               className="group flex items-center gap-4 rounded-[18px] border border-line p-3 text-left transition-colors hover:border-line-strong hover:bg-fg/[0.02]"
             >
               <span
-                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl font-mono text-sm font-semibold text-white"
-                style={{ background: other.accent }}
+                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl font-mono text-sm font-semibold"
+                style={{
+                  background: `color-mix(in oklab, ${other.accent} 18%, transparent)`,
+                  color: `color-mix(in oklab, ${other.accent} 50%, var(--fg))`,
+                }}
               >
                 {other.title.slice(0, 2)}
               </span>

@@ -23,7 +23,7 @@ export const profile = {
   phone: "+243 843 351 254",
   phoneHref: "tel:+243843351254",
   portrait: {
-    /** Fallback et image de partage (og:image). */
+    /** Image de repli (navigateurs sans AVIF ni WebP). */
     src: "/images/portrait-720.webp",
     width: 896,
     height: 1195,

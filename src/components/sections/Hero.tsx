@@ -51,12 +51,12 @@ export default function Hero() {
             </span>
           </h1>
 
-          <motion.p {...fadeUp(0.75)} className="mt-8 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
+          <motion.p {...fadeUp(0.45)} className="mt-8 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
             <span className="text-fg">Développeur fullstack</span> et <span className="text-fg">{profile.role}</span> chez{" "}
             {profile.company}. Je conçois et je livre des produits web et mobiles, du cadrage à la mise en production.
           </motion.p>
 
-          <motion.div {...fadeUp(0.9)} className="mt-9 flex flex-wrap items-center gap-3">
+          <motion.div {...fadeUp(0.6)} className="mt-9 flex flex-wrap items-center gap-3">
             <Link to="/projets" className="btn-primary group">
               Voir mes projets
               <ArrowRight className="h-4 w-4 transition-transform duration-500 ease-out-expo group-hover:translate-x-0.5" />

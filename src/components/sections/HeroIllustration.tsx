@@ -120,8 +120,23 @@ export default function HeroIllustration({ className }: { className?: string }) 
       <Depth x={mx} y={my} depth={10} className="relative z-10 h-full">
         <div
           ref={ref}
-          role="img"
-          aria-label="Illustration d'Ernest Katumbi, en costume, qui pointe du doigt"
+          role="button"
+          tabIndex={0}
+          aria-pressed={sketch}
+          aria-label={
+            sketch
+              ? "Illustration d'Ernest Katumbi en croquis : afficher la version en couleur"
+              : "Illustration d'Ernest Katumbi, en costume, qui pointe du doigt : afficher le croquis"
+          }
+          onKeyDown={(e) => {
+            if (e.key !== "Enter" && e.key !== " ") return;
+            e.preventDefault();
+            // Au clavier, la bascule part du centre de l'illustration
+            ref.current?.style.setProperty("--lx", "50%");
+            ref.current?.style.setProperty("--ly", "45%");
+            setLens(false);
+            setSketch((s) => !s);
+          }}
           onPointerEnter={(e) => {
             if (e.pointerType !== "mouse" || !inked) return;
             place(e);

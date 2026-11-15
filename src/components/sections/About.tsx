@@ -77,11 +77,11 @@ export default function About({ className }: { className?: string }) {
         </dl>
 
         <div className="mt-12">
-          <p className="eyebrow">Parcours</p>
+          <h2 className="eyebrow">Parcours</h2>
           <ol className="mt-4 border-t border-line">
             {experience.map((item, i) => (
-              <Reveal key={item.company} delay={i * 0.08} y={12}>
-                <li className="grid gap-2 border-b border-line py-6 sm:grid-cols-[1fr_auto] sm:gap-8">
+              <li key={item.company} className="border-b border-line">
+                <Reveal delay={i * 0.08} y={12} className="grid gap-2 py-6 sm:grid-cols-[1fr_auto] sm:gap-8">
                   <div>
                     <h3 className="text-lg font-semibold tracking-tight">
                       {item.role} <span className="font-normal text-accent">· {item.company}</span>
@@ -92,8 +92,8 @@ export default function About({ className }: { className?: string }) {
                     {item.current && <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />}
                     {item.period}
                   </span>
-                </li>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
           </ol>
         </div>

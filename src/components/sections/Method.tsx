@@ -9,7 +9,16 @@ import { cn } from "@/src/lib/utils";
  * Savoir-faire, en grille ; `compact` (accueil) : titre et phrase seulement.
  * Au survol, un filet d'accent se trace en haut de la carte.
  */
-export function CapabilitiesGrid({ className, compact }: { className?: string; compact?: boolean }) {
+export function CapabilitiesGrid({
+  className,
+  compact,
+  headingAs: Heading = "h3",
+}: {
+  className?: string;
+  compact?: boolean;
+  /** h2 directement sous le titre de page, h3 sous une section. */
+  headingAs?: "h2" | "h3";
+}) {
   return (
     <div
       className={cn(
@@ -27,7 +36,7 @@ export function CapabilitiesGrid({ className, compact }: { className?: string; c
             <HexBullet className="transition-transform duration-700 ease-out-expo group-hover:rotate-90" filled={i % 2 === 1} />
             0{i + 1}
           </p>
-          <h3 className="mt-5 text-xl font-semibold tracking-[-0.03em]">{item.title}</h3>
+          <Heading className="mt-5 text-xl font-semibold tracking-[-0.03em]">{item.title}</Heading>
           <p className="mt-2 leading-relaxed text-muted">{item.text}</p>
           {!compact && (
             <ul className="mt-6 flex flex-wrap gap-1.5">

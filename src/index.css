@@ -39,7 +39,7 @@
   --line-strong: rgb(255 255 255 / 0.16);
   --fg: #eef1f4;
   --muted: #9aa4b2;
-  --subtle: #69737f;
+  --subtle: #808a97;
   --accent: #34d6c8;
   --accent-strong: #20b2aa;
   --accent-fg: #03110f;
@@ -62,9 +62,9 @@
   --line-strong: rgb(10 15 20 / 0.18);
   --fg: #0a0d12;
   --muted: #4f5966;
-  --subtle: #7d8693;
-  --accent: #0b8a80;
-  --accent-strong: #08746b;
+  --subtle: #5f6874;
+  --accent: #087a71;
+  --accent-strong: #066a62;
   --accent-fg: #ffffff;
   --invert: #0a0d12;
   --invert-fg: #f4f5f7;
