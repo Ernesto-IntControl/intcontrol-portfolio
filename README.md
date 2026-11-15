@@ -9,7 +9,7 @@ Portfolio d'**Ernest Katumbi**, alias **INTCONTROL** : développeur fullstack et
 Un site sobre de plusieurs pages, centré sur les projets, avec une signature qui court partout :
 **le côté produit s'écrit en serif italique, le côté code en mono**.
 
-- **Hero** : « pensés » se souligne d'un trait tracé à la main, « construits » se pose sur un fond de code. À droite, mon portrait **dessiné au stylo** (traits et hachures générés à partir de la photo : encre noire en thème clair, stylo blanc sur papier noir en thème sombre) se trace de haut en bas, suit un peu la souris et s'efface au scroll ; par-dessus, une trame en nid d'abeille balayée par une lumière qui suit la souris.
+- **Hero** (d'après la maquette) : « pensés » se souligne d'un trait tracé à la main, « construits » en mono. À droite, mon illustration : le **croquis au crayon** se dessine (l'idée), puis la **version en couleur** l'encre de bas en haut (le produit) ; la couronne, sur un calque à part, se pose puis flotte. Au survol, une loupe montre le croquis sous la couleur ; un clic ou un toucher bascule toute l'illustration. Formes douces, tuiles et carte de code suivent la souris à des profondeurs différentes.
 - **Accueil en bref** : à propos, projets, expertise et contact en version courte, le détail sur chaque page.
 - **Projets** illustrés par les **vraies captures** (le tableau de bord Josma suit le thème clair ou sombre du site). L'**étude de cas s'ouvre sur place** (`/projets/madebocar`, `/projets/josma`, `/projets/ngo-chat`) : les autres cartes s'effacent, la carte choisie se réduit en bandeau, puis l'étude se déploie dessous (problème, fonctionnalités, rôle, écrans).
 - **En cours** (Intflow, Helpy, IntSchool, Simara) et **sites vitrines** (INT Global Services, Helzor) sur la page Projets.
@@ -59,6 +59,6 @@ VITE_EMAILJS_PUBLIC_KEY=...
 - Captures en AVIF/WebP (12 à 46 Ko), chargées à la demande ; celle du thème inactif n'est jamais téléchargée
 - Écran d'attente léger intégré au HTML, affiché seulement si le démarrage dépasse 350 ms ; les animations d'entrée attendent les polices (1,8 s max)
 - Trame en nid d'abeille sur un seul canvas, redessiné uniquement quand la lumière bouge et que le hero est visible
-- Portrait en AVIF/WebP responsive avec aperçu flou intégré ; portrait au stylo en niveaux de gris (54 à 70 Ko en AVIF), affiché par mode de fusion
+- Portrait en AVIF/WebP responsive avec aperçu flou intégré ; illustration du hero détourée en calques AVIF/WebP (24 Ko en couleur, 68 Ko en croquis, couronne 2 à 5 Ko)
 - Animations limitées à transform et opacity ; `prefers-reduced-motion` respecté (texte affiché directement, pas de balayage)
 - `vercel.json` : cache long sur les fichiers versionnés et redirection des routes vers l'application

@@ -228,54 +228,169 @@
 }
 
 /*
- * Portrait au stylo du hero. Les images sont opaques : « multiply » efface le
- * papier blanc (thème clair), « screen » efface le papier noir (thème sombre).
- * Trois masques : le tracé qui se révèle de haut en bas, un fondu vers le texte
- * (à gauche) et un fondu vers la page (en bas).
+ * Illustration du hero : le croquis (« pensés ») se dessine de haut en bas,
+ * puis la couleur (« construits ») l'encre de bas en haut. La couleur porte aussi
+ * la loupe : un disque transparent qui laisse voir le croquis dessous.
  */
-.hero-sketch {
-  mix-blend-mode: multiply;
-  opacity: 0.88;
+@property --lens-r {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1px;
+}
+
+.hero-figure {
+  --lx: -400px;
+  --ly: -400px;
+  --lens-r: 1px;
+  transition: --lens-r 0.55s var(--ease-out-expo);
+}
+
+.hero-figure.is-lens {
+  --lens-r: 84px;
+}
+
+.hero-figure.is-sketch {
+  --lens-r: 1400px;
+  transition-duration: 1.1s;
+}
+
+.hero-draw {
+  mask-image: linear-gradient(to bottom, #000 46%, transparent 54%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 46%, transparent 54%);
+  mask-size: 100% 260%;
+  -webkit-mask-size: 100% 260%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  animation: hero-draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.3s both;
+}
+
+.hero-ink {
   mask-image:
-    linear-gradient(to bottom, #000 46%, transparent 54%),
-    linear-gradient(to right, transparent 0%, #000 34%),
-    linear-gradient(to bottom, #000 78%, transparent 100%);
+    linear-gradient(to top, #000 45%, transparent 55%),
+    radial-gradient(circle var(--lens-r) at var(--lx) var(--ly), transparent 96%, #000 100%);
   -webkit-mask-image:
-    linear-gradient(to bottom, #000 46%, transparent 54%),
-    linear-gradient(to right, transparent 0%, #000 34%),
-    linear-gradient(to bottom, #000 78%, transparent 100%);
-  mask-size: 100% 260%, 100% 100%, 100% 100%;
-  -webkit-mask-size: 100% 260%, 100% 100%, 100% 100%;
+    linear-gradient(to top, #000 45%, transparent 55%),
+    radial-gradient(circle var(--lens-r) at var(--lx) var(--ly), transparent 96%, #000 100%);
+  mask-size: 100% 260%, 100% 100%;
+  -webkit-mask-size: 100% 260%, 100% 100%;
   mask-repeat: no-repeat;
   -webkit-mask-repeat: no-repeat;
   mask-composite: intersect;
-  -webkit-mask-composite: source-in, source-in;
-  animation: sketch-draw 2.8s cubic-bezier(0.65, 0, 0.35, 1) 0.25s both;
+  -webkit-mask-composite: source-in;
+  animation: hero-ink 1.3s cubic-bezier(0.65, 0, 0.35, 1) 1.65s both;
 }
 
-.hero-sketch-dark {
-  mix-blend-mode: screen;
-  opacity: 0.72;
+@keyframes hero-draw {
+  from { mask-position: 0 100%; -webkit-mask-position: 0 100%; }
+  to { mask-position: 0 0; -webkit-mask-position: 0 0; }
 }
 
-/* Sur téléphone, le texte occupe toute la largeur : dessin plus discret */
-@media (max-width: 1023px) {
-  .hero-sketch {
-    opacity: 0.3;
-  }
-
-  .hero-sketch-dark {
-    opacity: 0.3;
-  }
+@keyframes hero-ink {
+  from { mask-position: 0 0, 0 0; -webkit-mask-position: 0 0, 0 0; }
+  to { mask-position: 0 100%, 0 0; -webkit-mask-position: 0 100%, 0 0; }
 }
 
-@keyframes sketch-draw {
-  from {
-    mask-position: 0 100%, 0 0, 0 0;
-    -webkit-mask-position: 0 100%, 0 0, 0 0;
+/* La couronne flotte au-dessus de la tête, et se soulève au survol */
+.hero-crown {
+  transform-origin: 50% 100%;
+  transition: translate 0.6s var(--ease-out-expo);
+  animation: crown-bob 4.8s ease-in-out 3s infinite;
+}
+
+.hero-figure:hover .hero-crown {
+  translate: 0 -10%;
+}
+
+@keyframes crown-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-7%) rotate(-3deg); }
+}
+
+.hero-lens-ring {
+  left: var(--lx);
+  top: var(--ly);
+  width: calc(var(--lens-r) * 2);
+  height: calc(var(--lens-r) * 2);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.hero-figure.is-lens .hero-lens-ring {
+  opacity: 1;
+}
+
+/* Décor repris de la maquette : formes douces qui respirent, tuiles flottantes */
+.hero-blob {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--accent) 30%, transparent),
+    color-mix(in oklab, var(--accent) 12%, transparent) 70%,
+    transparent
+  );
+  border-radius: 58% 42% 55% 45% / 45% 55% 45% 55%;
+  animation: blob-morph 16s ease-in-out infinite alternate;
+}
+
+.hero-blob-b {
+  animation-duration: 12s;
+  animation-delay: -6s;
+}
+
+[data-theme="dark"] .hero-blob {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--accent) 22%, transparent),
+    color-mix(in oklab, var(--accent) 6%, transparent) 70%,
+    transparent
+  );
+}
+
+@keyframes blob-morph {
+  0% { border-radius: 58% 42% 55% 45% / 45% 55% 45% 55%; transform: rotate(0deg) scale(1); }
+  50% { border-radius: 42% 58% 40% 60% / 58% 42% 58% 42%; transform: rotate(8deg) scale(1.04); }
+  100% { border-radius: 52% 48% 62% 38% / 40% 60% 40% 60%; transform: rotate(-6deg) scale(0.98); }
+}
+
+.hero-tile {
+  background: linear-gradient(135deg, color-mix(in oklab, var(--accent), white 35%), var(--accent));
+  box-shadow: 0 12px 24px -12px var(--accent);
+}
+
+.float-a {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+.float-b {
+  animation: float-y 7.5s ease-in-out -3s infinite;
+}
+
+@keyframes float-y {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+/* Le personnage est coupé à la taille : il se fond dans la page en bas */
+.hero-illustration-wrap {
+  mask-image: linear-gradient(to bottom, #000 86%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent);
+}
+
+/* Animations réduites : l'illustration s'affiche directement en couleur */
+@media (prefers-reduced-motion: reduce) {
+  .hero-draw,
+  .hero-ink,
+  .hero-crown {
+    animation: none;
   }
-  to {
-    mask-position: 0 0, 0 0, 0 0;
-    -webkit-mask-position: 0 0, 0 0, 0 0;
+
+  .hero-draw {
+    mask-position: 0 0;
+    -webkit-mask-position: 0 0;
+  }
+
+  .hero-ink {
+    mask-position: 0 100%, 0 0;
+    -webkit-mask-position: 0 100%, 0 0;
   }
 }

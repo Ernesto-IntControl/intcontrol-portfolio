@@ -1,8 +1,9 @@
-import { motion, useMotionValue, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import HexField from "@/src/components/ui/HexField";
+import HeroIllustration from "./HeroIllustration";
 import Scramble from "@/src/components/ui/Scramble";
 import { profile } from "@/src/data/profile";
 import { useLocalTime } from "@/src/hooks/useLocalTime";
@@ -21,32 +22,32 @@ export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const time = useLocalTime(profile.timeZone);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const photoY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
-  const photoOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.25]);
+  const illustrationY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
 
   return (
     <section ref={ref} className="relative flex min-h-[100svh] flex-col overflow-hidden">
-      <HeroPortrait y={photoY} opacity={photoOpacity} />
       <HexField
         delay={900}
         className="absolute inset-0 [mask-image:radial-gradient(ellipse_80%_70%_at_70%_40%,black_20%,transparent_75%)]"
       />
 
-      <motion.div style={{ y: contentY }} className="container-x relative z-10 flex flex-1 flex-col justify-center pb-14 pt-32 sm:pt-36">
-        <div className="max-w-3xl">
+      <div className="container-x relative z-10 grid flex-1 gap-10 pt-28 sm:pt-32 lg:grid-cols-12 lg:gap-6">
+        <motion.div style={{ y: contentY }} className="self-center pb-4 lg:col-span-7 lg:pb-16">
           <p className="eyebrow flex items-center gap-3">
             <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
             <Scramble trigger="mount" delay={150} text={`${profile.name} — ${profile.alias}`} />
           </p>
 
-          <h1 className="mt-7 text-[clamp(2.3rem,5.2vw,4.6rem)] font-semibold leading-[1.06] tracking-[-0.05em]">
+          <h1 className="mt-7 text-[clamp(2.3rem,4.3vw,4.15rem)] font-semibold leading-[1.06] tracking-[-0.05em]">
             <span className="sr-only">Des produits pensés pour vos utilisateurs, construits pour durer.</span>
             <span aria-hidden>
               <Word delay={0.2}>Des</Word> <Word delay={0.2 + STEP}>produits</Word> <Thought delay={0.2 + STEP * 2} />{" "}
               <Word delay={0.2 + STEP * 3}>pour</Word> <Word delay={0.2 + STEP * 4}>vos</Word>{" "}
               <Word delay={0.2 + STEP * 5}>utilisateurs,</Word> <Built delay={0.2 + STEP * 6} />{" "}
-              <Word delay={0.2 + STEP * 7}>pour</Word> <Word delay={0.2 + STEP * 8}>durer.</Word>
+              <Word delay={0.2 + STEP * 7}>pour</Word> <Word delay={0.2 + STEP * 8}>
+                durer<span className="text-accent">.</span>
+              </Word>
             </span>
           </h1>
 
@@ -65,14 +66,21 @@ export default function Hero() {
               <ArrowUpRight className="h-4 w-4 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
           </motion.div>
-        </div>
-      </motion.div>
+        </motion.div>
+
+        <motion.div
+          style={{ y: illustrationY }}
+          className="hero-illustration-wrap relative h-[min(60svh,460px)] self-end sm:h-[min(64svh,560px)] lg:col-span-5 lg:h-[min(78svh,740px)]"
+        >
+          <HeroIllustration className="h-full" />
+        </motion.div>
+      </div>
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 1.3 }}
-        className="container-x relative z-10 pb-5"
+        className="container-x relative z-20 -mt-px bg-bg pb-5"
       >
         <div className="flex items-center justify-between gap-4 whitespace-nowrap border-t border-line pt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-muted sm:text-[11px]">
           <span>
@@ -99,62 +107,6 @@ export default function Hero() {
         </div>
       </motion.div>
     </section>
-  );
-}
-
-/**
- * Portrait dessiné au stylo (traits et hachures générés à partir de la photo).
- * Deux versions en niveaux de gris opaques : encre noire sur papier blanc (thème clair)
- * et stylo blanc sur papier noir (thème sombre) ; un mode de fusion ne garde que l'encre. Le dessin se trace de haut en bas
- * à l'arrivée, suit un peu la souris et s'efface en remontant au scroll.
- * Le calque porte le fond de la page : la fusion se fait sur lui, quelles que
- * soient les transformations appliquées.
- */
-function HeroPortrait({ y, opacity }: { y: MotionValue<string>; opacity: MotionValue<number> }) {
-  const px = useSpring(useMotionValue(0), { stiffness: 60, damping: 20 });
-  const py = useSpring(useMotionValue(0), { stiffness: 60, damping: 20 });
-  const [fine] = useState(() => window.matchMedia("(hover: hover) and (pointer: fine)").matches);
-
-  useEffect(() => {
-    if (!fine || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const onMove = (e: PointerEvent) => {
-      px.set((e.clientX / window.innerWidth - 0.5) * -14);
-      py.set((e.clientY / window.innerHeight - 0.5) * -10);
-    };
-    window.addEventListener("pointermove", onMove, { passive: true });
-    return () => window.removeEventListener("pointermove", onMove);
-  }, [fine, px, py]);
-
-  return (
-    <motion.div aria-hidden style={{ y, opacity }} className="hero-portrait pointer-events-none absolute inset-0 bg-bg">
-      <motion.div className="absolute bottom-0 right-0 top-16 w-full bg-bg lg:w-[52%]" style={{ x: px, y: py }}>
-        {/* Encre noire en thème clair, stylo blanc sur papier noir en thème sombre */}
-        <picture className="contents dark:hidden">
-          <source type="image/avif" srcSet="/images/portrait-sketch.avif" />
-          <img
-            src="/images/portrait-sketch.webp"
-            alt=""
-            width={720}
-            height={960}
-            loading="lazy"
-            decoding="async"
-            className="hero-sketch h-full w-full object-contain object-[85%_100%] lg:object-[70%_100%]"
-          />
-        </picture>
-        <picture className="hidden dark:contents">
-          <source type="image/avif" srcSet="/images/portrait-sketch-dark.avif" />
-          <img
-            src="/images/portrait-sketch-dark.webp"
-            alt=""
-            width={720}
-            height={960}
-            loading="lazy"
-            decoding="async"
-            className="hero-sketch hero-sketch-dark h-full w-full object-contain object-[85%_100%] lg:object-[70%_100%]"
-          />
-        </picture>
-      </motion.div>
-    </motion.div>
   );
 }
 
@@ -204,22 +156,11 @@ function Thought({ delay }: { delay: number }) {
   );
 }
 
-/** « construits » : le côté code, en mono, posé sur un fond de code inline qui se déploie. */
+/** « construits » : le côté code, en mono, plus léger que le reste du titre. */
 function Built({ delay }: { delay: number }) {
   return (
-    <span className="relative inline-block">
-      <motion.span
-        aria-hidden
-        className="absolute -inset-x-[0.1em] inset-y-[0.14em] origin-left rounded-[0.14em] border border-line bg-surface-strong/70"
-        initial={{ scaleX: 0, opacity: 0 }}
-        animate={{ scaleX: 1, opacity: 1 }}
-        transition={{ duration: 0.8, delay: delay + 0.55, ease: EASE_OUT_EXPO }}
-      />
-      <span className="relative">
-        <Word delay={delay}>
-          <span className="mono-accent text-[0.78em] text-fg">construits</span>
-        </Word>
-      </span>
-    </span>
+    <Word delay={delay}>
+      <span className="mono-accent text-[0.84em] font-light text-fg/90">construits</span>
+    </Word>
   );
 }

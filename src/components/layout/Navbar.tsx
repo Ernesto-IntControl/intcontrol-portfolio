@@ -53,7 +53,7 @@ export default function Navbar() {
             <LogoMark draw className="h-7 w-7 text-fg transition-transform duration-700 ease-out-expo group-hover:rotate-[60deg]" />
             <span className="leading-tight">
               <span className="block font-mono text-[13px] font-semibold tracking-[0.2em] text-fg">{profile.alias}</span>
-              <span className="hidden font-mono text-[10px] tracking-[0.08em] text-subtle sm:block">Fullstack · Lead Software Engineer</span>
+              <span className="hidden text-[11px] text-subtle sm:block">Fullstack · Lead Software Engineer</span>
             </span>
           </Link>
 
