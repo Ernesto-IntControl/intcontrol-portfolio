@@ -52,11 +52,10 @@ export default function About({ className }: { className?: string }) {
               <span className={strong}>Flutter</span>, et <span className={strong}>.NET</span> quand un projet l'exige.
             </p>
             <p>
-              Mais le code n'est qu'une partie de l'histoire. En tant que <span className={strong}>Product Owner</span>,
-              je pars toujours d'une question simple :{" "}
-              <span className="serif-accent text-[1.15em] text-fg">quel problème résout-on, et pour qui ?</span>{" "}
-              Écouter, prioriser, oser dire non : c'est là que se joue la différence entre un projet qui tourne et un
-              produit qu'on aime utiliser.
+              Chaque projet commence au plus près du besoin : le problème à résoudre, les personnes qui utiliseront le
+              produit, les priorités. Cadrage, parcours utilisateurs et backlog font partie de mon quotidien, au même
+              titre que l'architecture et le code :{" "}
+              <span className="serif-accent text-[1.15em] text-fg">des produits pensés avant d'être construits.</span>
             </p>
           </div>
         </Reveal>

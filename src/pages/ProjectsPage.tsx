@@ -2,14 +2,22 @@ import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PageTransition from "@/src/components/layout/PageTransition";
+import SectionDock, { type DockSection } from "@/src/components/layout/SectionDock";
 import CaseStudy from "@/src/components/sections/CaseStudy";
 import ContactCTA from "@/src/components/sections/ContactCTA";
+import NextPage from "@/src/components/sections/NextPage";
 import OtherWorkGrid from "@/src/components/sections/OtherWork";
 import ProjectCard from "@/src/components/sections/ProjectCard";
 import Seo from "@/src/components/Seo";
 import SectionHeading from "@/src/components/ui/SectionHeading";
 import { ongoing, projects, showcases } from "@/src/data/projects";
 import NotFoundPage from "./NotFoundPage";
+
+const sections: DockSection[] = [
+  { id: "etudes", label: "Études de cas" },
+  { id: "en-cours", label: "En cours" },
+  { id: "vitrines", label: "Sites vitrines" },
+];
 
 /**
  * Les projets. Une étude de cas s'ouvre sur place (/projets/:slug) : les autres cartes
@@ -77,12 +85,14 @@ export default function ProjectsPage() {
         description={
           selected
             ? `${selected.title}${selected.fullName ? ` (${selected.fullName})` : ""} : ${selected.tagline}`
-            : "Madebocar, Josma, Ngo Chat, et les projets en cours (Intflow, Helpy, IntSchool, Simara) d'Ernest Katumbi (INTCONTROL), Product Owner et Lead Software Engineer."
+            : "Madebocar, Josma, Ngo Chat, et les projets en cours (Intflow, Helpy, IntSchool, Simara) d'Ernest Katumbi (INTCONTROL), développeur fullstack et Lead Software Engineer."
         }
         path={selected ? `/projets/${selected.slug}` : "/projets"}
       />
 
-      <section className="container-x pt-36 sm:pt-44">
+      <SectionDock sections={sections} />
+
+      <section id="etudes" className="container-x pt-36 sm:pt-44">
         <SectionHeading
           as="h1"
           index="02"
@@ -119,7 +129,7 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <section className="container-x pt-24 sm:pt-32">
+      <section id="en-cours" className="container-x pt-24 sm:pt-32">
         <SectionHeading
           index="02.1"
           label="En cours"
@@ -129,7 +139,7 @@ export default function ProjectsPage() {
         <OtherWorkGrid items={ongoing} className="mt-12 sm:mt-16" />
       </section>
 
-      <section className="container-x pt-24 sm:pt-32">
+      <section id="vitrines" className="container-x pt-24 sm:pt-32">
         <SectionHeading
           index="02.2"
           label="Sites vitrines"
@@ -139,6 +149,7 @@ export default function ProjectsPage() {
         <OtherWorkGrid items={showcases} wide className="mt-12 sm:mt-16" />
       </section>
 
+      <NextPage to="/expertise" label="Expertise" text="Savoir-faire, méthode et outils : du besoin au code, jusqu'en production." />
       <ContactCTA />
     </PageTransition>
   );

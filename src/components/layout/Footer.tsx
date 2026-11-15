@@ -22,8 +22,8 @@ export default function Footer() {
             <span className="font-mono text-sm font-semibold tracking-[0.2em] text-fg">{profile.alias}</span>
           </Link>
           <p className="mt-6 max-w-sm leading-relaxed text-muted">
-            {profile.name}, Product Owner et {profile.role}. J'accompagne les produits web et mobiles, de la vision au
-            déploiement.
+            {profile.name}, développeur fullstack et {profile.role}. Des produits web et mobiles, du cadrage à la mise
+            en production.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <span className="chip">

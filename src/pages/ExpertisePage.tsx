@@ -1,45 +1,53 @@
 import PageTransition from "@/src/components/layout/PageTransition";
+import SectionDock, { type DockSection } from "@/src/components/layout/SectionDock";
 import ContactCTA from "@/src/components/sections/ContactCTA";
-import { HatsGrid, Steps } from "@/src/components/sections/Method";
+import { CapabilitiesGrid, Steps } from "@/src/components/sections/Method";
 import Stack from "@/src/components/sections/Stack";
 import Seo from "@/src/components/Seo";
 import SectionHeading from "@/src/components/ui/SectionHeading";
+
+const sections: DockSection[] = [
+  { id: "savoir-faire", label: "Savoir-faire" },
+  { id: "methode", label: "Méthode" },
+  { id: "outils", label: "Outils" },
+];
 
 export default function ExpertisePage() {
   return (
     <PageTransition>
       <Seo
         title="Expertise | Ernest Katumbi — INTCONTROL"
-        description="Product Owner et Lead Software Engineer : vision produit, backlog et priorisation, puis architecture et développement web, mobile et .NET. Méthode et outils au quotidien."
+        description="Développement web fullstack, applications mobiles et backends .NET, cadrage et direction technique : savoir-faire, méthode et outils d'Ernest Katumbi (INTCONTROL)."
         path="/expertise"
       />
+      <SectionDock sections={sections} />
 
-      <section className="container-x pt-36 sm:pt-44">
+      <section id="savoir-faire" className="container-x pt-36 sm:pt-44">
         <SectionHeading
           as="h1"
           index="03"
           label="Expertise"
-          title={[{ text: "Deux casquettes, " }, { text: "un seul produit.", className: "serif-accent text-accent" }]}
-          intro="Product Owner, je décide quoi construire et pourquoi. Ingénieur logiciel, je le construis et je le fais tenir. Porter les deux, c'est réduire la distance entre l'idée et le code."
+          title={[{ text: "Du besoin au code, " }, { text: "jusqu'en production.", className: "serif-accent text-accent" }]}
+          intro="Web, mobile et .NET, cadrage et direction technique : j'interviens sur tout le cycle d'un produit."
         />
-        <HatsGrid className="mt-14 sm:mt-20" />
+        <CapabilitiesGrid className="mt-14 sm:mt-20" />
       </section>
 
-      <section className="container-x pt-24 sm:pt-32">
+      <section id="methode" className="container-x pt-24 sm:pt-32">
         <SectionHeading
           index="03.1"
           label="Méthode"
-          title={[{ text: "De la question " }, { text: "à la mise en production.", className: "serif-accent text-accent" }]}
+          title={[{ text: "Quatre étapes, " }, { text: "un même fil.", className: "serif-accent text-accent" }]}
         />
         <Steps className="mt-14 sm:mt-20" />
       </section>
 
-      <section className="container-x pt-24 sm:pt-32">
+      <section id="outils" className="container-x pt-24 sm:pt-32">
         <SectionHeading
           index="03.2"
           label="Outils"
           title={[{ text: "Les outils " }, { text: "du quotidien.", className: "serif-accent text-accent" }]}
-          intro="Du code au pilotage de projet : le web moderne en JavaScript en tête, .NET quand le projet l'exige."
+          intro="Du code au suivi de projet : le web moderne en JavaScript en tête, .NET quand le projet l'exige."
         />
         <Stack className="mt-14 sm:mt-20" />
       </section>

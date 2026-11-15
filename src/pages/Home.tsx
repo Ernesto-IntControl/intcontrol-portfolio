@@ -2,16 +2,24 @@ import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import PageTransition from "@/src/components/layout/PageTransition";
+import SectionDock, { type DockSection } from "@/src/components/layout/SectionDock";
 import { Counter } from "@/src/components/sections/About";
 import ContactCTA from "@/src/components/sections/ContactCTA";
 import Hero from "@/src/components/sections/Hero";
-import { HatsGrid } from "@/src/components/sections/Method";
+import { CapabilitiesGrid } from "@/src/components/sections/Method";
 import ProjectCard from "@/src/components/sections/ProjectCard";
 import Seo from "@/src/components/Seo";
 import Reveal from "@/src/components/ui/Reveal";
 import SectionHeading from "@/src/components/ui/SectionHeading";
 import { profile, stats } from "@/src/data/profile";
 import { ongoing, projects } from "@/src/data/projects";
+
+const sections: DockSection[] = [
+  { id: "a-propos", label: "À propos" },
+  { id: "projets", label: "Projets" },
+  { id: "expertise", label: "Expertise" },
+  { id: "contact", label: "Contact" },
+];
 
 /** Lien vers la page détaillée d'une section. */
 function MoreLink({ to, children }: { to: string; children: ReactNode }) {
@@ -27,20 +35,21 @@ function MoreLink({ to, children }: { to: string; children: ReactNode }) {
 export default function Home() {
   const facts = [
     { label: "Poste", value: `${profile.role} · ${profile.company}` },
-    { label: "Produit", value: "Product Owner · Madebocar" },
+    { label: "Stack", value: "Next.js · NestJS · Expo · .NET" },
     { label: "Basé à", value: "Kolwezi, RDC" },
   ];
 
   return (
     <PageTransition>
       <Seo
-        title={`${profile.name} — ${profile.alias} | Product Owner & ${profile.role}`}
-        description={`${profile.name} (${profile.alias}), Product Owner et ${profile.role} chez ${profile.company}. Des produits web et mobiles pensés pour leurs utilisateurs et construits pour durer : Next.js, NestJS, Expo, .NET.`}
+        title={`${profile.name} — ${profile.alias} | Développeur fullstack & ${profile.role}`}
+        description={`${profile.name} (${profile.alias}), développeur fullstack et ${profile.role} chez ${profile.company}. Des produits web et mobiles pensés pour leurs utilisateurs et construits pour durer : Next.js, NestJS, Expo, .NET.`}
       />
       <Hero />
+      <SectionDock sections={sections} />
 
       {/* À propos, en bref */}
-      <section className="container-x pt-24 sm:pt-32">
+      <section id="a-propos" className="container-x pt-24 sm:pt-32">
         <SectionHeading
           index="01"
           label="À propos"
@@ -49,8 +58,8 @@ export default function Home() {
         <div className="mt-12 grid gap-12 sm:mt-16 lg:grid-cols-12 lg:gap-14">
           <Reveal className="lg:col-span-7">
             <p className="text-xl leading-snug tracking-[-0.02em] text-fg/90 sm:text-[1.65rem]">
-              Je suis {profile.name}, alias {profile.alias}. {profile.role} chez {profile.company} et Product Owner, je
-              code depuis Kolwezi avec une conviction :{" "}
+              Je suis {profile.name}, alias {profile.alias}. Développeur fullstack et {profile.role} chez{" "}
+              {profile.company}, je conçois des produits web et mobiles depuis Kolwezi, avec une conviction :{" "}
               <span className="serif-accent text-accent">des produits de niveau mondial peuvent naître d'ici.</span>
             </p>
             <div className="mt-9">
@@ -84,7 +93,7 @@ export default function Home() {
       </section>
 
       {/* Projets, en bref */}
-      <section className="container-x pt-24 sm:pt-32">
+      <section id="projets" className="container-x pt-24 sm:pt-32">
         <SectionHeading
           index="02"
           label="Projets"
@@ -111,21 +120,21 @@ export default function Home() {
       </section>
 
       {/* Expertise, en bref */}
-      <section className="container-x pt-24 sm:pt-32">
+      <section id="expertise" className="container-x pt-24 sm:pt-32">
         <SectionHeading
           index="03"
           label="Expertise"
-          title={[{ text: "Deux casquettes, " }, { text: "un seul produit.", className: "serif-accent text-accent" }]}
-          intro="Product Owner, je décide quoi construire et pourquoi. Ingénieur logiciel, je le construis et je le fais tenir en production."
+          title={[{ text: "Du besoin au code, " }, { text: "jusqu'en production.", className: "serif-accent text-accent" }]}
+          intro="Web, mobile et .NET, cadrage et direction technique : j'interviens sur tout le cycle d'un produit."
         />
-        <HatsGrid compact className="mt-12 sm:mt-16" />
+        <CapabilitiesGrid compact className="mt-12 sm:mt-16" />
         <Reveal className="mt-10 flex justify-end">
           <MoreLink to="/expertise">Méthode et outils</MoreLink>
         </Reveal>
       </section>
 
       {/* Contact, en bref */}
-      <ContactCTA />
+      <ContactCTA id="contact" />
     </PageTransition>
   );
 }

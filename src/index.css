@@ -227,35 +227,55 @@
   56%, 100% { opacity: 0; }
 }
 
-/* Portrait flouté du hero : fondu vers le texte (à gauche) et vers la page (en bas) */
-.hero-photo {
-  mask-image: linear-gradient(to bottom, black 45%, transparent 96%);
-  -webkit-mask-image: linear-gradient(to bottom, black 45%, transparent 96%);
+/*
+ * Portrait au stylo du hero. Les images sont opaques : « multiply » efface le
+ * papier blanc (thème clair), « screen » efface le papier noir (thème sombre).
+ * Trois masques : le tracé qui se révèle de haut en bas, un fondu vers le texte
+ * (à gauche) et un fondu vers la page (en bas).
+ */
+.hero-sketch {
+  mix-blend-mode: multiply;
+  opacity: 0.88;
+  mask-image:
+    linear-gradient(to bottom, #000 46%, transparent 54%),
+    linear-gradient(to right, transparent 0%, #000 34%),
+    linear-gradient(to bottom, #000 78%, transparent 100%);
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 46%, transparent 54%),
+    linear-gradient(to right, transparent 0%, #000 34%),
+    linear-gradient(to bottom, #000 78%, transparent 100%);
+  mask-size: 100% 260%, 100% 100%, 100% 100%;
+  -webkit-mask-size: 100% 260%, 100% 100%, 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in, source-in;
+  animation: sketch-draw 2.8s cubic-bezier(0.65, 0, 0.35, 1) 0.25s both;
 }
 
-.hero-photo > div {
-  mask-image: linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.35) 30%, black 70%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.35) 30%, black 70%);
+.hero-sketch-dark {
+  mix-blend-mode: screen;
+  opacity: 0.72;
 }
 
-/* Sur téléphone, le texte occupe toute la largeur : portrait plus discret */
+/* Sur téléphone, le texte occupe toute la largeur : dessin plus discret */
 @media (max-width: 1023px) {
-  .hero-photo img {
-    opacity: 0.32;
+  .hero-sketch {
+    opacity: 0.3;
   }
 
-  .hero-photo > div {
-    mask-image: linear-gradient(to right, transparent 0%, black 60%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 60%);
+  .hero-sketch-dark {
+    opacity: 0.3;
   }
 }
 
-/* Lente dérive du portrait, comme une caméra qui respire */
-.hero-photo-drift {
-  animation: photo-drift 22s ease-in-out infinite alternate;
-}
-
-@keyframes photo-drift {
-  from { transform: scale(1.02) translate3d(0, 0, 0); }
-  to { transform: scale(1.08) translate3d(-1.5%, -1%, 0); }
+@keyframes sketch-draw {
+  from {
+    mask-position: 0 100%, 0 0, 0 0;
+    -webkit-mask-position: 0 100%, 0 0, 0 0;
+  }
+  to {
+    mask-position: 0 0, 0 0, 0 0;
+    -webkit-mask-position: 0 0, 0 0, 0 0;
+  }
 }

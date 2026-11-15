@@ -39,7 +39,7 @@ export interface Project {
   /** Rôle personnel sur le projet, quand il est connu. */
   role?: string;
   /**
-   * Ce que je fais côté produit (casquette Product Owner) et côté code
+   * Ce que je fais côté produit (cadrage, priorisation) et côté code
    * (casquette ingénieur). Laissés vides tant qu'ils ne sont pas confirmés :
    * les fiches affichent alors les points clés du produit à la place.
    */
@@ -82,7 +82,7 @@ export const projects: Project[] = [
       { title: "Partout où est le client", text: "Application sur Google Play et l'App Store, ou réservation directement depuis le site." },
       { title: "Prix fixe", text: "Le montant est connu avant la commande et ne change pas en route." },
     ],
-    role: "Product Owner · Développeur front-end",
+    role: "Pilotage produit · Développement front-end",
     product: [
       "Vision produit et priorisation du backlog",
       "Parcours utilisateurs, côté passager comme côté chauffeur",
@@ -102,13 +102,15 @@ export const projects: Project[] = [
         alt: "Site madebocar.com : commander une course à Kolwezi, application sur Google Play et l'App Store",
         caption: "Le site madebocar.com : réservation et téléchargement de l'application",
       }),
-      shot("madebocar-commande", 607, 1280, {
+      shot("madebocar-commande", 637, 1395, {
         kind: "phone",
+        framed: true,
         alt: "Madebocar : écran de commande avec départ, destination, arrêts et nombre de passagers",
         caption: "Commande : itinéraire, arrêts et nombre de passagers",
       }),
-      shot("madebocar-recherche", 607, 1280, {
+      shot("madebocar-recherche", 637, 1395, {
         kind: "phone",
+        framed: true,
         alt: "Madebocar : recherche de chauffeur avec le trajet sur la carte et le tarif",
         caption: "Recherche du chauffeur, trajet et tarif",
       }),
@@ -185,13 +187,15 @@ export const projects: Project[] = [
     links: { demo: "https://ngochats.com" },
     accent: "#6d5dfc",
     shots: [
-      shot("ngo-chat-explorer", 571, 1117, {
+      shot("ngo-chat-explorer", 599, 1225, {
         kind: "phone",
+        framed: true,
         alt: "Ngo Chat : onglet Explorer avec le fil des moments",
         caption: "Explorer : le fil des moments",
       }),
-      shot("ngo-chat-profil", 571, 1117, {
+      shot("ngo-chat-profil", 599, 1225, {
         kind: "phone",
+        framed: true,
         alt: "Ngo Chat : page de profil avec contacts, moments et réglages",
         caption: "Profil : contacts, QR code et réglages",
       }),

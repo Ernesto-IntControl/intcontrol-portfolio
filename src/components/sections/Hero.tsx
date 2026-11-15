@@ -51,9 +51,8 @@ export default function Hero() {
           </h1>
 
           <motion.p {...fadeUp(0.75)} className="mt-8 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-            <span className="text-fg">Product Owner</span> et <span className="text-fg">{profile.role}</span> chez{" "}
-            {profile.company}, j'accompagne les produits web et mobiles de la vision au déploiement : cadrage,
-            priorisation, architecture et développement.
+            <span className="text-fg">Développeur fullstack</span> et <span className="text-fg">{profile.role}</span> chez{" "}
+            {profile.company}. Je conçois et je livre des produits web et mobiles, du cadrage à la mise en production.
           </motion.p>
 
           <motion.div {...fadeUp(0.9)} className="mt-9 flex flex-wrap items-center gap-3">
@@ -104,9 +103,12 @@ export default function Hero() {
 }
 
 /**
- * Portrait flouté en arrière-plan du hero (fichier déjà flouté : 6 Ko).
- * Il apparaît en se resserrant, dérive lentement, suit un peu la souris
- * et s'efface en remontant au scroll.
+ * Portrait dessiné au stylo (traits et hachures générés à partir de la photo).
+ * Deux versions en niveaux de gris opaques : encre noire sur papier blanc (thème clair)
+ * et stylo blanc sur papier noir (thème sombre) ; un mode de fusion ne garde que l'encre. Le dessin se trace de haut en bas
+ * à l'arrivée, suit un peu la souris et s'efface en remontant au scroll.
+ * Le calque porte le fond de la page : la fusion se fait sur lui, quelles que
+ * soient les transformations appliquées.
  */
 function HeroPortrait({ y, opacity }: { y: MotionValue<string>; opacity: MotionValue<number> }) {
   const px = useSpring(useMotionValue(0), { stiffness: 60, damping: 20 });
@@ -116,31 +118,39 @@ function HeroPortrait({ y, opacity }: { y: MotionValue<string>; opacity: MotionV
   useEffect(() => {
     if (!fine || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const onMove = (e: PointerEvent) => {
-      px.set((e.clientX / window.innerWidth - 0.5) * -18);
-      py.set((e.clientY / window.innerHeight - 0.5) * -12);
+      px.set((e.clientX / window.innerWidth - 0.5) * -14);
+      py.set((e.clientY / window.innerHeight - 0.5) * -10);
     };
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => window.removeEventListener("pointermove", onMove);
   }, [fine, px, py]);
 
   return (
-    <motion.div aria-hidden style={{ y, opacity }} className="hero-photo pointer-events-none absolute inset-0">
-      <motion.div
-        className="absolute inset-y-0 right-0 w-full lg:w-[64%]"
-        initial={{ opacity: 0, scale: 1.12 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 2.2, delay: 0.1, ease: EASE_OUT_EXPO }}
-        style={{ x: px, y: py }}
-      >
-        <picture>
-          <source type="image/avif" srcSet="/images/portrait-blur.avif" />
+    <motion.div aria-hidden style={{ y, opacity }} className="hero-portrait pointer-events-none absolute inset-0 bg-bg">
+      <motion.div className="absolute bottom-0 right-0 top-16 w-full bg-bg lg:w-[52%]" style={{ x: px, y: py }}>
+        {/* Encre noire en thème clair, stylo blanc sur papier noir en thème sombre */}
+        <picture className="contents dark:hidden">
+          <source type="image/avif" srcSet="/images/portrait-sketch.avif" />
           <img
-            src="/images/portrait-blur.webp"
+            src="/images/portrait-sketch.webp"
             alt=""
-            width={480}
-            height={640}
+            width={720}
+            height={960}
+            loading="lazy"
             decoding="async"
-            className="hero-photo-drift h-full w-full object-cover object-[50%_22%] opacity-60 dark:opacity-45"
+            className="hero-sketch h-full w-full object-contain object-[85%_100%] lg:object-[70%_100%]"
+          />
+        </picture>
+        <picture className="hidden dark:contents">
+          <source type="image/avif" srcSet="/images/portrait-sketch-dark.avif" />
+          <img
+            src="/images/portrait-sketch-dark.webp"
+            alt=""
+            width={720}
+            height={960}
+            loading="lazy"
+            decoding="async"
+            className="hero-sketch hero-sketch-dark h-full w-full object-contain object-[85%_100%] lg:object-[70%_100%]"
           />
         </picture>
       </motion.div>

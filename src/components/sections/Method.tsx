@@ -2,64 +2,45 @@ import { motion, useScroll, useSpring, useTransform, type MotionValue } from "mo
 import { useRef } from "react";
 import HexBullet from "@/src/components/ui/HexBullet";
 import Reveal from "@/src/components/ui/Reveal";
-import { hats, steps, type Hat, type Side } from "@/src/data/method";
+import { capabilities, steps } from "@/src/data/method";
 import { cn } from "@/src/lib/utils";
 
-/** Les deux casquettes, côte à côte ; `compact` (accueil) : rôle et résumé seulement. */
-export function HatsGrid({ className, compact }: { className?: string; compact?: boolean }) {
+/**
+ * Savoir-faire, en grille ; `compact` (accueil) : titre et phrase seulement.
+ * Au survol, un filet d'accent se trace en haut de la carte.
+ */
+export function CapabilitiesGrid({ className, compact }: { className?: string; compact?: boolean }) {
   return (
-    <div className={cn("grid gap-px overflow-hidden rounded-[28px] border border-line bg-line md:grid-cols-2", className)}>
-      {hats.map((hat, i) => (
-        <HatCard key={hat.side} hat={hat} delay={i * 0.08} compact={compact} />
+    <div
+      className={cn(
+        "grid gap-px overflow-hidden rounded-[28px] border border-line bg-line sm:grid-cols-2 lg:grid-cols-3",
+        className,
+      )}
+    >
+      {capabilities.map((item, i) => (
+        <Reveal key={item.title} delay={(i % 3) * 0.06} y={20} className="group relative bg-bg-elevated p-7 sm:p-8">
+          <span
+            aria-hidden
+            className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-accent transition-transform duration-700 ease-out-expo group-hover:scale-x-100"
+          />
+          <p className="flex items-center gap-3 font-mono text-xs text-subtle">
+            <HexBullet className="transition-transform duration-700 ease-out-expo group-hover:rotate-90" filled={i % 2 === 1} />
+            0{i + 1}
+          </p>
+          <h3 className="mt-5 text-xl font-semibold tracking-[-0.03em]">{item.title}</h3>
+          <p className="mt-2 leading-relaxed text-muted">{item.text}</p>
+          {!compact && (
+            <ul className="mt-6 flex flex-wrap gap-1.5">
+              {item.items.map((tag) => (
+                <li key={tag} className="chip">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          )}
+        </Reveal>
       ))}
     </div>
-  );
-}
-
-function SideLabel({ side, className }: { side: Side; className?: string }) {
-  return side === "produit" ? (
-    <span className={cn("serif-accent text-accent", className)}>produit</span>
-  ) : (
-    <span className={cn("font-mono uppercase tracking-[0.16em] text-accent", className)}>code</span>
-  );
-}
-
-function HatCard({ hat, delay, compact }: { hat: Hat; delay: number; compact?: boolean }) {
-  const product = hat.side === "produit";
-  return (
-    <Reveal delay={delay} y={24} className={cn("group relative overflow-hidden bg-bg-elevated", compact ? "p-7 sm:p-8" : "p-7 sm:p-10")}>
-      {/* Grand signe en filigrane : « ? » pour le produit, « { } » pour le code */}
-      <span
-        aria-hidden
-        className={cn(
-          "pointer-events-none absolute -bottom-6 right-4 select-none leading-none text-fg/[0.045] transition-transform duration-1000 ease-out-expo group-hover:-translate-y-2 group-hover:-rotate-6",
-          product ? "font-serif text-[12rem] italic" : "font-mono text-[9rem] font-medium tracking-[-0.1em]",
-        )}
-      >
-        {product ? "?" : "{ }"}
-      </span>
-
-      <p className={product ? "serif-accent text-2xl text-accent" : "font-mono text-xs uppercase tracking-[0.16em] text-accent"}>
-        {hat.label}
-      </p>
-      <h3 className="mt-5 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{hat.role}</h3>
-      <p className="mt-3 max-w-sm leading-relaxed text-muted">{hat.summary}</p>
-
-      <ul className={cn("relative mt-8 space-y-3 border-t border-line pt-6", compact && "hidden")}>
-        {hat.items.map((item) => (
-          <li
-            key={item}
-            className={cn(
-              "flex items-start gap-3",
-              product ? "font-serif text-xl italic text-fg/90" : "font-mono text-[13px] leading-relaxed text-fg/85",
-            )}
-          >
-            <HexBullet filled={!product} className={product ? "mt-[0.5em]" : "mt-[0.6em]"} />
-            {item}
-          </li>
-        ))}
-      </ul>
-    </Reveal>
   );
 }
 
@@ -85,11 +66,7 @@ export function Steps({ className }: { className?: string }) {
           <li key={step.title} className="relative pl-9 md:pl-0 md:pt-10">
             <Marker progress={progress} at={i / steps.length} />
             <Reveal delay={i * 0.06} y={14}>
-              <p className="flex items-center gap-3 text-xs">
-                <span className="font-mono text-subtle">0{i + 1}</span>
-                <span className="h-px w-4 bg-line-strong" aria-hidden />
-                <SideLabel side={step.side} className={step.side === "produit" ? "text-base" : "text-[11px]"} />
-              </p>
+              <p className="font-mono text-xs text-subtle">0{i + 1}</p>
               <h3 className="mt-3 text-2xl font-semibold tracking-[-0.035em]">{step.title}</h3>
               <p className="mt-2 max-w-xs leading-relaxed text-muted">{step.text}</p>
             </Reveal>

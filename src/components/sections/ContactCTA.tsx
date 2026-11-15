@@ -6,9 +6,9 @@ import RevealText from "@/src/components/ui/RevealText";
 import { profile } from "@/src/data/profile";
 
 /** Bandeau de fin de page : la prochaine étape, vers le contact. */
-export default function ContactCTA() {
+export default function ContactCTA({ id }: { id?: string }) {
   return (
-    <section className="container-x pb-8 pt-24 sm:pt-32">
+    <section id={id} className="container-x pb-8 pt-24 sm:pt-32">
       <div className="panel relative isolate overflow-hidden rounded-[32px] px-6 py-14 sm:px-12 sm:py-20 lg:px-16">
         <HexField
           delay={0}
