@@ -4,7 +4,6 @@
  */
 export const pageLoaders = {
   "/projets": () => import("./pages/ProjectsPage"),
-  "/projets/:slug": () => import("./pages/ProjectPage"),
   "/expertise": () => import("./pages/ExpertisePage"),
   "/a-propos": () => import("./pages/AboutPage"),
   "/contact": () => import("./pages/ContactPage"),
@@ -16,7 +15,8 @@ const requested = new Set<string>();
 
 function routeFor(path: string): RoutePath | null {
   if (path in pageLoaders) return path as RoutePath;
-  if (/^\/projets\/[^/]+$/.test(path)) return "/projets/:slug";
+  // Une étude de cas s'affiche sur la page Projets
+  if (/^\/projets\/[^/]+$/.test(path)) return "/projets";
   return null;
 }
 
@@ -38,7 +38,7 @@ export function setupRoutePrefetch() {
   document.addEventListener("focusin", onIntent);
   document.addEventListener("touchstart", onIntent, { passive: true });
 
-  const idle = window.setTimeout(() => Object.keys(pageLoaders).forEach((p) => prefetchRoute(p.replace(":slug", "x"))), 3500);
+  const idle = window.setTimeout(() => Object.keys(pageLoaders).forEach(prefetchRoute), 3500);
 
   return () => {
     document.removeEventListener("pointerover", onIntent);

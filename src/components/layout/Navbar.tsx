@@ -35,7 +35,7 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const isActive = (to: string) => pathname === to || pathname.startsWith(`${to}/`);
+  const isActive = (to: string) => (to === "/" ? pathname === "/" : pathname === to || pathname.startsWith(`${to}/`));
 
   return (
     <>
@@ -122,7 +122,7 @@ export default function Navbar() {
             aria-label="Menu"
           >
             <nav className="container-x flex flex-1 flex-col justify-center gap-1 pt-20">
-              {[{ name: "Accueil", to: "/" }, ...navLinks].map((link, i) => (
+              {navLinks.map((link, i) => (
                 <div key={link.to} className="overflow-hidden">
                   <motion.div
                     initial={{ y: "110%" }}
@@ -135,7 +135,7 @@ export default function Navbar() {
                       <span
                         className={cn(
                           "text-5xl font-semibold tracking-tight",
-                          (link.to === "/" ? pathname === "/" : isActive(link.to)) ? "text-fg" : "text-muted",
+                          isActive(link.to) ? "text-fg" : "text-muted",
                         )}
                       >
                         {link.name}

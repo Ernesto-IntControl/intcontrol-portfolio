@@ -16,7 +16,7 @@ export default function AboutPage() {
       <section className="container-x pt-36 sm:pt-44">
         <SectionHeading
           as="h1"
-          index="03"
+          index="01"
           label="À propos"
           title={[{ text: "Du code solide, " }, { text: "pensé produit.", className: "serif-accent text-accent" }]}
         />

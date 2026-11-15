@@ -226,3 +226,36 @@
   0%, 55% { opacity: 1; }
   56%, 100% { opacity: 0; }
 }
+
+/* Portrait flouté du hero : fondu vers le texte (à gauche) et vers la page (en bas) */
+.hero-photo {
+  mask-image: linear-gradient(to bottom, black 45%, transparent 96%);
+  -webkit-mask-image: linear-gradient(to bottom, black 45%, transparent 96%);
+}
+
+.hero-photo > div {
+  mask-image: linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.35) 30%, black 70%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.35) 30%, black 70%);
+}
+
+/* Sur téléphone, le texte occupe toute la largeur : portrait plus discret */
+@media (max-width: 1023px) {
+  .hero-photo img {
+    opacity: 0.32;
+  }
+
+  .hero-photo > div {
+    mask-image: linear-gradient(to right, transparent 0%, black 60%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 60%);
+  }
+}
+
+/* Lente dérive du portrait, comme une caméra qui respire */
+.hero-photo-drift {
+  animation: photo-drift 22s ease-in-out infinite alternate;
+}
+
+@keyframes photo-drift {
+  from { transform: scale(1.02) translate3d(0, 0, 0); }
+  to { transform: scale(1.08) translate3d(-1.5%, -1%, 0); }
+}

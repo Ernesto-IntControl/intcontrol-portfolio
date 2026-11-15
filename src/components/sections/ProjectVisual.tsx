@@ -1,8 +1,17 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, type PointerEvent } from "react";
 import { DesktopShot, PhoneShot } from "@/src/components/ui/Screenshot";
-import type { Project } from "@/src/data/projects";
+import type { Project, Shot } from "@/src/data/projects";
 import { cn } from "@/src/lib/utils";
+
+/** Captures d'ordinateur regroupées par écran (les variantes clair / sombre partagent la même légende). */
+export function desktopGroups(shots: Shot[]) {
+  const groups = new Map<string, Shot[]>();
+  for (const shot of shots.filter((s) => s.kind === "desktop")) {
+    groups.set(shot.caption, [...(groups.get(shot.caption) ?? []), shot]);
+  }
+  return [...groups.values()];
+}
 
 /**
  * Mise en scène des vraies captures d'un projet : deux téléphones décalés, ou un
@@ -12,11 +21,12 @@ import { cn } from "@/src/lib/utils";
 export default function ProjectVisual({ project, className }: { project: Project; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const near = useTransform(scrollYProgress, [0, 1], [18, -18]);
-  const far = useTransform(scrollYProgress, [0, 1], [48, -48]);
+  const near = useTransform(scrollYProgress, [0, 1], [10, -10]);
+  const far = useTransform(scrollYProgress, [0, 1], [28, -28]);
 
-  const desktop = project.shots.filter((s) => s.kind === "desktop");
+  const desktop = desktopGroups(project.shots)[0];
   const phones = project.shots.filter((s) => s.kind === "phone");
+  const title = desktop?.[0].label ?? project.fullName ?? project.title;
 
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
     const el = ref.current;
@@ -30,7 +40,7 @@ export default function ProjectVisual({ project, className }: { project: Project
     <div
       ref={ref}
       onPointerMove={onMove}
-      className={cn("group relative isolate overflow-hidden rounded-[28px] border border-line bg-surface", className)}
+      className={cn("group/visual relative isolate overflow-hidden rounded-[22px] border border-line bg-surface", className)}
     >
       <div
         aria-hidden
@@ -39,43 +49,42 @@ export default function ProjectVisual({ project, className }: { project: Project
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-        style={{ background: `radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), ${project.accent}29, transparent 70%)` }}
+        className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-700 group-hover/visual:opacity-100"
+        style={{ background: `radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), ${project.accent}29, transparent 70%)` }}
       />
 
-      {desktop.length > 0 ? (
+      {desktop ? (
         <>
-          <motion.div style={{ y: near }} className="absolute left-[6%] top-[12%] w-[80%]">
+          <motion.div style={{ y: near }} className="absolute left-[6%] top-[13%] w-[80%]">
             <DesktopShot
               shots={desktop}
-              title={project.fullName ?? project.title}
-              sizes="(min-width: 1024px) 40vw, 80vw"
-              className="transition-transform duration-1000 ease-out-expo group-hover:-translate-y-1"
+              title={title}
+              sizes="(min-width: 1024px) 26vw, 80vw"
+              className="transition-transform duration-1000 ease-out-expo group-hover/visual:-translate-y-1"
             />
           </motion.div>
           {phones[0] && (
-            <motion.div style={{ y: far }} className="absolute bottom-[5%] right-[5%] h-[66%]">
-              <PhoneShot shot={phones[0]} sizes="(min-width: 1024px) 12vw, 30vw" className="h-full" />
+            <motion.div style={{ y: far }} className="absolute bottom-[5%] right-[5%] h-[64%]">
+              <PhoneShot shot={phones[0]} sizes="(min-width: 1024px) 9vw, 26vw" className="h-full" />
             </motion.div>
           )}
         </>
       ) : (
         <div className="absolute inset-0 flex items-center justify-center gap-[4%]">
           {phones.slice(0, 2).map((shot, i) => (
-            <motion.div key={shot.src} style={{ y: i === 0 ? near : far }} className={cn("h-[78%]", i === 1 && "mt-[9%]")}>
+            <motion.div key={shot.src} style={{ y: i === 0 ? near : far }} className={cn("h-[76%]", i === 1 && "mt-[9%]")}>
               <PhoneShot
                 shot={shot}
-                sizes="(min-width: 1024px) 14vw, 40vw"
-                className={cn("h-full transition-transform duration-1000 ease-out-expo", i === 0 ? "group-hover:-rotate-2" : "group-hover:rotate-2")}
+                sizes="(min-width: 1024px) 10vw, 30vw"
+                className={cn(
+                  "h-full transition-transform duration-1000 ease-out-expo",
+                  i === 0 ? "group-hover/visual:-rotate-2" : "group-hover/visual:rotate-2",
+                )}
               />
             </motion.div>
           ))}
         </div>
       )}
-
-      <span className="absolute left-5 top-4 font-mono text-[10px] uppercase tracking-[0.16em] text-subtle">
-        {project.title.toLowerCase()}
-      </span>
     </div>
   );
 }

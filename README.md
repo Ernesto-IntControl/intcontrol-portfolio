@@ -9,21 +9,21 @@ Portfolio d'**Ernest Katumbi**, alias **INTCONTROL** : Product Owner et Lead Sof
 Un site sobre de plusieurs pages, centré sur les projets, avec une signature qui court partout :
 **le côté produit s'écrit en serif italique, le côté code en mono**.
 
-- **Hero** : « pensés » se souligne d'un trait tracé à la main, « construits » se pose sur un fond de code. À droite, une carte animée montre le chemin **de l'idée à la production** : une user story devient une branche et des commits, passe les tests, le build et la revue, puis part en production, sur trois exemples tirés des projets (pause au survol).
-- **Trame en nid d'abeille** (clin d'œil à l'emblème hexagonal) : une lumière la balaie à l'arrivée, puis suit la souris.
-- **Projets** illustrés par les **vraies captures** des applications (le tableau de bord JOSMA suit le thème clair ou sombre du site), avec une **étude de cas** par projet : problème, fonctionnalités, rôle côté produit et côté code, écrans.
+- **Hero** : « pensés » se souligne d'un trait tracé à la main, « construits » se pose sur un fond de code. En arrière-plan, mon portrait flouté (fichier déjà flouté, 6 Ko) apparaît en se resserrant, dérive lentement, suit un peu la souris et s'efface au scroll ; par-dessus, une trame en nid d'abeille balayée par une lumière qui suit la souris.
+- **Accueil en bref** : à propos, projets, expertise et contact en version courte, le détail sur chaque page.
+- **Projets** illustrés par les **vraies captures** (le tableau de bord Josma suit le thème clair ou sombre du site). L'**étude de cas s'ouvre sur place** (`/projets/madebocar`, `/projets/josma`, `/projets/ngo-chat`) : les autres cartes s'effacent, la carte choisie se réduit en bandeau, puis l'étude se déploie dessous (problème, fonctionnalités, rôle, écrans).
+- **En cours** (Intflow, Helpy, IntSchool, Simara) et **sites vitrines** (INT Global Services, Helzor) sur la page Projets.
 - **Expertise** : les deux casquettes (Product Owner / Lead Software Engineer), la méthode en quatre étapes reliées par un fil qui se remplit au scroll, et les outils (dont .NET avec Entity Framework Core et la gestion de projet).
 - Repères de section qui se « décodent », filets qui se tracent, chiffres qui défilent, emblème qui se dessine dans la navigation, transitions entre pages.
 - Thème **sombre / clair** avec transition circulaire (View Transitions API), choix mémorisé.
 
-Pages : accueil, projets, une étude de cas par projet (`/projets/madebocar`, `/projets/josma`, `/projets/ngo-chat`), expertise (`/services` y redirige), à propos, contact (EmailJS), 404.
+Pages : accueil, à propos, projets (et leurs études de cas), expertise (`/services` y redirige), contact (EmailJS), 404.
 
 ## Contenu
 
 Tout le contenu est centralisé dans `src/data/` :
 
-- `projects.ts` : les projets et leurs captures (`public/images/projects/`, en AVIF et WebP). Les champs `product` et `engineering` décrivent ce que je fais côté produit et côté code ; laissés vides, les fiches affichent les points clés du produit (`highlights`). `stack` et `links` s'affichent dès qu'ils sont renseignés.
-- `heroFlow.ts` : les exemples de la carte animée du hero.
+- `projects.ts` : les études de cas et leurs captures (`public/images/projects/`, en AVIF et WebP), puis les projets en cours (`ongoing`) et les sites vitrines (`showcases`). Les champs `product` et `engineering` décrivent ce que je fais côté produit et côté code ; laissés vides, l'étude affiche les fonctionnalités seules. `stack` et `links` s'affichent dès qu'ils sont renseignés.
 - `method.ts` : les deux casquettes et les étapes de la méthode.
 - `profile.ts`, `skills.ts` : profil, parcours, chiffres, outils.
 

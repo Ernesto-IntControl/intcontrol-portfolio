@@ -17,7 +17,7 @@ export default function ExpertisePage() {
       <section className="container-x pt-36 sm:pt-44">
         <SectionHeading
           as="h1"
-          index="02"
+          index="03"
           label="Expertise"
           title={[{ text: "Deux casquettes, " }, { text: "un seul produit.", className: "serif-accent text-accent" }]}
           intro="Product Owner, je décide quoi construire et pourquoi. Ingénieur logiciel, je le construis et je le fais tenir. Porter les deux, c'est réduire la distance entre l'idée et le code."
@@ -27,7 +27,7 @@ export default function ExpertisePage() {
 
       <section className="container-x pt-24 sm:pt-32">
         <SectionHeading
-          index="02.1"
+          index="03.1"
           label="Méthode"
           title={[{ text: "De la question " }, { text: "à la mise en production.", className: "serif-accent text-accent" }]}
         />
@@ -36,7 +36,7 @@ export default function ExpertisePage() {
 
       <section className="container-x pt-24 sm:pt-32">
         <SectionHeading
-          index="02.2"
+          index="03.2"
           label="Outils"
           title={[{ text: "Les outils " }, { text: "du quotidien.", className: "serif-accent text-accent" }]}
           intro="Du code au pilotage de projet : le web moderne en JavaScript en tête, .NET quand le projet l'exige."

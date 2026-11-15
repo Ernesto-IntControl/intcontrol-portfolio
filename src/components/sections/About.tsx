@@ -120,7 +120,7 @@ export default function About({ className }: { className?: string }) {
 }
 
 /** Chiffre qui défile jusqu'à sa valeur à l'entrée dans le viewport (écrit dans le DOM, sans rendu React). */
-function Counter({ stat }: { stat: Stat }) {
+export function Counter({ stat, className }: { stat: Stat; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
   const reduce = useReducedMotion();
@@ -142,7 +142,7 @@ function Counter({ stat }: { stat: Stat }) {
   return (
     <span
       ref={ref}
-      className="block whitespace-nowrap text-3xl font-semibold tabular-nums tracking-[-0.05em] text-fg sm:text-5xl"
+      className={cn("block whitespace-nowrap text-3xl font-semibold tabular-nums tracking-[-0.05em] text-fg sm:text-5xl", className)}
     >
       {format(stat.value)}
     </span>

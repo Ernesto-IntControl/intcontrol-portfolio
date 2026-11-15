@@ -5,12 +5,12 @@ import Reveal from "@/src/components/ui/Reveal";
 import { hats, steps, type Hat, type Side } from "@/src/data/method";
 import { cn } from "@/src/lib/utils";
 
-/** Les deux casquettes, côte à côte. */
-export function HatsGrid({ className }: { className?: string }) {
+/** Les deux casquettes, côte à côte ; `compact` (accueil) : rôle et résumé seulement. */
+export function HatsGrid({ className, compact }: { className?: string; compact?: boolean }) {
   return (
     <div className={cn("grid gap-px overflow-hidden rounded-[28px] border border-line bg-line md:grid-cols-2", className)}>
       {hats.map((hat, i) => (
-        <HatCard key={hat.side} hat={hat} delay={i * 0.08} />
+        <HatCard key={hat.side} hat={hat} delay={i * 0.08} compact={compact} />
       ))}
     </div>
   );
@@ -24,10 +24,10 @@ function SideLabel({ side, className }: { side: Side; className?: string }) {
   );
 }
 
-function HatCard({ hat, delay }: { hat: Hat; delay: number }) {
+function HatCard({ hat, delay, compact }: { hat: Hat; delay: number; compact?: boolean }) {
   const product = hat.side === "produit";
   return (
-    <Reveal delay={delay} y={24} className="group relative overflow-hidden bg-bg-elevated p-7 sm:p-10">
+    <Reveal delay={delay} y={24} className={cn("group relative overflow-hidden bg-bg-elevated", compact ? "p-7 sm:p-8" : "p-7 sm:p-10")}>
       {/* Grand signe en filigrane : « ? » pour le produit, « { } » pour le code */}
       <span
         aria-hidden
@@ -45,7 +45,7 @@ function HatCard({ hat, delay }: { hat: Hat; delay: number }) {
       <h3 className="mt-5 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{hat.role}</h3>
       <p className="mt-3 max-w-sm leading-relaxed text-muted">{hat.summary}</p>
 
-      <ul className="relative mt-8 space-y-3 border-t border-line pt-6">
+      <ul className={cn("relative mt-8 space-y-3 border-t border-line pt-6", compact && "hidden")}>
         {hat.items.map((item) => (
           <li
             key={item}

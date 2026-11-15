@@ -9,6 +9,8 @@ export interface Shot {
   theme?: "dark" | "light";
   /** La capture contient déjà son cadre de téléphone. */
   framed?: boolean;
+  /** Titre affiché dans la fenêtre d'une capture d'ordinateur (ex : l'adresse du site). */
+  label?: string;
   caption: string;
 }
 
@@ -66,7 +68,7 @@ export const projects: Project[] = [
     tagline: "L'application VTC pour commander une course en quelques secondes.",
     problem: "Commander une course doit prendre quelques secondes, pas quelques appels.",
     summary:
-      "Application de VTC qui met en relation passagers et chauffeurs, de la saisie de l'itinéraire jusqu'à la prise en charge.",
+      "Service de VTC et de taxi à Kolwezi, avec sa propre flotte et ses propres chauffeurs : une application Android et iOS, et la réservation depuis le site madebocar.com.",
     highlights: [
       "Jusqu'à 8 arrêts et 8 passagers par course",
       "Tarif et moyen de paiement affichés dès la commande",
@@ -77,6 +79,8 @@ export const projects: Project[] = [
       { title: "Pensée pour les groupes", text: "De 1 à 8 passagers, choisis en un geste avant de commander." },
       { title: "Tarif transparent", text: "Prix en francs congolais, détail du tarif et moyen de paiement visibles pendant la recherche." },
       { title: "Recherche en direct", text: "Le trajet s'affiche sur la carte pendant la recherche du chauffeur, et la course reste annulable." },
+      { title: "Partout où est le client", text: "Application sur Google Play et l'App Store, ou réservation directement depuis le site." },
+      { title: "Prix fixe", text: "Le montant est connu avant la commande et ne change pas en route." },
     ],
     role: "Product Owner · Développeur front-end",
     product: [
@@ -89,9 +93,15 @@ export const projects: Project[] = [
       "Les parcours que je priorise, je les code : aucune perte entre l'intention et l'écran",
     ],
     stack: [],
-    links: {},
+    links: { demo: "https://www.madebocar.com" },
     accent: "#f68b1f",
     shots: [
+      shot("madebocar-site", 1280, 800, {
+        kind: "desktop",
+        label: "madebocar.com",
+        alt: "Site madebocar.com : commander une course à Kolwezi, application sur Google Play et l'App Store",
+        caption: "Le site madebocar.com : réservation et téléchargement de l'application",
+      }),
       shot("madebocar-commande", 607, 1280, {
         kind: "phone",
         alt: "Madebocar : écran de commande avec départ, destination, arrêts et nombre de passagers",
@@ -106,7 +116,7 @@ export const projects: Project[] = [
   },
   {
     slug: "josma",
-    title: "JOSMA",
+    title: "Josma",
     fullName: "Josar Management",
     category: "Gestion commerciale",
     company: "Josar Technologie",
@@ -134,19 +144,19 @@ export const projects: Project[] = [
       shot("josma-dashboard-dark", 1088, 763, {
         kind: "desktop",
         theme: "dark",
-        alt: "JOSMA : tableau de bord d'un commerce (thème sombre) avec ventes, bénéfice, dépenses et budgets",
+        alt: "Josma : tableau de bord d'un commerce (thème sombre) avec ventes, bénéfice, dépenses et budgets",
         caption: "Tableau de bord : ventes du jour, budgets et actions à traiter",
       }),
       shot("josma-dashboard-light", 1088, 763, {
         kind: "desktop",
         theme: "light",
-        alt: "JOSMA : tableau de bord d'un commerce (thème clair) avec ventes, bénéfice, dépenses et budgets",
+        alt: "Josma : tableau de bord d'un commerce (thème clair) avec ventes, bénéfice, dépenses et budgets",
         caption: "Tableau de bord : ventes du jour, budgets et actions à traiter",
       }),
       shot("josma-mobile", 304, 641, {
         kind: "phone",
         framed: true,
-        alt: "JOSMA : écran de connexion mobile avec les ventes du jour et le stock à jour hors ligne",
+        alt: "Josma : écran de connexion mobile avec les ventes du jour et le stock à jour hors ligne",
         caption: "Application mobile : connexion et ventes du jour",
       }),
     ],
@@ -190,3 +200,59 @@ export const projects: Project[] = [
 ];
 
 export const getProject = (slug: string | undefined) => projects.find((p) => p.slug === slug);
+
+/** Autres réalisations : produits en cours de développement et sites vitrines. */
+export interface OtherWork {
+  name: string;
+  kind: "en-cours" | "vitrine";
+  /** Laissée vide tant qu'elle n'est pas confirmée. */
+  description?: string;
+  url?: string;
+  /** Entreprise qui porte le produit, quand elle est connue. */
+  by?: string;
+  shot?: Shot;
+}
+
+export const ongoing: OtherWork[] = [
+  { name: "Intflow", kind: "en-cours" },
+  { name: "Helpy", kind: "en-cours" },
+  {
+    name: "IntSchool",
+    kind: "en-cours",
+    by: "INT Global Services",
+    description: "Logiciel de gestion scolaire pensé pour l'Afrique : inscriptions, frais, bulletins, présences et suivi des parents.",
+    url: "https://intschool-site.vercel.app",
+    shot: shot("intschool-site", 1280, 800, {
+      kind: "desktop",
+      alt: "Site d'IntSchool : « Toute votre école, sous contrôle »",
+      caption: "Site d'IntSchool",
+    }),
+  },
+  {
+    name: "Simara",
+    kind: "en-cours",
+    by: "INT Global Services",
+    description: "Supervision multi-sites des équipes, chantiers, actifs et finances, pour les PME du BTP, de la logistique et au-delà.",
+    url: "https://simara-website.vercel.app",
+    shot: shot("simara-site", 1280, 800, {
+      kind: "desktop",
+      alt: "Site de Simara : « Sachez qui travaille où, sur quel projet, avec quelles ressources et à quel coût »",
+      caption: "Site de Simara",
+    }),
+  },
+];
+
+export const showcases: OtherWork[] = [
+  {
+    name: "INT Global Services",
+    kind: "vitrine",
+    description: "Site vitrine d'une entreprise technologique basée en RDC : produits, services et réalisations.",
+    url: "https://intglobalservice-website.vercel.app",
+    shot: shot("intglobalservice-site", 1280, 800, {
+      kind: "desktop",
+      alt: "Site vitrine d'INT Global Services : « Des solutions numériques qui structurent le fonctionnement de votre organisation »",
+      caption: "Site vitrine d'INT Global Services",
+    }),
+  },
+  { name: "Helzor", kind: "vitrine", description: "Site vitrine de Helzor Business." },
+];

@@ -13,7 +13,6 @@ import { ThemeProvider } from "./providers/ThemeProvider";
 import { pageLoaders, setupRoutePrefetch } from "./routes";
 
 const ProjectsPage = lazy(pageLoaders["/projets"]);
-const ProjectPage = lazy(pageLoaders["/projets/:slug"]);
 const ExpertisePage = lazy(pageLoaders["/expertise"]);
 const AboutPage = lazy(pageLoaders["/a-propos"]);
 const ContactPage = lazy(pageLoaders["/contact"]);
@@ -32,10 +31,10 @@ function AnimatedRoutes() {
       // La nouvelle page démarre en haut, une fois l'ancienne sortie
       onExitComplete={() => window.scrollTo({ top: 0, behavior: "instant" })}
     >
-      <Routes location={location} key={location.pathname}>
+      {/* Clé par section : ouvrir une étude de cas (/projets/:slug) ne rejoue pas la transition de page */}
+      <Routes location={location} key={location.pathname.split("/")[1] || "accueil"}>
         <Route path="/" element={<Home />} />
-        <Route path="/projets" element={<Page><ProjectsPage /></Page>} />
-        <Route path="/projets/:slug" element={<Page><ProjectPage /></Page>} />
+        <Route path="/projets/:slug?" element={<Page><ProjectsPage /></Page>} />
         <Route path="/expertise" element={<Page><ExpertisePage /></Page>} />
         <Route path="/a-propos" element={<Page><AboutPage /></Page>} />
         <Route path="/contact" element={<Page><ContactPage /></Page>} />

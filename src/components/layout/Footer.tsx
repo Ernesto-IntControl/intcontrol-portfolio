@@ -42,11 +42,6 @@ export default function Footer() {
           <nav aria-label="Pied de page">
             <p className="eyebrow mb-4">Navigation</p>
             <ul>
-              <li>
-                <Link to="/" className={linkClass}>
-                  Accueil
-                </Link>
-              </li>
               {navLinks.map((link) => (
                 <li key={link.to}>
                   <Link to={link.to} className={linkClass}>
