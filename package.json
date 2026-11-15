@@ -1,6 +1,7 @@
 {
   "name": "intcontrol-portfolio",
   "private": true,
+  "license": "MIT",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -19,21 +20,18 @@
     "@vercel/analytics": "^2.0.1",
     "@vitejs/plugin-react": "^5.0.4",
     "clsx": "^2.1.1",
-    "lenis": "^1.3.26",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.6.0",
-    "react-router-dom": "^7.13.2",
-    "three": "^0.186.1",
+    "react-router-dom": "^7.18.5",
     "vite": "^6.2.0"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "@types/three": "^0.186.0",
     "tailwindcss": "^4.1.14",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"

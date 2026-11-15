@@ -1,123 +1,157 @@
-import { ArrowUpRight, Github } from "lucide-react";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { AnimatePresence, LayoutGroup, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import PageTransition from "@/src/components/layout/PageTransition";
+import SectionDock, { type DockSection } from "@/src/components/layout/SectionDock";
+import CaseStudy from "@/src/components/sections/CaseStudy";
 import ContactCTA from "@/src/components/sections/ContactCTA";
-import MockupStage from "@/src/components/sections/MockupStage";
+import NextPage from "@/src/components/sections/NextPage";
+import OtherWorkGrid from "@/src/components/sections/OtherWork";
+import ProjectCard from "@/src/components/sections/ProjectCard";
 import Seo from "@/src/components/Seo";
-import Reveal from "@/src/components/ui/Reveal";
-import RevealText from "@/src/components/ui/RevealText";
 import SectionHeading from "@/src/components/ui/SectionHeading";
-import { projects, type Project } from "@/src/data/projects";
-import { techIcons } from "@/src/lib/techIcons";
-import { cn } from "@/src/lib/utils";
-import { useScrollTo } from "@/src/providers/SmoothScroll";
+import { ongoing, projects, showcases } from "@/src/data/projects";
+import NotFoundPage from "./NotFoundPage";
 
+const sections: DockSection[] = [
+  { id: "etudes", label: "Études de cas" },
+  { id: "en-cours", label: "En cours" },
+  { id: "vitrines", label: "Sites vitrines" },
+];
+
+/**
+ * Les projets. Une étude de cas s'ouvre sur place (/projets/:slug) : les autres cartes
+ * s'effacent, celle du projet se réduit en bandeau et l'étude se déploie dessous.
+ */
 export default function ProjectsPage() {
-  const { hash } = useLocation();
-  const scrollTo = useScrollTo();
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const listRef = useRef<HTMLDivElement>(null);
+  const selected = projects.find((p) => p.slug === slug);
+  /** Projet en cours d'ouverture : les autres cartes s'effacent avant la transformation. */
+  const [leaving, setLeaving] = useState<string | null>(null);
 
-  // Arrivée depuis « Découvrir le projet » : on rejoint la bonne fiche après la transition
+  /** Ramène le haut de la liste sous la navigation, puis exécute `then` une fois le défilement fini. */
+  const bringListIntoView = (then?: () => void) => {
+    const el = listRef.current;
+    const top = el ? el.getBoundingClientRect().top + window.scrollY - 104 : window.scrollY;
+    if (!el || Math.abs(window.scrollY - top) < 8) {
+      then?.();
+      return;
+    }
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      window.removeEventListener("scrollend", finish);
+      then?.();
+    };
+    window.addEventListener("scrollend", finish, { once: true });
+    window.setTimeout(finish, 700); // navigateurs sans « scrollend »
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+
+  // Arrivée directe sur une étude (/projets/:slug) : on la rejoint
   useEffect(() => {
-    if (!hash) return;
-    const id = window.setTimeout(() => scrollTo(hash, { offset: -100 }), 700);
+    if (!slug) return;
+    const id = window.setTimeout(() => bringListIntoView(), 120);
     return () => window.clearTimeout(id);
-  }, [hash, scrollTo]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (slug && !selected) return <NotFoundPage />;
+
+  // Trois temps : la liste remonte sous la navigation, les autres cartes s'effacent,
+  // puis la carte choisie se réduit en bandeau et l'étude se déploie dessous
+  const open = (s: string) =>
+    bringListIntoView(() => {
+      if (selected) {
+        navigate(`/projets/${s}`);
+        return;
+      }
+      setLeaving(s);
+      window.setTimeout(() => {
+        navigate(`/projets/${s}`);
+        setLeaving(null);
+      }, 320);
+    });
+  const close = () => navigate("/projets");
+  const visible = selected ? [selected] : projects;
 
   return (
     <PageTransition>
       <Seo
-        title="Projets | Ernest Katumbi — INTCONTROL"
-        description="Madebocar, BisoMarket, BisoChat : les produits sur lesquels travaille Ernest Katumbi (INTCONTROL)."
-        path="/projets"
+        title={selected ? `${selected.title} — Étude de cas | Ernest Katumbi — INTCONTROL` : "Projets | Ernest Katumbi — INTCONTROL"}
+        description={
+          selected
+            ? `${selected.title}${selected.fullName ? ` (${selected.fullName})` : ""} : ${selected.tagline}`
+            : "Madebocar, Josma, Ngo Chat, et les projets en cours (Intflow, Helpy, IntSchool, Simara) d'Ernest Katumbi (INTCONTROL), développeur fullstack et Lead Software Engineer."
+        }
+        path={selected ? `/projets/${selected.slug}` : "/projets"}
       />
 
-      <section className="container-x pb-10 pt-36 sm:pt-44">
+      <SectionDock sections={sections} />
+
+      <section id="etudes" className="container-x pt-36 sm:pt-44">
         <SectionHeading
           as="h1"
           index="02"
           label="Projets"
           title={[{ text: "Des produits " }, { text: "en mouvement.", className: "serif-accent text-accent" }]}
-          intro="Mobilité, registre numérique, réseau social : trois produits, une même exigence de qualité, de la vision produit jusqu'au code."
+          intro="Mobilité, gestion commerciale, réseau social : chaque étude de cas raconte le problème, le produit et mon rôle, de la vision jusqu'au code."
         />
+
+        <div ref={listRef} className="mt-14 scroll-mt-28 sm:mt-20">
+          <LayoutGroup>
+            <div className={selected ? "" : "grid gap-x-6 gap-y-14 md:grid-cols-2 lg:grid-cols-3"}>
+              {visible.map((project) => (
+                <motion.div
+                  key={project.slug}
+                  animate={leaving && leaving !== project.slug ? { opacity: 0, scale: 0.97 } : { opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                >
+                  <ProjectCard
+                    project={project}
+                    index={projects.indexOf(project)}
+                    total={projects.length}
+                    variant={selected ? "header" : "card"}
+                    headingAs="h2"
+                    onOpen={() => open(project.slug)}
+                    onClose={close}
+                  />
+                </motion.div>
+              ))}
+            </div>
+
+            <AnimatePresence mode="wait" initial={false}>
+              {selected && <CaseStudy key={selected.slug} project={selected} onOpen={open} />}
+            </AnimatePresence>
+          </LayoutGroup>
+        </div>
       </section>
 
-      <div className="container-x space-y-6 pb-10 sm:space-y-10">
-        {projects.map((project, i) => (
-          <ProjectDetail key={project.slug} project={project} index={i} />
-        ))}
-      </div>
-
-      <ContactCTA index="03" />
-    </PageTransition>
-  );
-}
-
-function ProjectDetail({ project, index }: { project: Project; index: number }) {
-  const reversed = index % 2 === 1;
-  const details = [
-    { label: "Catégorie", value: project.category },
-    project.role ? { label: "Rôle", value: project.role } : null,
-  ].filter((d): d is { label: string; value: string } => d !== null);
-
-  return (
-    <article id={project.slug} className="panel relative grid scroll-mt-28 overflow-hidden rounded-[28px] sm:rounded-[36px] lg:grid-cols-2">
-      <MockupStage
-        project={project}
-        className={cn("min-h-[340px] sm:min-h-[460px] lg:min-h-[640px]", reversed && "lg:order-2")}
-      />
-      <div className="relative flex flex-col justify-center border-t border-line p-6 sm:p-10 lg:border-l lg:border-t-0 lg:p-14">
-        <span className="font-mono text-xs text-subtle">{String(index + 1).padStart(2, "0")}</span>
-        <RevealText
-          as="h2"
-          text={project.title}
-          className="mt-4 text-[clamp(2.5rem,5.5vw,4.75rem)] font-semibold leading-[0.92] tracking-[-0.05em]"
+      <section id="en-cours" className="container-x pt-24 sm:pt-32">
+        <SectionHeading
+          index="02.1"
+          label="En cours"
+          title={[{ text: "Sur l'établi, " }, { text: "en ce moment.", className: "serif-accent text-accent" }]}
+          intro="Des produits en cours de développement, dont certains ont déjà leur site."
         />
-        <Reveal delay={0.1}>
-          <p className="mt-5 text-xl leading-snug text-fg/90">{project.tagline}</p>
-          <p className="mt-4 leading-relaxed text-muted">{project.description}</p>
+        <OtherWorkGrid items={ongoing} className="mt-12 sm:mt-16" />
+      </section>
 
-          <dl className="mt-8 divide-y divide-line border-y border-line">
-            {details.map((d) => (
-              <div key={d.label} className="flex items-baseline justify-between gap-6 py-3.5 text-sm">
-                <dt className="eyebrow">{d.label}</dt>
-                <dd className="text-right text-fg">{d.value}</dd>
-              </div>
-            ))}
-            {project.stack.length > 0 && (
-              <div className="flex items-baseline justify-between gap-6 py-3.5 text-sm">
-                <dt className="eyebrow">Stack</dt>
-                <dd className="flex flex-wrap justify-end gap-1.5">
-                  {project.stack.map((tech) => {
-                    const Icon = techIcons[tech];
-                    return (
-                      <span key={tech} className="chip">
-                        {Icon && <Icon className="h-3 w-3" />}
-                        {tech}
-                      </span>
-                    );
-                  })}
-                </dd>
-              </div>
-            )}
-          </dl>
+      <section id="vitrines" className="container-x pt-24 sm:pt-32">
+        <SectionHeading
+          index="02.2"
+          label="Sites vitrines"
+          title={[{ text: "Présenter, " }, { text: "convaincre.", className: "serif-accent text-accent" }]}
+          intro="Des sites qui présentent une entreprise, ses produits et ses services."
+        />
+        <OtherWorkGrid items={showcases} wide className="mt-12 sm:mt-16" />
+      </section>
 
-          {(project.links.demo || project.links.github) && (
-            <div className="mt-8 flex flex-wrap gap-3">
-              {project.links.demo && (
-                <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="btn-primary" data-cursor="Ouvrir">
-                  Voir le produit <ArrowUpRight className="h-4 w-4" />
-                </a>
-              )}
-              {project.links.github && (
-                <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="btn-ghost">
-                  Code source <Github className="h-4 w-4" />
-                </a>
-              )}
-            </div>
-          )}
-        </Reveal>
-      </div>
-    </article>
+      <NextPage to="/expertise" label="Expertise" text="Savoir-faire, méthode et outils : du besoin au code, jusqu'en production." />
+      <ContactCTA />
+    </PageTransition>
   );
 }

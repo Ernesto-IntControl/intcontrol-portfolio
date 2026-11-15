@@ -1,12 +1,10 @@
-import { getDeviceProfile, whenIdle } from "./lib/boot";
-
 /**
  * Pages secondaires chargées à la demande. L'accueil reste dans le bundle principal
  * (page d'arrivée la plus fréquente, sans aller-retour réseau supplémentaire).
  */
 export const pageLoaders = {
   "/projets": () => import("./pages/ProjectsPage"),
-  "/services": () => import("./pages/ServicesPage"),
+  "/expertise": () => import("./pages/ExpertisePage"),
   "/a-propos": () => import("./pages/AboutPage"),
   "/contact": () => import("./pages/ContactPage"),
 } as const;
@@ -15,18 +13,22 @@ type RoutePath = keyof typeof pageLoaders;
 
 const requested = new Set<string>();
 
-export function prefetchRoute(href: string | null) {
-  if (!href || !href.startsWith("/")) return;
-  const path = href.split(/[?#]/)[0] as RoutePath;
-  if (!(path in pageLoaders) || requested.has(path)) return;
-  requested.add(path);
-  pageLoaders[path]().catch(() => requested.delete(path));
+function routeFor(path: string): RoutePath | null {
+  if (path in pageLoaders) return path as RoutePath;
+  // Une étude de cas s'affiche sur la page Projets
+  if (/^\/projets\/[^/]+$/.test(path)) return "/projets";
+  return null;
 }
 
-/**
- * Précharge une page dès l'intention de navigation (survol, focus, toucher),
- * et toutes les pages pendant l'inactivité si la connexion est bonne.
- */
+export function prefetchRoute(href: string | null) {
+  if (!href || !href.startsWith("/")) return;
+  const route = routeFor(href.split(/[?#]/)[0]);
+  if (!route || requested.has(route)) return;
+  requested.add(route);
+  pageLoaders[route]().catch(() => requested.delete(route));
+}
+
+/** Précharge une page dès l'intention de navigation (survol, focus, toucher), puis toutes pendant l'inactivité. */
 export function setupRoutePrefetch() {
   const onIntent = (event: Event) => {
     const link = (event.target as Element | null)?.closest?.("a[href]");
@@ -36,17 +38,12 @@ export function setupRoutePrefetch() {
   document.addEventListener("focusin", onIntent);
   document.addEventListener("touchstart", onIntent, { passive: true });
 
-  let cancelIdle = () => {};
-  const timer = window.setTimeout(() => {
-    if (!getDeviceProfile().fastNetwork) return;
-    cancelIdle = whenIdle(() => Object.keys(pageLoaders).forEach(prefetchRoute), 4000);
-  }, 3500);
+  const idle = window.setTimeout(() => Object.keys(pageLoaders).forEach(prefetchRoute), 3500);
 
   return () => {
     document.removeEventListener("pointerover", onIntent);
     document.removeEventListener("focusin", onIntent);
     document.removeEventListener("touchstart", onIntent);
-    window.clearTimeout(timer);
-    cancelIdle();
+    window.clearTimeout(idle);
   };
 }

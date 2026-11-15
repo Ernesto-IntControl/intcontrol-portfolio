@@ -1,114 +1,113 @@
 import { ArrowUp, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import FooterWordmark from "./FooterWordmark";
-import Magnetic from "@/src/components/ui/Magnetic";
+import LogoMark from "@/src/components/ui/LogoMark";
 import SocialLink from "@/src/components/ui/SocialLink";
 import { profile, socials } from "@/src/data/profile";
+import { projects } from "@/src/data/projects";
 import { useLocalTime } from "@/src/hooks/useLocalTime";
-import { useScrollTo } from "@/src/providers/SmoothScroll";
+import { navLinks } from "./navLinks";
 
-const nav = [
-  { name: "Accueil", to: "/" },
-  { name: "À propos", to: "/a-propos" },
-  { name: "Services", to: "/services" },
-  { name: "Projets", to: "/projets" },
-  { name: "Contact", to: "/contact" },
-];
+const linkClass = "inline-flex min-h-9 items-center text-sm text-muted transition-colors hover:text-fg";
 
 export default function Footer() {
   const time = useLocalTime(profile.timeZone);
-  const scrollTo = useScrollTo();
 
   return (
-    <footer className="relative pb-4 pt-8 sm:pb-6">
-      <div className="container-x">
-        <div className="panel relative overflow-hidden rounded-[28px] px-6 pt-14 sm:rounded-[40px] sm:px-10 sm:pt-20 lg:px-14">
-          <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-accent/60 to-transparent" />
-
-          <div className="grid gap-12 md:grid-cols-12">
-            <div className="md:col-span-5">
-              <p className="eyebrow mb-6">Prochaine étape</p>
-              <h2 className="text-4xl font-semibold leading-[1.02] sm:text-5xl">
-                Construisons quelque chose <span className="serif-accent text-accent">d'exceptionnel.</span>
-              </h2>
-              <div className="mt-8">
-                <Magnetic>
-                  <Link to="/contact" className="btn-primary" data-cursor="Go">
-                    Démarrer un projet
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </Magnetic>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-7 md:pl-10">
-              <div>
-                <p className="eyebrow mb-5">Navigation</p>
-                <ul className="space-y-0.5">
-                  {nav.map((item) => (
-                    <li key={item.to}>
-                      <Link to={item.to} className="inline-flex min-h-10 items-center text-sm text-muted transition-colors hover:text-fg">
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <p className="eyebrow mb-5">Réseaux</p>
-                <ul className="space-y-0.5">
-                  {socials.map((social) => {
-                    const Icon = social.icon;
-                    return (
-                      <li key={social.label}>
-                        <SocialLink
-                          social={social}
-                          className="group inline-flex min-h-10 items-center gap-2 text-sm text-muted transition-colors hover:text-fg"
-                        >
-                          <Icon className="h-3.5 w-3.5" />
-                          {social.label}
-                          <ArrowUpRight className="h-3 w-3 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
-                        </SocialLink>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div className="col-span-2 sm:col-span-1">
-                <p className="eyebrow mb-5">Contact</p>
-                <ul className="space-y-0.5 text-sm text-muted">
-                  <li>
-                    <a href={`mailto:${profile.email}`} className="inline-flex min-h-10 items-center break-all transition-colors hover:text-fg">
-                      {profile.email}
-                    </a>
-                  </li>
-                  <li>
-                    <a href={profile.phoneHref} className="inline-flex min-h-10 items-center transition-colors hover:text-fg">
-                      {profile.phone}
-                    </a>
-                  </li>
-                  <li className="flex min-h-10 items-center">{profile.location}</li>
-                  <li className="flex min-h-10 items-center font-mono text-xs">{time} · heure locale</li>
-                </ul>
-              </div>
-            </div>
+    <footer className="relative mt-16 border-t border-line">
+      <div className="container-x grid gap-12 py-16 sm:py-20 lg:grid-cols-12 lg:gap-10">
+        {/* Identité */}
+        <div className="lg:col-span-5">
+          <Link to="/" className="group inline-flex items-center gap-3" aria-label={`${profile.alias} — accueil`}>
+            <LogoMark className="h-8 w-8 text-fg transition-transform duration-700 ease-out-expo group-hover:rotate-[60deg]" />
+            <span className="font-mono text-sm font-semibold tracking-[0.2em] text-fg">{profile.alias}</span>
+          </Link>
+          <p className="mt-6 max-w-sm leading-relaxed text-muted">
+            {profile.name}, développeur fullstack et {profile.role}. Des produits web et mobiles, du cadrage à la mise
+            en production.
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <span className="chip">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+              {profile.availability}
+            </span>
+            <Link to="/contact" className="group inline-flex min-h-9 items-center gap-1.5 text-sm font-medium text-fg">
+              <span className="link-underline pb-0.5">Démarrer un projet</span>
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
           </div>
+        </div>
 
-          <FooterWordmark className="mt-16 sm:mt-24" />
+        {/* Liens */}
+        <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-7">
+          <nav aria-label="Pied de page">
+            <p className="eyebrow mb-4">Navigation</p>
+            <ul>
+              {navLinks.map((link) => (
+                <li key={link.to}>
+                  <Link to={link.to} className={linkClass}>
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div>
+            <p className="eyebrow mb-4">Projets</p>
+            <ul>
+              {projects.map((project) => (
+                <li key={project.slug}>
+                  <Link to={`/projets/${project.slug}`} className={linkClass}>
+                    {project.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-span-2 sm:col-span-1">
+            <p className="eyebrow mb-4">Contact</p>
+            <ul>
+              <li>
+                <a href={`mailto:${profile.email}`} className={`${linkClass} break-all`}>
+                  {profile.email}
+                </a>
+              </li>
+              <li>
+                <a href={profile.phoneHref} className={linkClass}>
+                  {profile.phone}
+                </a>
+              </li>
+              <li className="flex min-h-9 items-center text-sm text-muted">{profile.location}</li>
+              <li className="flex min-h-9 items-center font-mono text-xs text-subtle">{time} · heure locale</li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-          <div className="flex flex-col items-center justify-between gap-4 border-t border-line py-6 sm:flex-row">
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-subtle">
-              © {new Date().getFullYear()} {profile.name} — {profile.alias}
-            </p>
+      <div className="border-t border-line">
+        <div className="container-x flex flex-col gap-5 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-subtle">
+            © {new Date().getFullYear()} {profile.name} ({profile.alias}). Tous droits réservés.
+          </p>
+          <div className="flex items-center gap-1">
+            {socials.map((social) => {
+              const Icon = social.icon;
+              return (
+                <SocialLink
+                  key={social.label}
+                  social={social}
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors hover:text-fg"
+                >
+                  <Icon className="h-4 w-4" />
+                </SocialLink>
+              );
+            })}
             <button
               type="button"
-              onClick={() => scrollTo(0)}
-              className="group inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-muted transition-colors hover:text-fg"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              aria-label="Retour en haut"
+              className="group ml-2 flex h-10 w-10 items-center justify-center rounded-full border border-line text-muted transition-colors hover:text-fg"
             >
-              Retour en haut
-              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-line transition-transform duration-500 ease-out-expo group-hover:-translate-y-1">
-                <ArrowUp className="h-3.5 w-3.5" />
-              </span>
+              <ArrowUp className="h-4 w-4 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5" />
             </button>
           </div>
         </div>

@@ -1,8 +1,7 @@
 import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence, MotionConfig } from "motion/react";
 import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import Cursor from "./components/layout/Cursor";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import ErrorBoundary from "./components/layout/ErrorBoundary";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
@@ -10,13 +9,11 @@ import ScrollProgress from "./components/layout/ScrollProgress";
 import { hideSplash, waitForBoot } from "./lib/boot";
 import Home from "./pages/Home";
 import NotFoundPage from "./pages/NotFoundPage";
-import { IntroProvider, shouldPlayIntro } from "./providers/IntroProvider";
-import { SmoothScroll, useLenis } from "./providers/SmoothScroll";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import { pageLoaders, setupRoutePrefetch } from "./routes";
 
 const ProjectsPage = lazy(pageLoaders["/projets"]);
-const ServicesPage = lazy(pageLoaders["/services"]);
+const ExpertisePage = lazy(pageLoaders["/expertise"]);
 const AboutPage = lazy(pageLoaders["/a-propos"]);
 const ContactPage = lazy(pageLoaders["/contact"]);
 
@@ -27,23 +24,22 @@ function Page({ children }: { children: ReactNode }) {
 
 function AnimatedRoutes() {
   const location = useLocation();
-  const lenis = useLenis();
 
   return (
     <AnimatePresence
       mode="wait"
-      onExitComplete={() => {
-        // La nouvelle page démarre en haut, une fois l'ancienne sortie
-        lenis?.scrollTo(0, { immediate: true, force: true });
-        window.scrollTo(0, 0);
-      }}
+      // La nouvelle page démarre en haut, une fois l'ancienne sortie
+      onExitComplete={() => window.scrollTo({ top: 0, behavior: "instant" })}
     >
-      <Routes location={location} key={location.pathname}>
+      {/* Clé par section : ouvrir une étude de cas (/projets/:slug) ne rejoue pas la transition de page */}
+      <Routes location={location} key={location.pathname.split("/")[1] || "accueil"}>
         <Route path="/" element={<Home />} />
-        <Route path="/projets" element={<Page><ProjectsPage /></Page>} />
-        <Route path="/services" element={<Page><ServicesPage /></Page>} />
+        <Route path="/projets/:slug?" element={<Page><ProjectsPage /></Page>} />
+        <Route path="/expertise" element={<Page><ExpertisePage /></Page>} />
         <Route path="/a-propos" element={<Page><AboutPage /></Page>} />
         <Route path="/contact" element={<Page><ContactPage /></Page>} />
+        {/* Ancienne page Services, devenue Expertise */}
+        <Route path="/services" element={<Navigate to="/expertise" replace />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AnimatePresence>
@@ -58,7 +54,7 @@ export default function App() {
     waitForBoot().then(() => {
       if (!alive) return;
       setReady(true);
-      hideSplash(shouldPlayIntro());
+      hideSplash();
     });
     const stopPrefetch = setupRoutePrefetch();
     return () => {
@@ -70,26 +66,20 @@ export default function App() {
   return (
     <ThemeProvider>
       <MotionConfig reducedMotion="user">
-        <SmoothScroll>
-          {/* Rien n'est monté avant les polices : les animations d'entrée partent proprement */}
-          {ready && (
-            <BrowserRouter>
-              <IntroProvider>
-                <ScrollProgress />
-                <Cursor />
-                <Navbar />
-                <main className="relative">
-                  <ErrorBoundary>
-                    <AnimatedRoutes />
-                  </ErrorBoundary>
-                </main>
-                <Footer />
-                <div className="grain" aria-hidden />
-              </IntroProvider>
-            </BrowserRouter>
-          )}
-          <Analytics />
-        </SmoothScroll>
+        {/* Rien n'est monté avant les polices : les animations d'entrée partent proprement */}
+        {ready && (
+          <BrowserRouter>
+            <ScrollProgress />
+            <Navbar />
+            <main className="relative">
+              <ErrorBoundary>
+                <AnimatedRoutes />
+              </ErrorBoundary>
+            </main>
+            <Footer />
+          </BrowserRouter>
+        )}
+        <Analytics />
       </MotionConfig>
     </ThemeProvider>
   );

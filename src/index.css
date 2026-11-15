@@ -1,9 +1,6 @@
 @import "tailwindcss";
-@import "lenis/dist/lenis.css";
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
-/* Téléphone en paysage : peu de hauteur, on passe à une mise en page côte à côte */
-@custom-variant short-land (@media (orientation: landscape) and (max-height: 500px) and (max-width: 1023px));
 
 @theme {
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
@@ -12,7 +9,6 @@
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
-
 }
 
 /* Tokens sémantiques : les classes (bg-bg, text-fg, border-line…) suivent le thème */
@@ -37,26 +33,21 @@
 [data-theme="dark"] {
   --bg: #07090c;
   --bg-elevated: #0b0e13;
-  --surface: #10151b;
+  --surface: #0e1318;
   --surface-strong: #171d25;
   --line: rgb(255 255 255 / 0.08);
-  --line-strong: rgb(255 255 255 / 0.15);
+  --line-strong: rgb(255 255 255 / 0.16);
   --fg: #eef1f4;
   --muted: #9aa4b2;
-  --subtle: #5f6976;
+  --subtle: #808a97;
   --accent: #34d6c8;
   --accent-strong: #20b2aa;
   --accent-fg: #03110f;
   --invert: #eef1f4;
   --invert-fg: #07090c;
 
-  --highlight: rgb(255 255 255 / 0.07);
-  --glow: rgb(52 214 200 / 0.28);
-  --grain-opacity: 0.05;
-  --shadow-card:
-    0 1px 0 0 rgb(255 255 255 / 0.03),
-    0 20px 50px -20px rgb(0 0 0 / 0.7),
-    0 50px 100px -40px rgb(0 0 0 / 0.6);
+  --highlight: rgb(255 255 255 / 0.06);
+  --dot: rgb(255 255 255 / 0.11);
   --shadow-float:
     0 10px 30px -10px rgb(0 0 0 / 0.6),
     0 30px 60px -30px rgb(0 0 0 / 0.7);
@@ -67,24 +58,19 @@
   --bg-elevated: #ffffff;
   --surface: #ffffff;
   --surface-strong: #eceef2;
-  --line: rgb(10 15 20 / 0.08);
-  --line-strong: rgb(10 15 20 / 0.16);
+  --line: rgb(10 15 20 / 0.09);
+  --line-strong: rgb(10 15 20 / 0.18);
   --fg: #0a0d12;
   --muted: #4f5966;
-  --subtle: #8a93a0;
-  --accent: #0b8a80;
-  --accent-strong: #08746b;
+  --subtle: #5f6874;
+  --accent: #087a71;
+  --accent-strong: #066a62;
   --accent-fg: #ffffff;
   --invert: #0a0d12;
   --invert-fg: #f4f5f7;
 
   --highlight: rgb(255 255 255 / 0.95);
-  --glow: rgb(32 178 170 / 0.18);
-  --grain-opacity: 0.035;
-  --shadow-card:
-    0 1px 2px rgb(15 23 42 / 0.04),
-    0 8px 24px -8px rgb(15 23 42 / 0.1),
-    0 40px 80px -40px rgb(15 23 42 / 0.25);
+  --dot: rgb(10 15 20 / 0.16);
   --shadow-float:
     0 4px 12px -4px rgb(15 23 42 / 0.12),
     0 24px 48px -24px rgb(15 23 42 / 0.3);
@@ -97,6 +83,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: var(--bg);
+    /* Repère de mesure des animations liées au scroll */
+    position: relative;
   }
 
   body {
@@ -128,23 +116,11 @@
     border-radius: 6px;
   }
 
-  /* Curseur personnalisé uniquement sur pointeur précis (activé en JS) */
-  html.cursor-custom,
-  html.cursor-custom * {
-    cursor: none !important;
-  }
-
-  html.cursor-custom input,
-  html.cursor-custom textarea {
-    cursor: text !important;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
     }
   }
 }
@@ -157,41 +133,37 @@
 }
 
 @layer components {
-  /* Marge latérale généreuse sur toutes les pages, y compris en mobile */
   .container-x {
-    @apply mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-12 xl:px-16;
-  }
-
-  .glass {
-    background: color-mix(in oklab, var(--surface) 72%, transparent);
-    backdrop-filter: blur(18px) saturate(150%);
-    -webkit-backdrop-filter: blur(18px) saturate(150%);
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow-card), inset 0 1px 0 0 var(--highlight);
+    @apply mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12;
   }
 
   .panel {
     background: var(--surface);
     border: 1px solid var(--line);
-    box-shadow: var(--shadow-card), inset 0 1px 0 0 var(--highlight);
+    box-shadow: inset 0 1px 0 0 var(--highlight);
   }
 
   .eyebrow {
-    @apply font-mono text-[11px] uppercase tracking-[0.18em] text-muted;
+    @apply font-mono text-[11px] uppercase tracking-[0.16em] text-muted;
   }
 
+  /* La signature du site : le produit en serif italique, le code en mono */
   .serif-accent {
     @apply font-serif font-normal italic;
     letter-spacing: -0.01em;
   }
 
-  /* Bouton principal : effet « touche » avec relief */
+  .mono-accent {
+    @apply font-mono font-normal;
+    letter-spacing: -0.03em;
+  }
+
   .btn-primary {
-    @apply relative inline-flex items-center justify-center gap-2.5 rounded-full bg-invert px-6 py-3.5 text-sm font-medium text-invert-fg transition-[transform,box-shadow] duration-500 ease-out-expo;
-    box-shadow:
-      inset 0 1px 0 0 rgb(255 255 255 / 0.25),
-      inset 0 -2px 0 0 rgb(0 0 0 / 0.25),
-      0 10px 30px -10px var(--glow);
+    @apply relative inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-invert px-6 py-3 text-sm font-medium text-invert-fg transition-[transform,box-shadow] duration-500 ease-out-expo;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 0 5px color-mix(in oklab, var(--accent) 22%, transparent);
   }
 
   .btn-primary:active {
@@ -199,36 +171,24 @@
   }
 
   .btn-ghost {
-    @apply relative inline-flex items-center justify-center gap-2.5 rounded-full border border-line-strong px-6 py-3.5 text-sm font-medium text-fg transition-colors duration-300 hover:bg-fg/5;
+    @apply relative inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full border border-line-strong px-6 py-3 text-sm font-medium text-fg transition-colors duration-300 hover:bg-fg/5;
   }
 
-  /* Icône en « touche » physique : relief, tranche et ombre portée */
-  .keycap {
-    background: linear-gradient(180deg, color-mix(in oklab, var(--accent), white 22%), var(--accent-strong));
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.5),
-      inset 0 -3px 0 rgb(0 0 0 / 0.18),
-      0 6px 0 -1px color-mix(in oklab, var(--accent-strong), black 35%),
-      0 16px 30px -8px var(--glow);
+  /* Lien texte : le soulignement se retire à droite puis revient par la gauche au survol */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.6s var(--ease-out-expo);
   }
 
-  /* Bouton sphérique : dégradé radial + ombres internes pour le volume */
-  .orb-button {
-    background: radial-gradient(circle at 30% 25%, color-mix(in oklab, var(--accent), white 40%), var(--accent) 45%, var(--accent-strong) 100%);
-    box-shadow:
-      inset 0 2px 8px rgb(255 255 255 / 0.45),
-      inset 0 -14px 28px rgb(0 0 0 / 0.22),
-      0 30px 60px -20px var(--glow),
-      0 0 0 1px color-mix(in oklab, var(--accent), transparent 40%);
-    transition: box-shadow 0.6s var(--ease-out-expo);
+  .link-underline:hover {
+    background-size: 0% 1px;
   }
 
-  .orb-button:hover {
-    box-shadow:
-      inset 0 2px 8px rgb(255 255 255 / 0.5),
-      inset 0 -14px 28px rgb(0 0 0 / 0.18),
-      0 40px 90px -20px var(--glow),
-      0 0 0 10px color-mix(in oklab, var(--accent), transparent 85%);
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface/60 px-3 py-1 font-mono text-[11px] tracking-wide text-muted;
   }
 
   /* Pastille « en direct » : anneau animé uniquement en transform/opacity */
@@ -245,72 +205,15 @@
     animation: pulse-ring 2.4s var(--ease-out-expo) infinite;
   }
 
-  .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface/60 px-3 py-1 font-mono text-[11px] tracking-wide text-muted;
-  }
-}
-
-@layer utilities {
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-
-  .backface-hidden {
-    backface-visibility: hidden;
-  }
-
-  .text-outline {
-    color: transparent;
-    -webkit-text-stroke: 1px var(--line-strong);
-  }
-
-  .text-outline-strong {
-    color: transparent;
-    -webkit-text-stroke: 1.5px color-mix(in oklab, var(--fg) 24%, transparent);
-  }
-
-  /*
-   * Logotype à la largeur exacte de son conteneur (unités de conteneur),
-   * avec un repli en vw pour les navigateurs plus anciens.
-   */
-  .wordmark-fit {
-    font-size: 13vw;
-    font-size: 16.4cqi;
-  }
-
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, var(--line) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
-
-  .mask-radial {
-    mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
-    -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
-  }
-
-  .mask-fade-x {
-    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
-  }
-
-  .grain {
-    display: none;
-    position: fixed;
-    inset: 0;
-    transform: translateZ(0);
-    pointer-events: none;
-    z-index: 60;
-    opacity: var(--grain-opacity);
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* Le grain n'est affiché que sur grand écran : une couche plein écran de moins sur mobile */
-  @media (min-width: 768px) {
-    .grain {
-      display: block;
-    }
+  /* Curseur de terminal qui clignote après « code » */
+  .caret {
+    display: inline-block;
+    width: 0.09em;
+    height: 0.78em;
+    margin-left: 0.06em;
+    vertical-align: -0.04em;
+    background: var(--accent);
+    animation: caret-blink 1.1s steps(1, end) infinite;
   }
 }
 
@@ -319,12 +222,175 @@
   80%, 100% { transform: scale(3.4); opacity: 0; }
 }
 
-@keyframes drive {
-  from { offset-distance: 0%; }
-  to { offset-distance: 100%; }
+@keyframes caret-blink {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
 }
 
-@keyframes typing {
-  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-  30% { transform: translateY(-3px); opacity: 1; }
+/*
+ * Illustration du hero : le croquis (« pensés ») se dessine de haut en bas,
+ * puis la couleur (« construits ») l'encre de bas en haut. La couleur porte aussi
+ * la loupe : un disque transparent qui laisse voir le croquis dessous.
+ */
+@property --lens-r {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1px;
+}
+
+.hero-figure {
+  --lx: -400px;
+  --ly: -400px;
+  --lens-r: 1px;
+  transition: --lens-r 0.55s var(--ease-out-expo);
+}
+
+.hero-figure.is-lens {
+  --lens-r: 84px;
+}
+
+.hero-figure.is-sketch {
+  --lens-r: 1400px;
+  transition-duration: 1.1s;
+}
+
+.hero-draw {
+  mask-image: linear-gradient(to bottom, #000 46%, transparent 54%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 46%, transparent 54%);
+  mask-size: 100% 260%;
+  -webkit-mask-size: 100% 260%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  animation: hero-draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.3s both;
+}
+
+.hero-ink {
+  mask-image:
+    linear-gradient(to top, #000 45%, transparent 55%),
+    radial-gradient(circle var(--lens-r) at var(--lx) var(--ly), transparent 96%, #000 100%);
+  -webkit-mask-image:
+    linear-gradient(to top, #000 45%, transparent 55%),
+    radial-gradient(circle var(--lens-r) at var(--lx) var(--ly), transparent 96%, #000 100%);
+  mask-size: 100% 260%, 100% 100%;
+  -webkit-mask-size: 100% 260%, 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+  animation: hero-ink 1.3s cubic-bezier(0.65, 0, 0.35, 1) 1.65s both;
+}
+
+@keyframes hero-draw {
+  from { mask-position: 0 100%; -webkit-mask-position: 0 100%; }
+  to { mask-position: 0 0; -webkit-mask-position: 0 0; }
+}
+
+@keyframes hero-ink {
+  from { mask-position: 0 0, 0 0; -webkit-mask-position: 0 0, 0 0; }
+  to { mask-position: 0 100%, 0 0; -webkit-mask-position: 0 100%, 0 0; }
+}
+
+/* La couronne flotte au-dessus de la tête, et se soulève au survol */
+.hero-crown {
+  transform-origin: 50% 100%;
+  transition: translate 0.6s var(--ease-out-expo);
+  animation: crown-bob 4.8s ease-in-out 3s infinite;
+}
+
+.hero-figure:hover .hero-crown {
+  translate: 0 -10%;
+}
+
+@keyframes crown-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-7%) rotate(-3deg); }
+}
+
+.hero-lens-ring {
+  left: var(--lx);
+  top: var(--ly);
+  width: calc(var(--lens-r) * 2);
+  height: calc(var(--lens-r) * 2);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.hero-figure.is-lens .hero-lens-ring {
+  opacity: 1;
+}
+
+/* Décor repris de la maquette : formes douces qui respirent, tuiles flottantes */
+.hero-blob {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--accent) 30%, transparent),
+    color-mix(in oklab, var(--accent) 12%, transparent) 70%,
+    transparent
+  );
+  border-radius: 58% 42% 55% 45% / 45% 55% 45% 55%;
+  animation: blob-morph 16s ease-in-out infinite alternate;
+}
+
+.hero-blob-b {
+  animation-duration: 12s;
+  animation-delay: -6s;
+}
+
+[data-theme="dark"] .hero-blob {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--accent) 22%, transparent),
+    color-mix(in oklab, var(--accent) 6%, transparent) 70%,
+    transparent
+  );
+}
+
+@keyframes blob-morph {
+  0% { border-radius: 58% 42% 55% 45% / 45% 55% 45% 55%; transform: rotate(0deg) scale(1); }
+  50% { border-radius: 42% 58% 40% 60% / 58% 42% 58% 42%; transform: rotate(8deg) scale(1.04); }
+  100% { border-radius: 52% 48% 62% 38% / 40% 60% 40% 60%; transform: rotate(-6deg) scale(0.98); }
+}
+
+.hero-tile {
+  background: linear-gradient(135deg, color-mix(in oklab, var(--accent), white 35%), var(--accent));
+  box-shadow: 0 12px 24px -12px var(--accent);
+}
+
+.float-a {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+.float-b {
+  animation: float-y 7.5s ease-in-out -3s infinite;
+}
+
+@keyframes float-y {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+/* Le personnage est coupé à la taille : il se fond dans la page en bas */
+.hero-illustration-wrap {
+  mask-image: linear-gradient(to bottom, #000 86%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent);
+}
+
+/* Animations réduites : l'illustration s'affiche directement en couleur */
+@media (prefers-reduced-motion: reduce) {
+  .hero-draw,
+  .hero-ink,
+  .hero-crown {
+    animation: none;
+  }
+
+  .hero-draw {
+    mask-position: 0 0;
+    -webkit-mask-position: 0 0;
+  }
+
+  .hero-ink {
+    mask-position: 0 100%, 0 0;
+    -webkit-mask-position: 0 100%, 0 0;
+  }
 }
