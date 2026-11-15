@@ -1,11 +1,13 @@
-import { motion, useReducedMotion } from "motion/react";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import { motion } from "motion/react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { Link } from "react-router-dom";
 import HexField from "@/src/components/ui/HexField";
 import Scramble from "@/src/components/ui/Scramble";
 import { profile } from "@/src/data/profile";
 import { useLocalTime } from "@/src/hooks/useLocalTime";
 import { EASE_DRAW, EASE_OUT_EXPO } from "@/src/lib/motion";
+import HeroFlow from "./HeroFlow";
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 16 },
@@ -13,67 +15,62 @@ const fadeUp = (delay: number) => ({
   transition: { duration: 1, delay, ease: EASE_OUT_EXPO },
 });
 
+/** Mots du titre, avec leur délai d'apparition. */
+const LINE = 0.055;
+
 export default function Hero() {
   const time = useLocalTime(profile.timeZone);
 
   return (
-    <section id="top" className="relative flex min-h-[100svh] flex-col overflow-hidden">
+    <section className="relative flex min-h-[100svh] flex-col overflow-hidden">
       <HexField
         delay={700}
-        className="absolute inset-0 [mask-image:radial-gradient(ellipse_80%_70%_at_70%_35%,black_20%,transparent_75%)]"
+        className="absolute inset-0 [mask-image:radial-gradient(ellipse_80%_70%_at_70%_40%,black_20%,transparent_75%)]"
       />
 
-      <div className="container-x relative z-10 flex flex-1 flex-col justify-center pb-14 pt-32 sm:pt-36">
-        <p className="eyebrow flex items-center gap-3">
-          <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
-          <Scramble trigger="mount" delay={150} text={`${profile.name} — ${profile.alias}`} />
-        </p>
+      <div className="container-x relative z-10 grid flex-1 items-center gap-14 pb-14 pt-32 sm:pt-36 lg:grid-cols-12 lg:gap-10">
+        <div className="lg:col-span-7">
+          <p className="eyebrow flex items-center gap-3">
+            <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
+            <Scramble trigger="mount" delay={150} text={`${profile.name} — ${profile.alias}`} />
+          </p>
 
-        <h1 className="mt-7 text-[clamp(2.6rem,8.6vw,7.75rem)] font-semibold leading-[1] tracking-[-0.055em]">
-          <span className="sr-only">Je pense le produit. J'écris le code.</span>
-          <span aria-hidden className="block">
-            <Word delay={0.2}>Je</Word> <Word delay={0.26}>pense</Word> <Word delay={0.32}>le</Word>{" "}
-            <ProductWord delay={0.38} />
-          </span>
-          <span aria-hidden className="block">
-            <Word delay={0.5}>J'écris</Word> <Word delay={0.56}>le</Word>{" "}
-            <Word delay={0.62}>
-              <TypedCode delay={1} />
-            </Word>
-          </span>
-        </h1>
+          <h1 className="mt-7 text-[clamp(2.3rem,4.7vw,4.25rem)] font-semibold leading-[1.06] tracking-[-0.05em]">
+            <span className="sr-only">Des produits pensés pour vos utilisateurs, construits pour durer.</span>
+            <span aria-hidden>
+              <Word delay={0.2}>Des</Word> <Word delay={0.2 + LINE}>produits</Word> <Thought delay={0.2 + LINE * 2} />{" "}
+              <Word delay={0.2 + LINE * 3}>pour</Word> <Word delay={0.2 + LINE * 4}>vos</Word>{" "}
+              <Word delay={0.2 + LINE * 5}>utilisateurs,</Word> <Built delay={0.2 + LINE * 6} />{" "}
+              <Word delay={0.2 + LINE * 7}>pour</Word> <Word delay={0.2 + LINE * 8}>durer.</Word>
+            </span>
+          </h1>
 
-        <div className="mt-10 grid gap-10 sm:mt-14 lg:grid-cols-12 lg:items-end">
-          <motion.div {...fadeUp(0.85)} className="lg:col-span-6">
-            <p className="max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-              <span className="text-fg">{profile.role}</span> chez {profile.company} et{" "}
-              <span className="text-fg">Product Owner</span>, je transforme des idées en produits web et mobiles
-              ultra-fluides : de la première user story à la mise en production.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a href="#projets" className="btn-primary group">
-                Voir les projets
-                <ArrowDown className="h-4 w-4 transition-transform duration-500 ease-out-expo group-hover:translate-y-0.5" />
-              </a>
-              <a href="#contact" className="btn-ghost group">
-                Me contacter
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </a>
-            </div>
+          <motion.p {...fadeUp(0.75)} className="mt-8 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
+            <span className="text-fg">Product Owner</span> et <span className="text-fg">{profile.role}</span> chez{" "}
+            {profile.company}, j'accompagne les produits web et mobiles de la vision au déploiement : cadrage,
+            priorisation, architecture et développement.
+          </motion.p>
+
+          <motion.div {...fadeUp(0.9)} className="mt-9 flex flex-wrap items-center gap-3">
+            <Link to="/projets" className="btn-primary group">
+              Voir mes projets
+              <ArrowRight className="h-4 w-4 transition-transform duration-500 ease-out-expo group-hover:translate-x-0.5" />
+            </Link>
+            <Link to="/contact" className="btn-ghost group">
+              Me contacter
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
           </motion.div>
-
-          <motion.dl {...fadeUp(1)} className="divide-y divide-line border-y border-line text-sm lg:col-span-5 lg:col-start-8 xl:col-span-4 xl:col-start-9">
-            <Row label={<span className="serif-accent text-base normal-case tracking-normal text-accent">Côté produit</span>}>
-              <span className="text-fg">Product Owner</span> <span className="text-muted">· Madebocar</span>
-            </Row>
-            <Row label={<span className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent">Côté code</span>}>
-              <span className="text-fg">{profile.role}</span> <span className="text-muted">· {profile.company}</span>
-            </Row>
-            <Row label={<span className="eyebrow">Stack</span>}>
-              <span className="font-mono text-[13px] text-muted">Next.js · NestJS · Expo · .NET</span>
-            </Row>
-          </motion.dl>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.55, ease: EASE_OUT_EXPO }}
+          className="lg:col-span-5"
+        >
+          <HeroFlow className="mx-auto max-w-[520px] lg:ml-auto lg:mr-0" />
+        </motion.div>
       </div>
 
       <motion.div
@@ -84,18 +81,9 @@ export default function Hero() {
       >
         <div className="flex items-center justify-between gap-4 whitespace-nowrap border-t border-line pt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-muted sm:text-[11px]">
           <span>
-            {profile.location.split(",")[0]}, RDC <span className="text-subtle">·</span> {time}
+            Kolwezi, RDC <span className="text-subtle">·</span> {time}
           </span>
-          <a href="#projets" className="hidden min-h-10 items-center gap-3 transition-colors hover:text-fg sm:flex">
-            Défiler
-            <span className="relative block h-6 w-px overflow-hidden bg-line-strong">
-              <motion.span
-                className="absolute inset-x-0 top-0 h-2 bg-fg"
-                animate={{ y: ["-100%", "300%"] }}
-                transition={{ duration: 1.6, repeat: Infinity, ease: EASE_OUT_EXPO }}
-              />
-            </span>
-          </a>
+          <span className="hidden sm:inline">Web · Mobile · .NET</span>
           <span className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
             {profile.availability}
@@ -122,18 +110,18 @@ function Word({ children, delay }: { children: ReactNode; delay: number }) {
   );
 }
 
-/** « produit. » en serif italique, souligné d'un trait tracé à la main ; le survol le redessine. */
-function ProductWord({ delay }: { delay: number }) {
+/** « pensés » : le côté produit, en serif italique, souligné d'un trait tracé ; le survol le redessine. */
+function Thought({ delay }: { delay: number }) {
   const [run, setRun] = useState(0);
   return (
     <span className="relative inline-block" onPointerEnter={() => setRun((r) => r + 1)}>
       <Word delay={delay}>
-        <span className="serif-accent pr-[0.03em] text-accent">produit.</span>
+        <span className="serif-accent pr-[0.04em] text-accent">pensés</span>
       </Word>
       <svg
         viewBox="0 0 300 24"
         preserveAspectRatio="none"
-        className="pointer-events-none absolute -bottom-[0.02em] left-[1%] h-[0.15em] w-[84%] overflow-visible text-accent"
+        className="pointer-events-none absolute -bottom-[0.04em] left-0 h-[0.16em] w-[96%] overflow-visible text-accent"
         aria-hidden
       >
         <motion.path
@@ -145,60 +133,29 @@ function ProductWord({ delay }: { delay: number }) {
           strokeLinecap="round"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: run ? 0.7 : 0.9, delay: run ? 0 : delay + 0.6, ease: EASE_DRAW }}
+          transition={{ duration: run ? 0.7 : 0.9, delay: run ? 0 : delay + 0.7, ease: EASE_DRAW }}
         />
       </svg>
     </span>
   );
 }
 
-/** « code » tapé lettre à lettre en mono, suivi d'un curseur ; le survol l'efface puis le retape. */
-function TypedCode({ delay }: { delay: number }) {
-  const word = "code";
-  const reduce = useReducedMotion();
-  const [count, setCount] = useState(reduce ? word.length : 0);
-  const [run, setRun] = useState(0);
-  const [typing, setTyping] = useState(!reduce);
-
-  useEffect(() => {
-    if (reduce) return;
-    // Premier passage : on tape. Ensuite : on efface, puis on retape.
-    const script = run === 0 ? [1, 2, 3, 4] : [3, 2, 1, 0, 1, 2, 3, 4];
-    let step = 0;
-    let interval = 0;
-    setTyping(true);
-    const timeout = window.setTimeout(
-      () => {
-        interval = window.setInterval(() => {
-          setCount(script[step]);
-          step += 1;
-          if (step >= script.length) {
-            window.clearInterval(interval);
-            setTyping(false);
-          }
-        }, 95);
-      },
-      run === 0 ? delay * 1000 : 0,
-    );
-    return () => {
-      window.clearTimeout(timeout);
-      window.clearInterval(interval);
-    };
-  }, [run, delay, reduce]);
-
+/** « construits » : le côté code, en mono, posé sur un fond de code inline qui se déploie. */
+function Built({ delay }: { delay: number }) {
   return (
-    <span className="mono-accent text-[0.9em]" onPointerEnter={() => !typing && setRun((r) => r + 1)}>
-      {word.slice(0, count)}
-      <span className="caret" style={typing ? { animation: "none" } : undefined} />
+    <span className="relative inline-block">
+      <motion.span
+        aria-hidden
+        className="absolute -inset-x-[0.1em] inset-y-[0.14em] origin-left rounded-[0.14em] border border-line bg-surface-strong/70"
+        initial={{ scaleX: 0, opacity: 0 }}
+        animate={{ scaleX: 1, opacity: 1 }}
+        transition={{ duration: 0.8, delay: delay + 0.55, ease: EASE_OUT_EXPO }}
+      />
+      <span className="relative">
+        <Word delay={delay}>
+          <span className="mono-accent text-[0.78em] text-fg">construits</span>
+        </Word>
+      </span>
     </span>
-  );
-}
-
-function Row({ label, children }: { label: ReactNode; children: ReactNode }) {
-  return (
-    <div className="flex items-baseline justify-between gap-6 py-3.5">
-      <dt className="shrink-0">{label}</dt>
-      <dd className="text-right">{children}</dd>
-    </div>
   );
 }

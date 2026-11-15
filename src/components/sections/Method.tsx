@@ -2,30 +2,17 @@ import { motion, useScroll, useSpring, useTransform, type MotionValue } from "mo
 import { useRef } from "react";
 import HexBullet from "@/src/components/ui/HexBullet";
 import Reveal from "@/src/components/ui/Reveal";
-import SectionHeading from "@/src/components/ui/SectionHeading";
 import { hats, steps, type Hat, type Side } from "@/src/data/method";
 import { cn } from "@/src/lib/utils";
 
-export default function Method() {
+/** Les deux casquettes, côte à côte. */
+export function HatsGrid({ className }: { className?: string }) {
   return (
-    <section id="methode" className="relative py-24 sm:py-32">
-      <div className="container-x">
-        <SectionHeading
-          index="02"
-          label="Méthode"
-          title={[{ text: "Deux casquettes, " }, { text: "un seul produit.", className: "serif-accent text-accent" }]}
-          intro="Product Owner, je décide quoi construire et pourquoi. Ingénieur logiciel, je le construis et je le fais tenir. Porter les deux, c'est réduire la distance entre l'idée et le code."
-        />
-
-        <div className="mt-14 grid gap-px overflow-hidden rounded-[28px] border border-line bg-line sm:mt-20 md:grid-cols-2">
-          {hats.map((hat, i) => (
-            <HatCard key={hat.side} hat={hat} delay={i * 0.08} />
-          ))}
-        </div>
-
-        <Steps />
-      </div>
-    </section>
+    <div className={cn("grid gap-px overflow-hidden rounded-[28px] border border-line bg-line md:grid-cols-2", className)}>
+      {hats.map((hat, i) => (
+        <HatCard key={hat.side} hat={hat} delay={i * 0.08} />
+      ))}
+    </div>
   );
 }
 
@@ -77,13 +64,13 @@ function HatCard({ hat, delay }: { hat: Hat; delay: number }) {
 }
 
 /** Les étapes, reliées par un fil qui se remplit au scroll ; chaque repère s'allume au passage. */
-function Steps() {
+export function Steps({ className }: { className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 80%", "end 60%"] });
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 });
 
   return (
-    <div ref={ref} className="relative mt-16 sm:mt-24">
+    <div ref={ref} className={cn("relative", className)}>
       {/* Fil vertical (téléphone) */}
       <div aria-hidden className="absolute bottom-3 left-[5px] top-3 w-px bg-line md:hidden">
         <motion.div className="h-full w-full origin-top bg-accent" style={{ scaleY: progress }} />

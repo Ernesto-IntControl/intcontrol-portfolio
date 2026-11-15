@@ -12,19 +12,22 @@ import {
   SiGithubactions,
   SiGraphql,
   SiIonic,
+  SiJira,
   SiJavascript,
   SiNestjs,
   SiNextdotjs,
   SiNodedotjs,
+  SiNotion,
   SiPostman,
   SiPrisma,
   SiReact,
   SiSharp,
   SiTailwindcss,
+  SiTrello,
   SiTypescript,
   SiVitest,
 } from "react-icons/si";
-import { TbApi, TbBrandAzure } from "react-icons/tb";
+import { TbApi, TbBrandAzure, TbDatabase, TbLayoutKanban, TbRepeat } from "react-icons/tb";
 
 /** Icônes de la stack actuelle (les icônes non utilisées alourdiraient le bundle). */
 export const techIcons: Record<string, IconType> = {
@@ -46,10 +49,16 @@ export const techIcons: Record<string, IconType> = {
   Dart: SiDart,
   "C#": SiSharp,
   ".NET": SiDotnet,
+  "Entity Framework Core": TbDatabase,
   "API REST": TbApi,
   Vitest: SiVitest,
   Postman: SiPostman,
   Figma: SiFigma,
+  Jira: SiJira,
+  Trello: SiTrello,
+  Notion: SiNotion,
+  Scrum: TbRepeat,
+  Kanban: TbLayoutKanban,
   Git: SiGit,
   Docker: SiDocker,
   Azure: TbBrandAzure,

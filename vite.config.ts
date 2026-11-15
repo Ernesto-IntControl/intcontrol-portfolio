@@ -44,13 +44,13 @@ export default defineConfig(() => {
     build: {
       rollupOptions: {
         output: {
-          // Isole les dépendances stables (React, animation) dans leurs
+          // Isole les dépendances stables (React, routing, animation) dans leurs
           // propres chunks : elles changent rarement, donc restent en cache
           // navigateur d'un déploiement à l'autre au lieu d'être réinvalidées
           // à chaque modification du code applicatif.
           manualChunks(id) {
             if (!id.includes('node_modules')) return;
-            if (id.includes('react-dom') || id.includes('/react/') || id.includes('scheduler')) return 'vendor-react';
+            if (id.includes('react-dom') || id.includes('/react/') || id.includes('scheduler') || id.includes('react-router')) return 'vendor-react';
             if (id.includes('motion')) return 'vendor-motion';
           },
         },

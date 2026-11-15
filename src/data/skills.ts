@@ -4,7 +4,7 @@ export interface SkillGroup {
   items: string[];
 }
 
-/** Ordre volontaire : le web moderne en premier, .NET en second. */
+/** Ordre volontaire : le web moderne en premier, .NET en second, puis le mobile et le pilotage produit. */
 export const skillGroups: SkillGroup[] = [
   {
     title: "Web moderne",
@@ -14,7 +14,7 @@ export const skillGroups: SkillGroup[] = [
   {
     title: ".NET",
     description: "Des backends C# robustes quand le projet l'exige.",
-    items: ["C#", ".NET", "API REST"],
+    items: ["C#", ".NET", "Entity Framework Core", "API REST"],
   },
   {
     title: "Mobile",
@@ -22,26 +22,13 @@ export const skillGroups: SkillGroup[] = [
     items: ["Expo", "React Native", "Capacitor", "Ionic", "Flutter", "Dart"],
   },
   {
-    title: "Qualité & outils",
-    description: "Tests, design et livraison continue.",
-    items: ["Vitest", "Postman", "Figma", "Git", "Docker", "Azure", "CI/CD"],
+    title: "Gestion de projet",
+    description: "Cadrer, prioriser et suivre la livraison avec l'équipe.",
+    items: ["Jira", "Trello", "Notion", "Scrum", "Kanban", "Figma"],
   },
-];
-
-/** Bandeau défilant : sous-ensemble représentatif de la stack. */
-export const marqueeStack = [
-  "JavaScript",
-  "TypeScript",
-  "Next.js",
-  "NestJS",
-  "Node.js",
-  "React",
-  "GraphQL",
-  "Prisma",
-  "Expo",
-  "Flutter",
-  "Ionic",
-  "Figma",
-  "C#",
-  ".NET",
+  {
+    title: "Qualité & outils",
+    description: "Tests, versionnement et livraison continue.",
+    items: ["Vitest", "Postman", "Git", "Docker", "Azure", "CI/CD"],
+  },
 ];

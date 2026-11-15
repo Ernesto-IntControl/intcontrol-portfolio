@@ -10,22 +10,30 @@ interface SectionHeadingProps {
   title: Segment[];
   intro?: ReactNode;
   className?: string;
+  /** h1 en haut de page (animé au chargement), h2 pour une section. */
+  as?: "h1" | "h2";
 }
 
 /** En-tête de section : repère mono qui se décode, titre révélé mot à mot, introduction à droite. */
-export default function SectionHeading({ index, label, title, intro, className }: SectionHeadingProps) {
+export default function SectionHeading({ index, label, title, intro, className, as = "h2" }: SectionHeadingProps) {
+  const page = as === "h1";
   return (
     <div className={cn("grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10", className)}>
       <div className="lg:col-span-7">
         <p className="eyebrow mb-5 flex items-center gap-3">
           <span className="text-accent">{index}</span>
           <span className="h-px w-8 bg-line-strong" aria-hidden />
-          <Scramble text={label} />
+          <Scramble text={label} trigger={page ? "mount" : "view"} />
         </p>
         <RevealText
-          as="h2"
+          as={as}
           text={title}
-          className="text-[clamp(2.25rem,5.4vw,4.25rem)] font-semibold leading-[1] tracking-[-0.045em]"
+          trigger={page ? "mount" : "view"}
+          delay={page ? 0.1 : 0}
+          className={cn(
+            "font-semibold leading-[1] tracking-[-0.045em]",
+            page ? "text-[clamp(2.6rem,6.6vw,5.5rem)]" : "text-[clamp(2.25rem,5.4vw,4.25rem)]",
+          )}
         />
       </div>
       {intro && (
