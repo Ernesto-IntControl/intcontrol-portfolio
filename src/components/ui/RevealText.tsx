@@ -1,7 +1,6 @@
 import { motion, type Variants } from "motion/react";
-import { createElement, type ElementType } from "react";
+import { createElement, Fragment, type ElementType, type ReactNode } from "react";
 import { EASE_OUT_EXPO } from "@/src/lib/motion";
-import { useIntro } from "@/src/providers/IntroProvider";
 import { cn } from "@/src/lib/utils";
 
 export interface Segment {
@@ -19,13 +18,14 @@ interface RevealTextProps {
   duration?: number;
   /** "mount" : au chargement ; "view" : à l'entrée dans le viewport. */
   trigger?: "mount" | "view";
+  /** Élément ajouté après le dernier mot (soulignement, curseur…). */
+  children?: ReactNode;
 }
 
 const word: Variants = {
-  hidden: { y: "115%", rotate: 4 },
+  hidden: { y: "110%" },
   visible: (custom: { delay: number; duration: number }) => ({
     y: "0%",
-    rotate: 0,
     transition: { duration: custom.duration, delay: custom.delay, ease: EASE_OUT_EXPO },
   }),
 };
@@ -36,13 +36,13 @@ export default function RevealText({
   as = "span",
   className,
   delay = 0,
-  stagger = 0.045,
-  duration = 1.05,
+  stagger = 0.05,
+  duration = 1,
   trigger = "view",
+  children,
 }: RevealTextProps) {
-  const { revealed } = useIntro();
   const segments: Segment[] = typeof text === "string" ? [{ text }] : text;
-  const label = segments.map((s) => s.text.replace(/\s*\n\s*/g, " ")).join("");
+  const label = segments.map((s) => s.text).join("");
 
   let index = 0;
   const words = segments.flatMap((segment, si) =>
@@ -50,27 +50,26 @@ export default function RevealText({
       .split(" ")
       .filter(Boolean)
       .map((w, wi) => {
-        if (w === "\n") return <br key={`${si}-${wi}`} />;
         const i = index++;
+        // L'espace reste hors du masque : en fin de bloc inline, il serait supprimé
         return (
-          <span key={`${si}-${wi}`} className="inline-block overflow-hidden pb-[0.12em] -mb-[0.12em] align-bottom">
-            <motion.span
-              className={cn("inline-block origin-bottom-left will-change-transform", segment.className)}
-              variants={word}
-              custom={{ delay: delay + i * stagger, duration }}
-            >
-              {w}
-            </motion.span>
-            {" "}
-          </span>
+          <Fragment key={`${si}-${wi}`}>
+            <span className="inline-block overflow-hidden pb-[0.14em] -mb-[0.14em] align-bottom">
+              <motion.span
+                className={cn("inline-block will-change-transform", segment.className)}
+                variants={word}
+                custom={{ delay: delay + i * stagger, duration }}
+              >
+                {w}
+              </motion.span>
+            </span>{" "}
+          </Fragment>
         );
       }),
   );
 
-  // Rien ne se joue sous le rideau de l'intro : la révélation attend qu'il se lève
-  const animateProps = !revealed
-    ? { initial: "hidden", animate: "hidden" }
-    : trigger === "mount"
+  const animateProps =
+    trigger === "mount"
       ? { initial: "hidden", animate: "visible" }
       : { initial: "hidden", whileInView: "visible", viewport: { once: true, margin: "0px 0px -10% 0px" } };
 
@@ -81,6 +80,7 @@ export default function RevealText({
     <span className="sr-only">{label}</span>,
     <motion.span aria-hidden className="block" {...animateProps}>
       {words}
+      {children}
     </motion.span>,
   );
 }

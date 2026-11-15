@@ -1,26 +1,35 @@
-import PageTransition from "@/src/components/layout/PageTransition";
-import AboutSection from "@/src/components/sections/AboutSection";
-import ContactCTA from "@/src/components/sections/ContactCTA";
+import { useEffect } from "react";
+import About from "@/src/components/sections/About";
+import Contact from "@/src/components/sections/Contact";
 import Hero from "@/src/components/sections/Hero";
-import ProjectsSection from "@/src/components/sections/ProjectsSection";
-import ServicesSection from "@/src/components/sections/ServicesSection";
-import StackMarquee from "@/src/components/sections/StackMarquee";
+import Method from "@/src/components/sections/Method";
+import Projects from "@/src/components/sections/Projects";
+import Stack from "@/src/components/sections/Stack";
 import Seo from "@/src/components/Seo";
 import { profile } from "@/src/data/profile";
 
 export default function Home() {
+  // Arrivée avec une ancre (/#projets, ancienne URL /projets…) : le contenu est rendu
+  // après le chargement des polices, donc on rejoint la section nous-mêmes.
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const frame = requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "instant" }));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
   return (
-    <PageTransition>
+    <>
       <Seo
-        title={`${profile.name} — ${profile.alias} | ${profile.role}`}
-        description={`${profile.name} (${profile.alias}), ${profile.role} chez ${profile.company}. Développement web et mobile : Next.js, NestJS, Node.js, Expo et .NET.`}
+        title={`${profile.name} — ${profile.alias} | Product Owner & ${profile.role}`}
+        description={`${profile.name} (${profile.alias}), Product Owner et ${profile.role} chez ${profile.company}. Je pense le produit et j'écris le code : web et mobile avec Next.js, NestJS, Expo et .NET.`}
       />
       <Hero />
-      <StackMarquee />
-      <AboutSection />
-      <ProjectsSection />
-      <ServicesSection />
-      <ContactCTA />
-    </PageTransition>
+      <Projects />
+      <Method />
+      <About />
+      <Stack />
+      <Contact />
+    </>
   );
 }

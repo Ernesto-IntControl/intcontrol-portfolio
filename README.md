@@ -1,30 +1,36 @@
 # Portfolio — INTCONTROL
 
-Portfolio d'**Ernest Katumbi**, alias **INTCONTROL** : Lead Software Engineer chez Josar Technologie et Product Owner. Web et mobile en **JavaScript** (Next.js, NestJS, Node.js, Expo), et **.NET** en complément.
+Portfolio d'**Ernest Katumbi**, alias **INTCONTROL** : Product Owner et Lead Software Engineer chez Josar Technologie. Web et mobile en **JavaScript** (Next.js, NestJS, Node.js, Expo), et **.NET** en complément.
 
-## Aperçu
+> Je pense le *produit*. J'écris le `code`.
 
-- Hero en **WebGL** (Three.js) : l'emblème hexagonal du logo entouré d'un globe de tuiles, qui réagit à la souris et au scroll
-- Thème **sombre / clair** avec transition circulaire (View Transitions API), choix mémorisé
-- **Scroll inertiel** (Lenis), animations liées au scroll, cartes projets empilées
-- Composants **3D** : cartes inclinables avec profondeur, boutons magnétiques, maquettes de produits codées en CSS
-- Logotype **INTCONTROL** animé en fin de page (lettres qui se dressent et se remplissent, vague, survol)
-- Pages : accueil, projets, services, à propos, contact (EmailJS), 404
+## Parti pris
 
-## Projets présentés
+Une seule page, sobre, centrée sur les projets, avec une signature qui court sur tout le site :
+**le côté produit s'écrit en serif italique, le côté code en mono**.
 
-- **Madebocar** — application VTC (Product Owner & développeur front-end)
-- **BisoMarket** — registre numérique pour commerçants, cabinets et entreprises
-- **BisoChat** — réseau social
+- **Hero typographique** : « produit » se souligne d'un trait tracé à la main, « code » se tape lettre à lettre suivi d'un curseur. Au survol, le trait se redessine et le mot se retape.
+- **Trame en nid d'abeille** (clin d'œil à l'emblème hexagonal) : une lumière la balaie à l'arrivée, puis suit la souris.
+- **Projets mis en avant** juste après le hero : pour chacun, le problème, puis ce que je fais *côté produit* et `côté code`, avec une maquette du produit codée en CSS.
+- **Méthode** : les deux casquettes (Product Owner / Lead Software Engineer) et quatre étapes reliées par un fil qui se remplit au scroll.
+- Repères de section qui se « décodent », filets qui se tracent, chiffres qui défilent, emblème qui se dessine dans la navigation.
+- Thème **sombre / clair** avec transition circulaire (View Transitions API), choix mémorisé.
 
-Le contenu (profil, projets, compétences, services) est centralisé dans `src/data/`.
+Sections : Projets, Méthode, À propos, Stack, Contact (EmailJS). Les anciennes URL (`/projets`, `/services`, `/a-propos`, `/contact`) renvoient vers la section correspondante.
+
+## Contenu
+
+Tout le contenu est centralisé dans `src/data/` :
+
+- `projects.ts` : les projets. Les champs `product` et `engineering` décrivent ce que je fais côté produit et côté code ; laissés vides, la fiche affiche les points clés du produit (`highlights`). `stack` et `links` s'affichent dès qu'ils sont renseignés.
+- `method.ts` : les deux casquettes et les étapes de la méthode.
+- `profile.ts`, `skills.ts` : profil, parcours, chiffres, stack.
 
 ## Stack
 
 - React 19, TypeScript, Vite
 - Tailwind CSS 4
-- Motion (animations), Lenis (scroll)
-- Three.js (sans surcouche, pour un chunk plus léger)
+- Motion (animations)
 - EmailJS, Vercel Analytics
 
 ## Démarrage
@@ -46,12 +52,9 @@ VITE_EMAILJS_PUBLIC_KEY=...
 
 ## Accessibilité et performances
 
-Le site est pensé pour rester fluide sur une connexion lente :
-
-- Écran d'attente léger intégré au HTML, affiché seulement si le démarrage dépasse 350 ms
-- Polices critiques préchargées ; les animations d'intro attendent les polices (1,8 s max) pour ne jamais être coupées
-- Pages secondaires découpées et préchargées à l'intention (survol, focus, toucher)
-- Portrait en AVIF/WebP responsive (19 à 60 Ko au lieu de 515 Ko) avec aperçu flou intégré
-- Scène 3D (~145 Ko gzip) chargée après l'intro, quand le navigateur est libre ; remplacée par un emblème SVG en mode économie de données, en 2G ou sous 1 Mbit/s, et si l'appareil n'arrive pas à la faire tourner
-- Animations limitées aux propriétés composées par le GPU (transform, opacity), `prefers-reduced-motion` respecté
+- Aucune scène 3D ni bibliothèque de scroll : le site est nettement plus léger qu'avant
+- Écran d'attente léger intégré au HTML, affiché seulement si le démarrage dépasse 350 ms ; les animations d'entrée attendent les polices (1,8 s max)
+- Trame en nid d'abeille sur un seul canvas, redessiné uniquement quand la lumière bouge et que le hero est visible
+- Portrait en AVIF/WebP responsive avec aperçu flou intégré
+- Animations limitées à transform et opacity ; `prefers-reduced-motion` respecté (texte affiché directement, pas de balayage)
 - `vercel.json` : cache long sur les fichiers versionnés et redirection des routes vers l'application

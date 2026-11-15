@@ -1,8 +1,7 @@
 import { motion } from "motion/react";
 import { Bell, Heart, Home, MessageCircle, PlusSquare, Search, Send, User } from "lucide-react";
-import { Depth } from "@/src/components/ui/TiltCard";
 import { EASE_OUT_EXPO } from "@/src/lib/motion";
-import { FloatChip, Phone } from "./Devices";
+import { Float, FloatChip, Phone } from "./Devices";
 
 const stories = ["Vous", "Grâce", "Patrick", "Sarah", "Jo"];
 
@@ -80,7 +79,7 @@ export default function BisoChatMockup({ accent }: { accent: string }) {
         </Phone>
       </div>
 
-      <Depth z={95} className="absolute left-[-8px] top-[120px]">
+      <Float className="absolute left-[-8px] top-[120px]">
         <FloatChip className="max-w-[210px]">
           <div className="h-8 w-8 shrink-0 rounded-full bg-surface-strong text-center text-[12px] font-semibold leading-8 text-muted">P</div>
           <div>
@@ -88,9 +87,9 @@ export default function BisoChatMockup({ accent }: { accent: string }) {
             <p className="text-[11px] text-muted">On se retrouve à 18h ?</p>
           </div>
         </FloatChip>
-      </Depth>
+      </Float>
 
-      <Depth z={65} className="absolute bottom-[96px] right-[-4px]">
+      <Float delayed className="absolute bottom-[96px] right-[-4px]">
         <FloatChip>
           <span className="flex gap-1" aria-hidden>
             {[0, 1, 2].map((i) => (
@@ -103,9 +102,9 @@ export default function BisoChatMockup({ accent }: { accent: string }) {
           </span>
           <span className="text-[11px] text-muted">Sarah écrit…</span>
         </FloatChip>
-      </Depth>
+      </Float>
 
-      <Depth z={120} className="absolute right-[34px] top-[48px]">
+      <Float className="absolute right-[34px] top-[48px]">
         <motion.div
           initial={{ scale: 0, rotate: -20 }}
           whileInView={{ scale: 1, rotate: 0 }}
@@ -116,7 +115,7 @@ export default function BisoChatMockup({ accent }: { accent: string }) {
         >
           <Heart className="h-3.5 w-3.5" fill="currentColor" /> 128
         </motion.div>
-      </Depth>
+      </Float>
     </div>
   );
 }

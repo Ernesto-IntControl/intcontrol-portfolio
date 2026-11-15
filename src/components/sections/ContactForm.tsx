@@ -15,7 +15,7 @@ const fields: { name: Field; label: string; placeholder: string; type?: string; 
   { name: "name", label: "Nom complet", placeholder: "Votre nom", half: true },
   { name: "email", label: "Email", placeholder: "vous@entreprise.com", type: "email", half: true },
   { name: "subject", label: "Sujet", placeholder: "Demande de devis, collaboration…" },
-  { name: "message", label: "Message", placeholder: "Parlez-moi de votre projet", multiline: true },
+  { name: "message", label: "Message", placeholder: "Le problème à résoudre, pour qui, et pour quand", multiline: true },
 ];
 
 function validate(data: FormState) {
@@ -68,31 +68,30 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="panel relative overflow-hidden rounded-[32px] p-6 sm:p-10">
+    <div className="panel relative overflow-hidden rounded-[28px] p-6 sm:p-9">
       <AnimatePresence mode="wait" initial={false}>
         {status === "success" ? (
           <motion.div
             key="success"
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.96 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.6, ease: EASE_OUT_EXPO }}
             className="flex min-h-[420px] flex-col items-center justify-center text-center"
           >
-            <svg viewBox="0 0 52 52" className="h-20 w-20 text-accent" aria-hidden>
-              <motion.circle
-                cx="26"
-                cy="26"
-                r="24"
+            <svg viewBox="0 0 52 52" className="h-16 w-16 text-accent" aria-hidden>
+              <motion.path
+                d="M26 3 46 14.5v23L26 49 6 37.5v-23Z"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
+                strokeLinejoin="round"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ duration: 0.8, ease: EASE_OUT_EXPO }}
+                transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}
               />
               <motion.path
-                d="M15 27l7 7 15-16"
+                d="M17 27l6 6 12-13"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="3"
@@ -117,19 +116,18 @@ export default function ContactForm() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="grid gap-5 sm:grid-cols-2"
+            className="grid gap-x-6 gap-y-7 sm:grid-cols-2"
           >
             {fields.map((field) => {
               const error = errors[field.name];
               const id = `contact-${field.name}`;
+              // Champ minimaliste : un simple filet qui passe à l'accent au focus
               const inputClass = cn(
-                "w-full rounded-2xl border bg-bg/60 px-4 py-3.5 text-base text-fg placeholder:text-subtle transition-[border-color,box-shadow] duration-300 focus:outline-none",
-                error
-                  ? "border-red-400/70 focus:shadow-[0_0_0_4px_rgb(248_113_113/0.15)]"
-                  : "border-line focus:border-accent focus:shadow-[0_0_0_4px_color-mix(in_oklab,var(--accent)_18%,transparent)]",
+                "w-full border-0 border-b bg-transparent px-0 py-2.5 text-base text-fg placeholder:text-subtle transition-colors duration-300 focus:outline-none focus-visible:outline-none",
+                error ? "border-red-400/70" : "border-line-strong focus:border-accent",
               );
               return (
-                <div key={field.name} className={cn("space-y-2", !field.half && "sm:col-span-2")}>
+                <div key={field.name} className={cn("space-y-1.5", !field.half && "sm:col-span-2")}>
                   <label htmlFor={id} className="eyebrow block">
                     {field.label}
                   </label>
@@ -137,14 +135,13 @@ export default function ContactForm() {
                     <textarea
                       id={id}
                       name={field.name}
-                      rows={6}
+                      rows={5}
                       value={data[field.name]}
                       onChange={onChange}
                       placeholder={field.placeholder}
                       aria-invalid={!!error}
                       aria-describedby={error ? `${id}-error` : undefined}
                       className={cn(inputClass, "resize-none")}
-                      data-lenis-prevent
                     />
                   ) : (
                     <input
@@ -185,7 +182,7 @@ export default function ContactForm() {
             )}
 
             <div className="sm:col-span-2">
-              <button type="submit" disabled={status === "sending"} className="btn-primary group w-full !py-4 disabled:opacity-60">
+              <button type="submit" disabled={status === "sending"} className="btn-primary group w-full disabled:opacity-60">
                 {status === "sending" ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" /> Envoi en cours…
@@ -193,7 +190,7 @@ export default function ContactForm() {
                 ) : (
                   <>
                     Envoyer le message
-                    <ArrowUpRight className="h-4 w-4 transition-transform duration-500 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowUpRight className="h-4 w-4 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </>
                 )}
               </button>

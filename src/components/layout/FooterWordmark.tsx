@@ -72,14 +72,16 @@ export default function FooterWordmark({ className }: { className?: string }) {
             >
               <span data-wave className="relative inline-block pb-[0.06em]">
                 <span className="text-outline-strong">{char}</span>
+                {/* Boîte élargie à droite : avec l'interlettrage négatif, le glyphe déborde
+                    de sa boîte et background-clip: text ne peindrait pas la partie qui dépasse */}
                 <motion.span
                   custom={i}
                   variants={fill}
-                  className="absolute inset-0 bg-linear-to-b from-fg/55 to-fg/10 bg-clip-text text-transparent"
+                  className="absolute inset-y-0 left-0 -right-[0.12em] bg-linear-to-b from-fg/55 to-fg/10 bg-clip-text text-transparent"
                 >
                   {char}
                 </motion.span>
-                <span className="absolute inset-0 text-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <span className="absolute inset-y-0 left-0 -right-[0.12em] text-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   {char}
                 </span>
               </span>

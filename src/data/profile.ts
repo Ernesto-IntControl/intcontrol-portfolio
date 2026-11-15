@@ -14,7 +14,7 @@ export const profile = {
   alias: "INTCONTROL",
   role: "Lead Software Engineer",
   company: "Josar Technologie",
-  headline: "Développeur fullstack JavaScript & .NET",
+  headline: "Product Owner & Lead Software Engineer",
   location: "Kolwezi, Lualaba, RDC",
   timeZone: "Africa/Lubumbashi",
   availability: "Disponibilité limitée",
@@ -97,5 +97,13 @@ export const experience: Experience[] = [
     current: true,
     description:
       "Responsable de l'ingénierie logicielle : architecture, qualité du code et accompagnement de l'équipe sur les produits de l'entreprise.",
+  },
+  {
+    company: "Madebocar",
+    role: "Product Owner · Développeur front-end",
+    period: "Actuellement",
+    current: true,
+    description:
+      "Vision produit, priorisation et parcours utilisateurs d'une application VTC, et développement de son front-end.",
   },
 ];

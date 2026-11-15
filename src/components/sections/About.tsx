@@ -1,0 +1,154 @@
+import { animate, useInView, useReducedMotion } from "motion/react";
+import { useEffect, useRef } from "react";
+import ProgressiveImage from "@/src/components/ui/ProgressiveImage";
+import Reveal from "@/src/components/ui/Reveal";
+import SectionHeading from "@/src/components/ui/SectionHeading";
+import { experience, profile, stats, type Stat } from "@/src/data/profile";
+import { useLocalTime } from "@/src/hooks/useLocalTime";
+import { EASE_OUT_EXPO } from "@/src/lib/motion";
+
+const strong = "font-medium text-fg";
+
+export default function About() {
+  const time = useLocalTime(profile.timeZone);
+
+  return (
+    <section id="a-propos" className="relative py-24 sm:py-32">
+      <div className="container-x">
+        <SectionHeading
+          index="03"
+          label="À propos"
+          title={[{ text: "Du code solide, " }, { text: "pensé produit.", className: "serif-accent text-accent" }]}
+        />
+
+        <div className="mt-14 grid items-start gap-12 sm:mt-20 lg:grid-cols-12 lg:gap-14">
+          <Reveal className="lg:sticky lg:top-28 lg:col-span-4">
+            <figure className="group relative overflow-hidden rounded-[28px] border border-line bg-surface-strong">
+              <ProgressiveImage
+                {...profile.portrait}
+                alt={`Portrait de ${profile.name}`}
+                sizes="(min-width: 1024px) 30vw, (min-width: 640px) 60vw, 90vw"
+                className="aspect-[4/5] w-full grayscale-[35%] transition-[transform,filter] duration-[1.4s] ease-out-expo group-hover:scale-[1.03] group-hover:grayscale-0"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/55 via-transparent to-transparent" />
+              <span className="absolute left-4 top-4 rounded-full bg-black/35 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white/85 backdrop-blur">
+                Kolwezi · {time}
+              </span>
+              <figcaption className="absolute bottom-4 left-5 right-5 text-white">
+                <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">{profile.alias}</span>
+                <span className="block text-xl font-semibold tracking-tight">{profile.name}</span>
+              </figcaption>
+            </figure>
+          </Reveal>
+
+          <div className="lg:col-span-7 lg:col-start-6">
+            <Reveal>
+              <div className="space-y-6 text-lg leading-relaxed text-muted sm:text-xl">
+                <p>
+                  Je suis <span className={strong}>{profile.name}</span>, plus connu sous le nom d'
+                  <span className={strong}>{profile.alias}</span>. Je code depuis Kolwezi, en République Démocratique du
+                  Congo, avec une conviction : des produits de niveau mondial peuvent naître d'ici.
+                </p>
+                <p>
+                  Aujourd'hui <span className={strong}>{profile.role}</span> chez{" "}
+                  <span className="font-medium text-accent">{profile.company}</span>, je pilote la partie technique des
+                  produits, de l'architecture jusqu'à la qualité du code livré. Mon terrain de jeu : le web moderne en
+                  JavaScript (<span className={strong}>Next.js</span>, <span className={strong}>NestJS</span>,{" "}
+                  <span className={strong}>GraphQL</span>), le mobile avec <span className={strong}>Expo</span> ou{" "}
+                  <span className={strong}>Flutter</span>, et <span className={strong}>.NET</span> quand un projet l'exige.
+                </p>
+                <p>
+                  Mais le code n'est qu'une partie de l'histoire. En tant que <span className={strong}>Product Owner</span>,
+                  je pars toujours d'une question simple :{" "}
+                  <span className="serif-accent text-[1.15em] text-fg">quel problème résout-on, et pour qui ?</span> Écouter,
+                  prioriser, oser dire non : c'est là que se joue la différence entre un projet qui tourne et un produit
+                  qu'on aime utiliser.
+                </p>
+              </div>
+            </Reveal>
+
+            <dl className="mt-12 grid grid-cols-3 border-y border-line">
+              {stats.map((stat, i) => (
+                <Reveal key={stat.label} delay={i * 0.08} className="border-line py-6 pr-3 [&:not(:first-child)]:border-l [&:not(:first-child)]:pl-4 sm:[&:not(:first-child)]:pl-6">
+                  <dt className="sr-only">{stat.label}</dt>
+                  <dd>
+                    <Counter stat={stat} />
+                    <span className="mt-1 block text-xs text-muted sm:text-sm">{stat.label}</span>
+                  </dd>
+                </Reveal>
+              ))}
+            </dl>
+
+            <div className="mt-12">
+              <p className="eyebrow">Parcours</p>
+              <ol className="mt-4 border-t border-line">
+                {experience.map((item, i) => (
+                  <Reveal key={item.company} delay={i * 0.08} y={12}>
+                    <li className="grid gap-2 border-b border-line py-6 sm:grid-cols-[1fr_auto] sm:gap-8">
+                      <div>
+                        <h3 className="text-lg font-semibold tracking-tight">
+                          {item.role} <span className="font-normal text-accent">· {item.company}</span>
+                        </h3>
+                        <p className="mt-1.5 max-w-lg text-sm leading-relaxed text-muted">{item.description}</p>
+                      </div>
+                      <span className="chip h-fit self-start">
+                        {item.current && <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />}
+                        {item.period}
+                      </span>
+                    </li>
+                  </Reveal>
+                ))}
+              </ol>
+            </div>
+
+            {/* Message à la nouvelle génération */}
+            <Reveal delay={0.1}>
+              <figure className="mt-12 border-l-2 border-accent pl-6 sm:pl-8">
+                <p className="eyebrow text-accent">À la nouvelle génération</p>
+                <blockquote className="mt-4 text-[clamp(1.3rem,2.6vw,1.75rem)] leading-snug tracking-[-0.02em] text-fg">
+                  Vous n'avez pas besoin d'attendre la permission pour commencer. Un ordinateur, de la curiosité et de la
+                  constance suffisent pour bâtir des choses qui comptent.{" "}
+                  <span className="serif-accent text-accent">Le futur du numérique s'écrit aussi depuis chez nous</span>, et il
+                  a besoin de vous.
+                </blockquote>
+                <figcaption className="mt-4 font-mono text-xs uppercase tracking-[0.14em] text-muted">
+                  — {profile.name}, {profile.alias}
+                </figcaption>
+              </figure>
+            </Reveal>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Chiffre qui défile jusqu'à sa valeur à l'entrée dans le viewport (écrit dans le DOM, sans rendu React). */
+function Counter({ stat }: { stat: Stat }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+  const reduce = useReducedMotion();
+  const format = (v: number) => `${stat.prefix ?? ""}${Math.round(v)}${stat.suffix ?? ""}`;
+
+  useEffect(() => {
+    if (!inView || reduce) return;
+    const controls = animate(0, stat.value, {
+      duration: 1.6,
+      ease: EASE_OUT_EXPO,
+      onUpdate: (v) => {
+        if (ref.current) ref.current.textContent = format(v);
+      },
+    });
+    return () => controls.stop();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView, reduce]);
+
+  return (
+    <span
+      ref={ref}
+      className="block whitespace-nowrap text-3xl font-semibold tabular-nums tracking-[-0.05em] text-fg sm:text-5xl"
+    >
+      {format(stat.value)}
+    </span>
+  );
+}

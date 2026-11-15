@@ -1,6 +1,5 @@
 import { BadgeCheck, Building2, LayoutGrid, Search, Store, Users } from "lucide-react";
-import { Depth } from "@/src/components/ui/TiltCard";
-import { Browser, FloatChip } from "./Devices";
+import { Browser, Float, FloatChip } from "./Devices";
 
 const rows = [
   { name: "Pharmacie Lumière", type: "Commerce", city: "Kolwezi", status: "Vérifié", initials: "PL" },
@@ -98,7 +97,7 @@ export default function BisoMarketMockup({ accent }: { accent: string }) {
         </Browser>
       </div>
 
-      <Depth z={100} className="absolute right-[-6px] top-[28px]">
+      <Float className="absolute right-[-6px] top-[28px]">
         <FloatChip>
           <span className="flex h-7 w-7 items-center justify-center rounded-full text-white" style={{ background: accent }}>
             <BadgeCheck className="h-4 w-4" />
@@ -108,9 +107,9 @@ export default function BisoMarketMockup({ accent }: { accent: string }) {
             <span className="block text-[10px] text-muted">Pharmacie Lumière · vérifiée</span>
           </span>
         </FloatChip>
-      </Depth>
+      </Float>
 
-      <Depth z={70} className="absolute bottom-[14px] left-[-4px]">
+      <Float delayed className="absolute bottom-[14px] left-[-4px]">
         <div
           className="w-[190px] rounded-2xl border border-line-strong bg-bg-elevated p-3.5"
           style={{ boxShadow: "var(--shadow-float), inset 0 1px 0 var(--highlight)" }}
@@ -134,7 +133,7 @@ export default function BisoMarketMockup({ accent }: { accent: string }) {
             </div>
           </div>
         </div>
-      </Depth>
+      </Float>
     </div>
   );
 }

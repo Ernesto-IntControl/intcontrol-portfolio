@@ -1,8 +1,7 @@
 import { motion } from "motion/react";
 import { Check, Clock3, MapPin, Search, Star } from "lucide-react";
-import { Depth } from "@/src/components/ui/TiltCard";
 import { EASE_OUT_EXPO } from "@/src/lib/motion";
-import { FloatChip, Phone } from "./Devices";
+import { Float, FloatChip, Phone } from "./Devices";
 
 // Tracé de la course, partagé par le SVG et la voiture (offset-path)
 const ROUTE = "M 52 280 L 52 262 Q 52 250 64 250 L 154 250 Q 166 250 166 238 L 166 166 Q 166 154 178 154 L 206 154";
@@ -99,7 +98,7 @@ export default function MadebocarMockup({ accent }: { accent: string }) {
         </Phone>
       </div>
 
-      <Depth z={90} className="absolute right-0 top-[92px]">
+      <Float className="absolute right-0 top-[92px]">
         <FloatChip>
           <span className="flex h-7 w-7 items-center justify-center rounded-full text-black" style={{ background: accent }}>
             <Check className="h-4 w-4" strokeWidth={3} />
@@ -109,14 +108,14 @@ export default function MadebocarMockup({ accent }: { accent: string }) {
             <span className="block text-[10px] text-muted">Prise en charge à 9:44</span>
           </span>
         </FloatChip>
-      </Depth>
+      </Float>
 
-      <Depth z={60} className="absolute bottom-[110px] left-0">
+      <Float delayed className="absolute bottom-[110px] left-0">
         <FloatChip>
           <Clock3 className="h-4 w-4" style={{ color: accent }} />
           <span className="font-mono text-[11px]">ETA · 3 min</span>
         </FloatChip>
-      </Depth>
+      </Float>
     </div>
   );
 }

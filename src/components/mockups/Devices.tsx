@@ -71,3 +71,8 @@ export function FloatChip({ children, className }: { children: ReactNode; classN
     </div>
   );
 }
+
+/** Élément posé devant la maquette, en lévitation lente (CSS) ; `delayed` décale le rythme. */
+export function Float({ children, className, delayed }: { children: ReactNode; className?: string; delayed?: boolean }) {
+  return <div className={cn(className, delayed ? "float-slow-delay" : "float-slow")}>{children}</div>;
+}
