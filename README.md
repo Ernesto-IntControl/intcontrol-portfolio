@@ -64,3 +64,9 @@ VITE_EMAILJS_PUBLIC_KEY=...
 - `vercel.json` : cache long sur les fichiers versionnés et redirection des routes vers l'application
 - Lighthouse (build de production) : accessibilité et SEO à 100 sur toutes les pages, performance 99-100 sur ordinateur et 86-94 sur mobile simulé ; contrastes conformes WCAG AA, titres hiérarchisés, illustration du hero utilisable au clavier
 - Image de partage (`public/og-image.jpg`, 1200×630) pour LinkedIn, WhatsApp, X…
+
+## Licence
+
+Le code source est publié sous [licence MIT](LICENSE) : © 2026 Ernest Katumbi (INTCONTROL).
+
+Les contenus visuels ne sont pas couverts par cette licence : portrait, illustrations du hero, image de partage et captures des projets (Madebocar, Josma, Ngo Chat, IntSchool, Simara, INT Global Services) restent la propriété de leurs auteurs et éditeurs respectifs.
