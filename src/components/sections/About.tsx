@@ -1,6 +1,6 @@
 import { animate, useInView, useReducedMotion } from "motion/react";
 import { useEffect, useRef } from "react";
-import ProgressiveImage from "@/src/components/ui/ProgressiveImage";
+import Layer from "@/src/components/ui/IllustrationLayer";
 import Reveal from "@/src/components/ui/Reveal";
 import { experience, profile, stats, type Stat } from "@/src/data/profile";
 import { useLocalTime } from "@/src/hooks/useLocalTime";
@@ -15,14 +15,29 @@ export default function About({ className }: { className?: string }) {
   return (
     <div className={cn("grid items-start gap-12 lg:grid-cols-12 lg:gap-14", className)}>
       <Reveal className="lg:sticky lg:top-28 lg:col-span-4">
-        <figure className="group relative overflow-hidden rounded-[28px] border border-line bg-surface-strong">
-          <ProgressiveImage
-            {...profile.portrait}
-            alt={`Portrait de ${profile.name}`}
-            sizes="(min-width: 1024px) 30vw, (min-width: 640px) 60vw, 90vw"
-            className="aspect-[4/5] w-full grayscale-[35%] transition-[transform,filter] duration-[1.4s] ease-out-expo group-hover:scale-[1.03] group-hover:grayscale-0"
+        <figure className="group relative aspect-[4/5] overflow-hidden rounded-[28px] border border-line bg-surface-strong">
+          {/* Décor du hero : forme douce et trame de points derrière le personnage */}
+          <span aria-hidden className="hero-blob pointer-events-none absolute left-[4%] top-[14%] h-[72%] w-[92%]" />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute right-[7%] top-[15%] h-[18%] w-[28%] bg-[radial-gradient(var(--dot)_1.4px,transparent_1.6px)] [background-size:14px_14px]"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-black/55 via-transparent to-transparent" />
+
+          {/* Le personnage, coupé à la taille par le bas de la carte ; la couronne se soulève au survol */}
+          <div className="absolute inset-x-0 bottom-0 flex h-[91%] justify-center">
+            <div className="relative aspect-[540/748] h-full origin-bottom transition-transform duration-[1.4s] ease-out-expo group-hover:scale-[1.03]">
+              <Layer
+                name="body-color"
+                alt={`Illustration de ${profile.name}, en costume, qui pointe du doigt`}
+                className="absolute inset-0 h-full w-full"
+              />
+              <div className="hero-crown absolute left-[33.7%] top-[0.4%] w-[27.4%] group-hover:-translate-y-[10%]">
+                <Layer name="crown-color" className="block h-auto w-full" />
+              </div>
+            </div>
+          </div>
+
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-black/65 via-black/20 to-transparent" />
           <span className="absolute left-4 top-4 rounded-full bg-black/35 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white/85 backdrop-blur">
             Kolwezi · {time}
           </span>

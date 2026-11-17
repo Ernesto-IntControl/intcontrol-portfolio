@@ -59,7 +59,7 @@ VITE_EMAILJS_PUBLIC_KEY=...
 - Captures en AVIF/WebP (12 à 46 Ko), chargées à la demande ; celle du thème inactif n'est jamais téléchargée
 - Écran d'attente léger intégré au HTML, affiché seulement si le démarrage dépasse 350 ms ; les animations d'entrée attendent les polices (1,8 s max)
 - Trame en nid d'abeille sur un seul canvas, redessiné uniquement quand la lumière bouge et que le hero est visible
-- Portrait en AVIF/WebP responsive avec aperçu flou intégré ; illustration du hero détourée en calques AVIF/WebP (24 Ko en couleur, 68 Ko en croquis, couronne 2 à 5 Ko)
+- Illustration détourée en calques AVIF/WebP (24 Ko en couleur, 68 Ko en croquis, couronne 2 à 5 Ko), réutilisée sur la page À propos
 - Animations limitées à transform et opacity ; `prefers-reduced-motion` respecté (texte affiché directement, pas de balayage)
 - `vercel.json` : cache long sur les fichiers versionnés et redirection des routes vers l'application
 - Lighthouse (build de production) : accessibilité et SEO à 100 sur toutes les pages, performance 99-100 sur ordinateur et 86-94 sur mobile simulé ; contrastes conformes WCAG AA, titres hiérarchisés, illustration du hero utilisable au clavier
@@ -69,4 +69,4 @@ VITE_EMAILJS_PUBLIC_KEY=...
 
 Le code source est publié sous [licence MIT](LICENSE) : © 2026 Ernest Katumbi (INTCONTROL).
 
-Les contenus visuels ne sont pas couverts par cette licence : portrait, illustrations du hero, image de partage et captures des projets (Madebocar, Josma, Ngo Chat, IntSchool, Simara, INT Global Services) restent la propriété de leurs auteurs et éditeurs respectifs.
+Les contenus visuels ne sont pas couverts par cette licence : illustrations (hero et page À propos), image de partage et captures des projets (Madebocar, Josma, Ngo Chat, IntSchool, Simara, INT Global Services) restent la propriété de leurs auteurs et éditeurs respectifs.

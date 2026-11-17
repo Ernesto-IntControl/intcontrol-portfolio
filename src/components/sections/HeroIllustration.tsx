@@ -1,21 +1,12 @@
 import { motion, useMotionValue, useSpring, useTransform, type MotionValue } from "motion/react";
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import Layer from "@/src/components/ui/IllustrationLayer";
 import Scramble from "@/src/components/ui/Scramble";
 import { EASE_OUT_EXPO } from "@/src/lib/motion";
 import { cn } from "@/src/lib/utils";
 
 /** Le croquis se dessine, puis la couleur l'encre : temps total avant l'état « en production » (ms). */
 const INKED_AT = 2900;
-
-/** Une image en deux formats (AVIF puis WebP), sans texte alternatif : l'illustration est décorative. */
-function Layer({ name, className }: { name: string; className?: string }) {
-  return (
-    <picture>
-      <source type="image/avif" srcSet={`/images/hero/${name}.avif`} />
-      <img src={`/images/hero/${name}.webp`} alt="" decoding="async" draggable={false} className={className} />
-    </picture>
-  );
-}
 
 /**
  * Illustration du hero : « pensés » puis « construits ».
