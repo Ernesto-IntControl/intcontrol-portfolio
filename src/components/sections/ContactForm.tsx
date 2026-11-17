@@ -18,6 +18,37 @@ const fields: { name: Field; label: string; placeholder: string; type?: string; 
   { name: "message", label: "Message", placeholder: "Le problème à résoudre, pour qui, et pour quand", multiline: true },
 ];
 
+/**
+ * Variables envoyées au modèle EmailJS. Le modèle « Contact Us » par défaut lit
+ * `name` (nom de l'expéditeur affiché dans Gmail), `email` (adresse de réponse),
+ * `title` (objet), `message` et `time`, une ligne grise sous le nom : on y met
+ * l'adresse du visiteur et la date, pour voir d'un coup d'œil qui a écrit.
+ * Les anciens noms (`from_name`…) restent envoyés pour un modèle personnalisé.
+ */
+function templateParams(data: FormState) {
+  const name = data.name.trim();
+  const email = data.email.trim();
+  const subject = data.subject.trim();
+  const date = new Intl.DateTimeFormat("fr-FR", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: profile.timeZone,
+  }).format(new Date());
+
+  return {
+    name,
+    email,
+    title: subject,
+    message: data.message.trim(),
+    time: `${email} · ${date} (heure de Kolwezi)`,
+    from_name: name,
+    from_email: email,
+    reply_to: email,
+    subject,
+    to_name: profile.name,
+  };
+}
+
 /** Raison d'un échec d'envoi, telle que renvoyée par EmailJS (code HTTP et message), pour pouvoir la diagnostiquer. */
 function describeError(error: unknown) {
   const unreachable = "EmailJS injoignable (connexion, pare-feu ou bloqueur de publicité)";
@@ -61,13 +92,7 @@ export default function ContactForm() {
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_placeholder",
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_placeholder",
-        {
-          from_name: data.name,
-          from_email: data.email,
-          subject: data.subject,
-          message: data.message,
-          to_name: profile.name,
-        },
+        templateParams(data),
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "public_key_placeholder",
       );
       setData(empty);
