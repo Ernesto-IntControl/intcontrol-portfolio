@@ -13,7 +13,8 @@ export const profile = {
   name: "Ernest Katumbi",
   alias: "INTCONTROL",
   role: "Lead Software Engineer",
-  company: "Josar Technologie",
+  company: "Josart Technology",
+  companyUrl: "https://groupjosar.com/",
   headline: "Développeur fullstack & Lead Software Engineer",
   location: "Kolwezi, Lualaba, RDC",
   timeZone: "Africa/Lubumbashi",
@@ -22,16 +23,6 @@ export const profile = {
   email: "katumbuernest@gmail.com",
   phone: "+243 843 351 254",
   phoneHref: "tel:+243843351254",
-  portrait: {
-    /** Image de repli (navigateurs sans AVIF ni WebP). */
-    src: "/images/portrait-720.webp",
-    width: 896,
-    height: 1195,
-    avif: "/images/portrait-480.avif 480w, /images/portrait-720.avif 720w, /images/portrait-960.avif 960w",
-    webp: "/images/portrait-480.webp 480w, /images/portrait-720.webp 720w, /images/portrait-960.webp 960w",
-    /** Aperçu flou de 24×32 px affiché pendant le chargement (connexion lente). */
-    placeholder: "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAABwBQCdASoYACAAPslUnkunpSKhsAwA8BkJZwC/83qYtALWNmPdhgM9rjxypAenC6QYolEAAPyZ/KDT0g9MqhbVLD1R/+RUuY+R6zFM3lIqOm9WNgxWKSUsQQJ7qs1z6PDlWMi36vj4R5AIlR/T5WROr2tvhq+tEhycfY04iJPkClmZMWDnGCorVKcv2cLl6IAAAA==",
-  },
 };
 
 export const socials: Social[] = [
@@ -76,8 +67,8 @@ export interface Stat {
 
 export const stats: Stat[] = [
   { value: 2, prefix: "+", suffix: " ans", label: "d'expérience" },
-  { value: 20, prefix: "+", label: "projets livrés" },
-  { value: 10, prefix: "+", label: "clients accompagnés" },
+  { value: 15, prefix: "+", label: "projets livrés" },
+  { value: 10, prefix: "+", label: "clients satisfaits" },
 ];
 
 export interface Experience {
@@ -91,7 +82,8 @@ export interface Experience {
 
 export const experience: Experience[] = [
   {
-    company: "Josar Technologie",
+    company: "Josart Technology",
+    url: "https://groupjosar.com/",
     role: "Lead Software Engineer",
     period: "Actuellement",
     current: true,
@@ -105,5 +97,28 @@ export const experience: Experience[] = [
     current: true,
     description:
       "Cadrage, priorisation et parcours utilisateurs d'une application VTC, et développement de son front-end.",
+  },
+];
+
+export interface Education {
+  school: string;
+  url: string;
+  degree: string;
+  level: string;
+  period: string;
+  current?: boolean;
+  description: string;
+}
+
+export const education: Education[] = [
+  {
+    school: "Université Jean XXIII de Kolwezi",
+    url: "https://ujkol-ofm.org/",
+    degree: "Licence en Génie logiciel",
+    level: "L4 · Bac+4",
+    period: "En cours",
+    current: true,
+    description:
+      "Des études menées en parallèle de mon poste : la théorie nourrit ce que je pratique chaque jour en entreprise, et la pratique donne du sens aux cours.",
   },
 ];

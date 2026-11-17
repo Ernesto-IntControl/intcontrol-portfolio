@@ -27,6 +27,8 @@ export interface Project {
   category: string;
   /** Entreprise qui édite le produit, quand elle est connue. */
   company?: string;
+  /** Site de l'entreprise, lié depuis l'étude de cas. */
+  companyUrl?: string;
   tagline: string;
   /** Le problème que le produit résout, en une phrase. */
   problem: string;
@@ -121,11 +123,12 @@ export const projects: Project[] = [
     title: "Josma",
     fullName: "Josar Management",
     category: "Gestion commerciale",
-    company: "Josar Technologie",
+    company: "Josart Technology",
+    companyUrl: "https://groupjosar.com/",
     tagline: "La gestion d'un commerce au même endroit : caisse, ventes, stock et dépenses, même hors ligne.",
     problem: "Tenir la caisse, le stock et les dépenses d'un commerce sans cahier ni tableur, en francs comme en dollars.",
     summary:
-      "Application de gestion pour commerçants éditée par Josar Technologie : caisse, ventes, stock, dépenses, clients et équipe, sur ordinateur comme sur téléphone.",
+      "Application de gestion pour commerçants : caisse, ventes, stock, dépenses, clients et équipe, sur ordinateur comme sur téléphone.",
     highlights: [
       "Caisse, ventes et stock suivis en temps réel",
       "Francs et dollars dans le même tiroir de caisse",

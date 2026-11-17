@@ -1,8 +1,9 @@
 import { animate, useInView, useReducedMotion } from "motion/react";
 import { useEffect, useRef } from "react";
-import ProgressiveImage from "@/src/components/ui/ProgressiveImage";
+import ExternalLink from "@/src/components/ui/ExternalLink";
+import Layer from "@/src/components/ui/IllustrationLayer";
 import Reveal from "@/src/components/ui/Reveal";
-import { experience, profile, stats, type Stat } from "@/src/data/profile";
+import { education, experience, profile, stats, type Stat } from "@/src/data/profile";
 import { useLocalTime } from "@/src/hooks/useLocalTime";
 import { EASE_OUT_EXPO } from "@/src/lib/motion";
 import { cn } from "@/src/lib/utils";
@@ -15,14 +16,29 @@ export default function About({ className }: { className?: string }) {
   return (
     <div className={cn("grid items-start gap-12 lg:grid-cols-12 lg:gap-14", className)}>
       <Reveal className="lg:sticky lg:top-28 lg:col-span-4">
-        <figure className="group relative overflow-hidden rounded-[28px] border border-line bg-surface-strong">
-          <ProgressiveImage
-            {...profile.portrait}
-            alt={`Portrait de ${profile.name}`}
-            sizes="(min-width: 1024px) 30vw, (min-width: 640px) 60vw, 90vw"
-            className="aspect-[4/5] w-full grayscale-[35%] transition-[transform,filter] duration-[1.4s] ease-out-expo group-hover:scale-[1.03] group-hover:grayscale-0"
+        <figure className="group relative aspect-[4/5] overflow-hidden rounded-[28px] border border-line bg-surface-strong">
+          {/* Décor du hero : forme douce et trame de points derrière le personnage */}
+          <span aria-hidden className="hero-blob pointer-events-none absolute left-[4%] top-[14%] h-[72%] w-[92%]" />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute right-[7%] top-[15%] h-[18%] w-[28%] bg-[radial-gradient(var(--dot)_1.4px,transparent_1.6px)] [background-size:14px_14px]"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-black/55 via-transparent to-transparent" />
+
+          {/* Le personnage, coupé à la taille par le bas de la carte ; la couronne se soulève au survol */}
+          <div className="absolute inset-x-0 bottom-0 flex h-[91%] justify-center">
+            <div className="relative aspect-[540/748] h-full origin-bottom transition-transform duration-[1.4s] ease-out-expo group-hover:scale-[1.03]">
+              <Layer
+                name="body-color"
+                alt={`Illustration de ${profile.name}, en costume, qui pointe du doigt`}
+                className="absolute inset-0 h-full w-full"
+              />
+              <div className="hero-crown absolute left-[33.7%] top-[0.4%] w-[27.4%] group-hover:-translate-y-[10%]">
+                <Layer name="crown-color" className="block h-auto w-full" />
+              </div>
+            </div>
+          </div>
+
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-black/65 via-black/20 to-transparent" />
           <span className="absolute left-4 top-4 rounded-full bg-black/35 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white/85 backdrop-blur">
             Kolwezi · {time}
           </span>
@@ -41,11 +57,15 @@ export default function About({ className }: { className?: string }) {
             <p>
               Je suis <span className={strong}>{profile.name}</span>, plus connu sous le nom d'
               <span className={strong}>{profile.alias}</span>. Je code depuis Kolwezi, en République Démocratique du
-              Congo, avec une conviction : des produits de niveau mondial peuvent naître d'ici.
+              Congo, et ce qui me motive est simple : construire ici des outils que les gens utilisent vraiment, au
+              quotidien.
             </p>
             <p>
               Aujourd'hui <span className={strong}>{profile.role}</span> chez{" "}
-              <span className="font-medium text-accent">{profile.company}</span>, je pilote la partie technique des
+              <ExternalLink href={profile.companyUrl} className="font-medium text-accent">
+                {profile.company}
+              </ExternalLink>
+              , je pilote la partie technique des
               produits, de l'architecture jusqu'à la qualité du code livré. Mon terrain de jeu : le web moderne en
               JavaScript (<span className={strong}>Next.js</span>, <span className={strong}>NestJS</span>,{" "}
               <span className={strong}>GraphQL</span>), le mobile avec <span className={strong}>Expo</span> ou{" "}
@@ -84,7 +104,11 @@ export default function About({ className }: { className?: string }) {
                 <Reveal delay={i * 0.08} y={12} className="grid gap-2 py-6 sm:grid-cols-[1fr_auto] sm:gap-8">
                   <div>
                     <h3 className="text-lg font-semibold tracking-tight">
-                      {item.role} <span className="font-normal text-accent">· {item.company}</span>
+                      {item.role}{" "}
+                      <span className="font-normal text-accent">
+                        ·{" "}
+                        {item.url ? <ExternalLink href={item.url}>{item.company}</ExternalLink> : item.company}
+                      </span>
                     </h3>
                     <p className="mt-1.5 max-w-lg text-sm leading-relaxed text-muted">{item.description}</p>
                   </div>
@@ -92,6 +116,34 @@ export default function About({ className }: { className?: string }) {
                     {item.current && <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />}
                     {item.period}
                   </span>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="mt-12">
+          <h2 className="eyebrow">Formation</h2>
+          <ol className="mt-4 border-t border-line">
+            {education.map((item, i) => (
+              <li key={item.school} className="border-b border-line">
+                <Reveal delay={i * 0.08} y={12} className="grid gap-2 py-6 sm:grid-cols-[1fr_auto] sm:gap-8">
+                  <div>
+                    <h3 className="text-lg font-semibold tracking-tight">
+                      {item.degree}{" "}
+                      <span className="font-normal text-accent">
+                        · <ExternalLink href={item.url}>{item.school}</ExternalLink>
+                      </span>
+                    </h3>
+                    <p className="mt-1.5 max-w-lg text-sm leading-relaxed text-muted">{item.description}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 self-start sm:flex-col sm:items-end">
+                    <span className="chip h-fit">
+                      {item.current && <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />}
+                      {item.period}
+                    </span>
+                    <span className="chip h-fit">{item.level}</span>
+                  </div>
                 </Reveal>
               </li>
             ))}

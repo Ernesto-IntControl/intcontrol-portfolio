@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
+import ExternalLink from "@/src/components/ui/ExternalLink";
 import HexField from "@/src/components/ui/HexField";
 import HeroIllustration from "./HeroIllustration";
 import Scramble from "@/src/components/ui/Scramble";
@@ -53,7 +54,9 @@ export default function Hero() {
 
           <motion.p {...fadeUp(0.45)} className="mt-8 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
             <span className="text-fg">Développeur fullstack</span> et <span className="text-fg">{profile.role}</span> chez{" "}
-            {profile.company}. Je conçois et je livre des produits web et mobiles, du cadrage à la mise en production.
+            <ExternalLink href={profile.companyUrl} className="text-fg">
+              {profile.company}
+            </ExternalLink>. Je conçois et je livre des produits web et mobiles, du cadrage à la mise en production.
           </motion.p>
 
           <motion.div {...fadeUp(0.6)} className="mt-9 flex flex-wrap items-center gap-3">
