@@ -9,9 +9,10 @@ import Hero from "@/src/components/sections/Hero";
 import { CapabilitiesGrid } from "@/src/components/sections/Method";
 import ProjectCard from "@/src/components/sections/ProjectCard";
 import Seo from "@/src/components/Seo";
+import ExternalLink from "@/src/components/ui/ExternalLink";
 import Reveal from "@/src/components/ui/Reveal";
 import SectionHeading from "@/src/components/ui/SectionHeading";
-import { profile, stats } from "@/src/data/profile";
+import { education, profile, stats } from "@/src/data/profile";
 import { ongoing, projects } from "@/src/data/projects";
 
 const sections: DockSection[] = [
@@ -33,8 +34,24 @@ function MoreLink({ to, children }: { to: string; children: ReactNode }) {
 
 /** L'accueil : chaque section en bref, le détail sur la page concernée. */
 export default function Home() {
-  const facts = [
-    { label: "Poste", value: `${profile.role} · ${profile.company}` },
+  const school = education[0];
+  const facts: { label: string; value: ReactNode }[] = [
+    {
+      label: "Poste",
+      value: (
+        <>
+          {profile.role} · <ExternalLink href={profile.companyUrl}>{profile.company}</ExternalLink>
+        </>
+      ),
+    },
+    {
+      label: "Formation",
+      value: (
+        <>
+          L4 Génie logiciel · <ExternalLink href={school.url}>{school.school}</ExternalLink>
+        </>
+      ),
+    },
     { label: "Stack", value: "Next.js · NestJS · Expo · .NET" },
     { label: "Basé à", value: "Kolwezi, RDC" },
   ];
@@ -59,8 +76,9 @@ export default function Home() {
           <Reveal className="lg:col-span-7">
             <p className="text-xl leading-snug tracking-[-0.02em] text-fg/90 sm:text-[1.65rem]">
               Je suis {profile.name}, alias {profile.alias}. Développeur fullstack et {profile.role} chez{" "}
-              {profile.company}, je conçois des produits web et mobiles depuis Kolwezi, avec une conviction :{" "}
-              <span className="serif-accent text-accent">des produits de niveau mondial peuvent naître d'ici.</span>
+              <ExternalLink href={profile.companyUrl}>{profile.company}</ExternalLink>, je conçois des produits web et
+              mobiles depuis Kolwezi, avec une idée simple :{" "}
+              <span className="serif-accent text-accent">faire des outils que les gens utilisent vraiment.</span>
             </p>
             <div className="mt-9">
               <MoreLink to="/a-propos">Mon parcours</MoreLink>

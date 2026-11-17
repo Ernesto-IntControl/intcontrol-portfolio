@@ -1,6 +1,6 @@
 # Portfolio — INTCONTROL
 
-Portfolio d'**Ernest Katumbi**, alias **INTCONTROL** : développeur fullstack et Lead Software Engineer chez Josar Technologie. Web et mobile en **JavaScript** (Next.js, NestJS, Node.js, Expo), et **.NET** en complément.
+Portfolio d'**Ernest Katumbi**, alias **INTCONTROL** : développeur fullstack et Lead Software Engineer chez [Josart Technology](https://groupjosar.com/), étudiant en L4 Génie logiciel à l'[Université Jean XXIII de Kolwezi](https://ujkol-ofm.org/). Web et mobile en **JavaScript** (Next.js, NestJS, Node.js, Expo), et **.NET** en complément.
 
 > Des produits *pensés* pour vos utilisateurs, `construits` pour durer.
 

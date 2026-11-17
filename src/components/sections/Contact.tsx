@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, Check, Copy } from "lucide-react";
 import { useEffect, useState } from "react";
+import ExternalLink from "@/src/components/ui/ExternalLink";
 import Reveal from "@/src/components/ui/Reveal";
 import SocialLink from "@/src/components/ui/SocialLink";
 import { profile, socials } from "@/src/data/profile";
@@ -25,7 +26,11 @@ export default function Contact() {
             {profile.availability}
           </span>
           <p className="mt-4 max-w-sm leading-relaxed text-muted">
-            {profile.role} chez {profile.company}, je garde du temps pour quelques collaborations ciblées.
+            {profile.role} chez{" "}
+            <ExternalLink href={profile.companyUrl} className="text-fg">
+              {profile.company}
+            </ExternalLink>
+            , je garde du temps pour quelques collaborations ciblées.
           </p>
         </Reveal>
 

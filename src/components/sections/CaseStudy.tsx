@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
+import ExternalLink from "@/src/components/ui/ExternalLink";
 import HexBullet from "@/src/components/ui/HexBullet";
 import Reveal from "@/src/components/ui/Reveal";
 import { DesktopShot, PhoneShot } from "@/src/components/ui/Screenshot";
@@ -38,7 +39,22 @@ export default function CaseStudy({ project, onOpen }: { project: Project; onOpe
     <motion.div exit={{ opacity: 0, y: 12, transition: { duration: 0.3 } }} className="mt-14 space-y-14 sm:mt-20 sm:space-y-16">
       <Block label="Le problème" delay={0.5}>
         <p className="text-[clamp(1.4rem,2.8vw,2.2rem)] font-medium leading-[1.2] tracking-[-0.03em] text-fg">{project.problem}</p>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{project.summary}</p>
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
+          {project.summary}
+          {project.company && (
+            <>
+              {" "}Un produit de{" "}
+              {project.companyUrl ? (
+                <ExternalLink href={project.companyUrl} className="text-fg">
+                  {project.company}
+                </ExternalLink>
+              ) : (
+                <span className="text-fg">{project.company}</span>
+              )}
+              .
+            </>
+          )}
+        </p>
       </Block>
 
       <Block label="Le produit" delay={0.6}>
